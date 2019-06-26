@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "87617070065",
+    "firebase_url": "https://immigrate-adef0.firebaseio.com",
+    "project_id": "immigrate-adef0",
+    "storage_bucket": "immigrate-adef0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:87617070065:android:58d91039a455cb86",
+        "android_client_info": {
+          "package_name": "com.example.immigrate"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "87617070065-oek1og8op9b7taubthdmf1tvnos088up.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQht3oSXlbO4sAtMwiGJvC2gFKcF0oAwU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "87617070065-oek1og8op9b7taubthdmf1tvnos088up.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
