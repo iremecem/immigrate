@@ -1,3 +1,4 @@
+
 import "package:flutter/material.dart";
 
 class PageCollector extends StatefulWidget {
@@ -31,10 +32,12 @@ class _PageCollectorState extends State<PageCollector> {
           )
         ],
       ),
-      body: PageView(
-        physics: NeverScrollableScrollPhysics(),
+      body: GridView.count(
+        crossAxisCount: 3,
         children: <Widget>[],
-        controller: _pageController,
+        crossAxisSpacing: 5,
+        mainAxisSpacing: 5,
+        padding: EdgeInsets.all(4),
       ),
       drawer: Drawer(),
     );
