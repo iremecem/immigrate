@@ -204,6 +204,7 @@ class _LoginPageState extends State<LoginPage> {
                       nationality:
                           flagList.elementAt(selectedRegion).toString(),
                       profilePic: uriProfile.toString(),
+                      password: _passwordController.text,
                     );
                     _helper.saveEvent(user);
                   } else {
