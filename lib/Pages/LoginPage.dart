@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'dart:io';
-import 'package:image_picker_modern/image_picker_modern.dart';
 import 'package:immigrate/Models/User.dart';
 import 'package:uuid/uuid.dart';
 
