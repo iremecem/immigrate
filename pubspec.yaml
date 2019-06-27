@@ -25,9 +25,13 @@ dependencies:
   cupertino_icons: ^0.1.2
   firebase_core: ^0.4.0+6
   firebase_auth: ^0.11.1+7
+  firebase_storage: ^3.0.2
   shared_preferences: ^0.5.3+1
   uuid: ^2.0.2
   image_picker: ^0.6.0+10
+  flushbar: ^1.7.0
+  path_provider: ^1.1.0
+  sqflite: ^1.1.6+1
 
 dev_dependencies:
   flutter_test:
@@ -46,9 +50,8 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #  - images/a_dot_burr.jpeg
-  #  - images/a_dot_ham.jpeg
+  assets:
+   - assets/images/empty_profile.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
