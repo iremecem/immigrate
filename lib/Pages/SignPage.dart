@@ -2,7 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
+import 'package:immigrate/Models/DatabaseHelper.dart';
 import 'package:immigrate/Models/User.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignPage extends StatefulWidget {
   @override
@@ -44,7 +46,8 @@ class _SignPageState extends State<SignPage> {
           FlatButton.icon(
             icon: Icon(Icons.done),
             label: Text("Log Me In"),
-            onPressed: () {
+            onPressed: () async {
+              final prefs = await SharedPreferences.getInstance();
               if (_auth.currentUser() == null) {
                 if (_mailController.text.trim().length != 0 &&
                     _passwordController.text.trim().length != 0) {
@@ -52,7 +55,8 @@ class _SignPageState extends State<SignPage> {
                     Map<dynamic, dynamic> users = new Map();
                     users.forEach((k, v) {
                       if (k["mail"] == _mailController.text) {
-                        if (k["password" == _passwordController.text]) {
+                        if (k["password"] == _passwordController.text) {
+                          print(k);
                           User u = new User(
                             goes: k["goes"],
                             id: k,
@@ -62,6 +66,9 @@ class _SignPageState extends State<SignPage> {
                             password: k["password"],
                             profilePic: k["profilePic"],
                           );
+                          DatabaseHelper helper = new DatabaseHelper();
+                          helper.update(u);
+                          prefs.setBool("logged", true);
                         } else {
                           Flushbar(
                             message:

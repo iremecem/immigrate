@@ -9,6 +9,7 @@ import 'dart:io';
 import 'package:immigrate/Models/User.dart';
 import 'package:immigrate/Pages/PageCollecor.dart';
 import 'package:immigrate/Pages/SignPage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/uuid.dart';
 
 class LoginPage extends StatefulWidget {
@@ -49,7 +50,7 @@ class _LoginPageState extends State<LoginPage> {
     });
   }
 
-  Future<String> uploadPic(File file) async {
+  uploadPic(File file) async {
     //Create a reference to the location you want to upload to in firebase
     StorageReference reference = _storage.ref().child("images/");
     //Upload the file to firebase
@@ -60,7 +61,6 @@ class _LoginPageState extends State<LoginPage> {
     setState(() {
       profileUrl = dowurl;
     });
-    return dowurl;
   }
 
   @override
@@ -101,8 +101,11 @@ class _LoginPageState extends State<LoginPage> {
                                   "assets/images/empty_profile.png"),
                             ),
                           )
-                        : Center(
-                            child: Image.file(profilePic, fit: BoxFit.fill,),
+                        : Container(
+                            child: Image.file(
+                              profilePic,
+                              fit: BoxFit.cover,
+                            ),
                           ),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -269,14 +272,20 @@ class _LoginPageState extends State<LoginPage> {
                 padding: EdgeInsets.all(16),
               ),
               FlatButton.icon(
-                icon: Icon(Icons.done, color: Colors.lightGreen,),
-                label: Text("Create my profile", style: TextStyle(color: Colors.lightGreen),),
+                icon: Icon(
+                  Icons.done,
+                  color: Colors.lightGreen,
+                ),
+                label: Text(
+                  "Create my profile",
+                  style: TextStyle(color: Colors.lightGreen),
+                ),
                 onPressed: () async {
                   if (_mailController.text.trim().length != 0 &&
                       _nameController.text.trim().length != 0 &&
                       _passwordController.text.trim().length >= 0 &&
                       goes != selectedRegion) {
-                    var uriProfile = uploadPic(profilePic);
+                    uploadPic(profilePic);
                     var id = Uuid().v4();
                     _auth.createUserWithEmailAndPassword(
                         email: _mailController.text,
@@ -299,6 +308,8 @@ class _LoginPageState extends State<LoginPage> {
                       goes: goes,
                     );
                     _helper.saveEvent(user);
+                    final prefs = await SharedPreferences.getInstance();
+                    prefs.setBool("logged", true);
                   } else {
                     Flushbar(
                       message:
@@ -324,7 +335,8 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     )..show(context);
                   }
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => new PageCollector()));
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => new PageCollector()));
                 },
               ),
               FlatButton(

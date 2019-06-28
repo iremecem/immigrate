@@ -11,30 +11,48 @@ class PageCollector extends StatefulWidget {
 }
 
 class _PageCollectorState extends State<PageCollector> {
-  Key k = new Key("DrawerKey");
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: Drawer(),
       appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(Icons.account_circle),
-          onPressed: () => Scaffold.of(context).openDrawer(),
+        leading: Builder(
+          builder: (BuildContext context) {
+            return IconButton(
+              icon: const Icon(Icons.account_circle),
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
+              tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+            );
+          },
         ),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.info),
-            onPressed: () => AboutDialog(
-                  applicationName: "Immigrate",
-                  applicationVersion: "v 0.1",
-                  children: <Widget>[
-                    Center(
-                      child: Text(
-                          "Developed by Etam Software Ltd. in Turkey/Ankara"),
-                    ),
-                  ],
-                ),
+            onPressed: () {
+              showDialog(
+                context: context,
+                barrierDismissible: true,
+                builder: (context) {
+                  return AboutDialog(
+                    applicationName: "Immigrate",
+                    applicationVersion: "v 0.1",
+                    children: <Widget>[
+                      Center(
+                        child: Text(
+                            "Developed by Etam Software Ltd. in Turkey/Ankara"),
+                      ),
+                    ],
+                  );
+                },
+              );
+            },
           )
         ],
+        title: Text("Immigrate"),
+        backgroundColor: Colors.lightGreen,
+        centerTitle: true,
       ),
       body: GridView.count(
         crossAxisCount: 3,
@@ -42,13 +60,26 @@ class _PageCollectorState extends State<PageCollector> {
           InkWell(
             onTap: () => Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => MapPage(),
+                    builder: (context) => WallPage(),
                   ),
                 ),
             child: Container(
-              child: Icon(
-                Icons.map,
-                size: 50,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Icon(
+                    Icons.map,
+                    size: 50,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(4),
+                  ),
+                  Text("Discover"),
+                  Padding(
+                    padding: EdgeInsets.all(4),
+                  )
+                ],
               ),
             ),
           ),
@@ -59,22 +90,48 @@ class _PageCollectorState extends State<PageCollector> {
                   ),
                 ),
             child: Container(
-              child: Icon(
-                Icons.message,
-                size: 50,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Icon(
+                    Icons.message,
+                    size: 50,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(4),
+                  ),
+                  Text("Chat"),
+                  Padding(
+                    padding: EdgeInsets.all(4),
+                  )
+                ],
               ),
             ),
           ),
           InkWell(
             onTap: () => Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => WallPage(),
+                    builder: (context) => MapPage(),
                   ),
                 ),
             child: Container(
-              child: Icon(
-                FontAwesomeIcons.globeEurope,
-                size: 50,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Icon(
+                    FontAwesomeIcons.globeEurope,
+                    size: 50,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(4),
+                  ),
+                  Text("Map"),
+                  Padding(
+                    padding: EdgeInsets.all(4),
+                  )
+                ],
               ),
             ),
           ),
@@ -82,9 +139,6 @@ class _PageCollectorState extends State<PageCollector> {
         crossAxisSpacing: 5,
         mainAxisSpacing: 5,
         padding: EdgeInsets.all(4),
-      ),
-      drawer: Drawer(
-        key: k,
       ),
     );
   }
