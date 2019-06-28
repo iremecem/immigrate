@@ -7,9 +7,10 @@ class User{
   String profilePic;
   String nationality;
   String password;
+  String goes;
   // String place; TODO: THİS WİLL CHANGE
 
-  User({@required this.id, @required this.name, @required this.profilePic, @required this.mail, @required this.nationality, @required this.password});
+  User({@required this.id, @required this.name, @required this.profilePic, @required this.mail, @required this.nationality, @required this.password, @required this.goes});
 
   factory User.fromJson(Map<String, dynamic> json){
     return User(
@@ -17,6 +18,7 @@ class User{
       id: json["id"],
       mail: json["mail"],
       nationality: json["nationality"],
+      goes: json["goes"],
       profilePic: json["profilePic"],
       password: json["password"],
     );
@@ -30,6 +32,7 @@ class User{
       "nationality" : nationality,
       "profilePic" : profilePic,
       "password" : password,
+      "goes" : goes,
     };
   }
 }

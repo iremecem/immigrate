@@ -1,13 +1,13 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:immigrate/Pages/LoginPage.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:immigrate/Pages/PageCollecor.dart';
 
 void main() async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  var loggedIn = prefs.getBool("logged");
+  FirebaseAuth _auth = FirebaseAuth.instance;
   runApp(
     MaterialApp(
-      home: loggedIn == false ? LoginPage() : PageController(),
+      home: _auth.currentUser() == null ? LoginPage() : PageCollector(),
     ),
   );
 }

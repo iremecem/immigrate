@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
@@ -6,8 +7,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:immigrate/Models/DatabaseHelper.dart';
 import 'dart:io';
 import 'package:immigrate/Models/User.dart';
+import 'package:immigrate/Pages/PageCollecor.dart';
 import 'package:immigrate/Pages/SignPage.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/uuid.dart';
 
 class LoginPage extends StatefulWidget {
@@ -21,41 +22,16 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController _passwordController = new TextEditingController();
   FirebaseAuth _auth = FirebaseAuth.instance;
   FirebaseStorage _storage = FirebaseStorage.instance;
+  final _database = FirebaseDatabase.instance.reference();
 
-  int selectedRegion = 0;
+  String selectedRegion = "tr";
+  String goes = "tr";
 
   File profilePic;
 
-  SharedPreferences _preferences;
+  String profileUrl = "";
 
   DatabaseHelper _helper;
-
-  var flagList = [
-    DropdownMenuItem(
-      child: Text("🇹🇷 Turkey"),
-    ),
-    DropdownMenuItem(
-      child: Text("🇬🇧 United Kingdom"),
-    ),
-    DropdownMenuItem(
-      child: Text("🇫🇷 France"),
-    ),
-    DropdownMenuItem(
-      child: Text("🇮🇹 Italy"),
-    ),
-    DropdownMenuItem(
-      child: Text("🇩🇪 Germany"),
-    ),
-    DropdownMenuItem(
-      child: Text("🇷🇺 Russia"),
-    ),
-    DropdownMenuItem(
-      child: Text("🇺🇸 United States"),
-    ),
-    DropdownMenuItem(
-      child: Text("🇦🇪 United Arab Emirties"),
-    )
-  ];
 
   Future getImageCamera() async {
     var image = await ImagePicker.pickImage(source: ImageSource.camera);
@@ -73,26 +49,22 @@ class _LoginPageState extends State<LoginPage> {
     });
   }
 
-  Future<Uri> uploadPic(File file) async {
-    //Get the file from the image picker and store it
-    File image = await ImagePicker.pickImage(source: ImageSource.gallery);
-
+  Future<String> uploadPic(File file) async {
     //Create a reference to the location you want to upload to in firebase
     StorageReference reference = _storage.ref().child("images/");
-
     //Upload the file to firebase
     StorageUploadTask uploadTask = reference.putFile(file);
-
     // Waits till the file is uploaded then stores the download url
     var dowurl = await (await uploadTask.onComplete).ref.getDownloadURL();
-
     //returns the download url
+    setState(() {
+      profileUrl = dowurl;
+    });
     return dowurl;
   }
 
   @override
-  void initState() async {
-    _preferences = await SharedPreferences.getInstance();
+  void initState() {
     _helper = DatabaseHelper();
     super.initState();
   }
@@ -114,19 +86,27 @@ class _LoginPageState extends State<LoginPage> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               Container(
+                width: 300,
+                height: 300,
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     profilePic == null
                         ? Center(
                             child: CircleAvatar(
+                              backgroundColor: Colors.transparent,
+                              radius: 100,
                               child: Image.asset(
                                   "assets/images/empty_profile.png"),
                             ),
                           )
                         : Center(
-                            child: Image.file(profilePic),
+                            child: Image.file(profilePic, fit: BoxFit.fill,),
                           ),
                     Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         IconButton(
                           icon: Icon(Icons.camera),
@@ -141,6 +121,9 @@ class _LoginPageState extends State<LoginPage> {
                   ],
                 ),
               ),
+              Padding(
+                padding: EdgeInsets.all(16),
+              ),
               Container(
                 child: TextField(
                   controller: _nameController,
@@ -149,6 +132,9 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
               ),
+              Padding(
+                padding: EdgeInsets.all(16),
+              ),
               Container(
                 child: TextField(
                   controller: _mailController,
@@ -156,6 +142,9 @@ class _LoginPageState extends State<LoginPage> {
                     hintText: "Enter your e-mail here...",
                   ),
                 ),
+              ),
+              Padding(
+                padding: EdgeInsets.all(16),
               ),
               Container(
                 child: TextField(
@@ -166,6 +155,9 @@ class _LoginPageState extends State<LoginPage> {
                   obscureText: true,
                 ),
               ),
+              Padding(
+                padding: EdgeInsets.all(16),
+              ),
               Container(
                 child: Column(
                   children: <Widget>[
@@ -175,7 +167,40 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     DropdownButton(
                       value: selectedRegion,
-                      items: flagList,
+                      items: [
+                        DropdownMenuItem(
+                          child: Text("🇹🇷 Turkey"),
+                          value: "tr",
+                        ),
+                        DropdownMenuItem(
+                          child: Text("🇬🇧 United Kingdom"),
+                          value: "gb",
+                        ),
+                        DropdownMenuItem(
+                          child: Text("🇫🇷 France"),
+                          value: "fr",
+                        ),
+                        DropdownMenuItem(
+                          child: Text("🇮🇹 Italy"),
+                          value: "it",
+                        ),
+                        DropdownMenuItem(
+                          child: Text("🇩🇪 Germany"),
+                          value: "ge",
+                        ),
+                        DropdownMenuItem(
+                          child: Text("🇷🇺 Russia"),
+                          value: "rs",
+                        ),
+                        DropdownMenuItem(
+                          child: Text("🇺🇸 United States"),
+                          value: "us",
+                        ),
+                        DropdownMenuItem(
+                          child: Text("🇦🇪 United Arab Emirates"),
+                          value: "ae",
+                        )
+                      ],
                       onChanged: (value) {
                         setState(() {
                           selectedRegion = value;
@@ -185,32 +210,99 @@ class _LoginPageState extends State<LoginPage> {
                   ],
                 ),
               ),
+              Padding(
+                padding: EdgeInsets.all(16),
+              ),
+              Container(
+                child: Column(
+                  children: <Widget>[
+                    Center(
+                      child: Text(
+                          "Could you tell us where are you going or living?"),
+                    ),
+                    DropdownButton(
+                      value: goes,
+                      items: [
+                        DropdownMenuItem(
+                          child: Text("🇹🇷 Turkey"),
+                          value: "tr",
+                        ),
+                        DropdownMenuItem(
+                          child: Text("🇬🇧 United Kingdom"),
+                          value: "gb",
+                        ),
+                        DropdownMenuItem(
+                          child: Text("🇫🇷 France"),
+                          value: "fr",
+                        ),
+                        DropdownMenuItem(
+                          child: Text("🇮🇹 Italy"),
+                          value: "it",
+                        ),
+                        DropdownMenuItem(
+                          child: Text("🇩🇪 Germany"),
+                          value: "ge",
+                        ),
+                        DropdownMenuItem(
+                          child: Text("🇷🇺 Russia"),
+                          value: "rs",
+                        ),
+                        DropdownMenuItem(
+                          child: Text("🇺🇸 United States"),
+                          value: "us",
+                        ),
+                        DropdownMenuItem(
+                          child: Text("🇦🇪 United Arab Emirates"),
+                          value: "ae",
+                        )
+                      ],
+                      onChanged: (value) {
+                        setState(() {
+                          goes = value;
+                        });
+                      },
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.all(16),
+              ),
               FlatButton.icon(
-                icon: Icon(Icons.done),
-                label: Text("Create my profile"),
-                onPressed: () {
+                icon: Icon(Icons.done, color: Colors.lightGreen,),
+                label: Text("Create my profile", style: TextStyle(color: Colors.lightGreen),),
+                onPressed: () async {
                   if (_mailController.text.trim().length != 0 &&
                       _nameController.text.trim().length != 0 &&
-                      _passwordController.text.trim().length != 0) {
+                      _passwordController.text.trim().length >= 0 &&
+                      goes != selectedRegion) {
                     var uriProfile = uploadPic(profilePic);
-                    _preferences.setBool("logged", true);
-                    _preferences.setString("mail", _mailController.text);
-                    _preferences.setString("password", _passwordController.text);
-                    _auth.createUserWithEmailAndPassword(email: _mailController.text, password: _passwordController.text);
+                    var id = Uuid().v4();
+                    _auth.createUserWithEmailAndPassword(
+                        email: _mailController.text,
+                        password: _passwordController.text);
+                    _database.child(id).set({
+                      "password": _passwordController.text,
+                      "nationality": selectedRegion,
+                      "goes": goes,
+                      "profilePic": profileUrl,
+                      "mail": _mailController.text,
+                      "name": _nameController.text,
+                    });
                     User user = new User(
-                      id: Uuid().v4(),
+                      id: id,
                       mail: _mailController.text,
                       name: _nameController.text,
-                      nationality:
-                          flagList.elementAt(selectedRegion).toString(),
-                      profilePic: uriProfile.toString(),
+                      nationality: selectedRegion,
+                      profilePic: profileUrl,
                       password: _passwordController.text,
+                      goes: goes,
                     );
                     _helper.saveEvent(user);
                   } else {
                     Flushbar(
                       message:
-                          "Name, email and password cannot be empty, please check the areas!",
+                          "Name, email and password cannot be empty, and password must be equal or longer than 6 characters and you can't select same nationalities, please check the areas!",
                       flushbarPosition: FlushbarPosition.TOP,
                       flushbarStyle: FlushbarStyle.FLOATING,
                       reverseAnimationCurve: Curves.decelerate,
@@ -224,18 +316,22 @@ class _LoginPageState extends State<LoginPage> {
                       ],
                       backgroundGradient:
                           LinearGradient(colors: [Colors.red, Colors.white]),
-                      isDismissible: false,
-                      duration: Duration(seconds: 4),
+                      isDismissible: true,
+                      duration: Duration(seconds: 10),
                       icon: Icon(
                         Icons.warning,
                         color: Colors.greenAccent,
                       ),
                     )..show(context);
                   }
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => new PageCollector()));
                 },
               ),
               FlatButton(
-                child: Text("Already signed in ? Press here to login up"),
+                child: Text(
+                  "Already signed in ? Press here to login up",
+                  style: TextStyle(color: Colors.lightGreen),
+                ),
                 onPressed: () => Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (context) => SignPage(),

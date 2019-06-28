@@ -28,7 +28,7 @@ class DatabaseHelper {
 
   void _onCreate(Database db, int version) async {
     await db.execute(
-        "CREATE TABLE User(id TEXT, name TEXT, mail TEXT, profilePic TEXT, nationality TEXT, password TEXT)");
+        "CREATE TABLE User(id TEXT, name TEXT, mail TEXT, profilePic TEXT, nationality TEXT, password TEXT, goes TEXT)");
   }
 
   Future<int> saveEvent(User u) async {
@@ -48,7 +48,8 @@ class DatabaseHelper {
         mail: list[i]["mail"],
         nationality: list[i]["nationality"],
         profilePic: list[i]["profilePic"],
-        password: list[i]["password"]
+        password: list[i]["password"],
+        goes: list[i]["goes"],
       );
       user.add(event);
     }
