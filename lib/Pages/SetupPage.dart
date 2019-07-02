@@ -6,6 +6,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:immigrate/Models/DatabaseHelper.dart';
 import 'package:immigrate/Models/User.dart';
@@ -86,8 +87,9 @@ class _SetupPageState extends State<SetupPage> {
         centerTitle: true,
         backgroundColor: Colors.lightGreen,
       ),
+      backgroundColor: Colors.lightGreen.shade400,
       body: Padding(
-        padding: EdgeInsets.all(16),
+        padding: EdgeInsets.all(8),
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
@@ -101,27 +103,27 @@ class _SetupPageState extends State<SetupPage> {
                         child: _profilePic == null
                             ? Center(
                                 child: CircleAvatar(
-                                  backgroundColor: Colors.white54,
+                                  backgroundColor: Colors.lightGreen,
                                   radius: 150,
                                   child: Text(
                                     "Tap here to setup profile picture",
                                     style: TextStyle(
-                                      color: Colors.lightGreen,
+                                      color: Colors.white,
                                       fontSize: 15,
                                     ),
                                   ),
                                 ),
                               )
                             : Center(
-                                child: CircleAvatar(
-                                  backgroundColor: Colors.white54,
-                                  radius: 150,
-                                  child: Image.file(
-                                    _profilePic,
-                                    fit: BoxFit.cover,
-                                    width: 300,
-                                    height: 350,
-                                    alignment: Alignment.center,
+                                child: new Container(
+                                  width: 300,
+                                  height: 300,
+                                  decoration: new BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    image: new DecorationImage(
+                                      fit: BoxFit.cover,
+                                      image: FileImage(_profilePic),
+                                    ),
                                   ),
                                 ),
                               ),
@@ -168,22 +170,42 @@ class _SetupPageState extends State<SetupPage> {
                 },
               ),
               Divider(
-                height: 30,
+                height: 1,
               ),
               Padding(
                 padding: EdgeInsets.all(10),
               ),
-              FormBuilderTextField(
-                attribute: "name",
-                validators: [
-                  FormBuilderValidators.required(),
-                ],
-                controller: _nameController,
-                decoration: InputDecoration(
-                  labelText: "Name",
-                  hintText: "Name Surname",
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
+              Container(
+                margin: EdgeInsets.all(6),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(30.0),
+                  color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.lightGreen.shade300,
+                      blurRadius: 10.0,
+                      spreadRadius: 5.0,
+                    )
+                  ],
+                ),
+                child: Container(
+                  margin: EdgeInsets.all(10),
+                  child: FormBuilderTextField(
+                    attribute: "name",
+                    validators: [
+                      FormBuilderValidators.required(),
+                    ],
+                    controller: _nameController,
+                    decoration: InputDecoration(
+                      labelText: "Name",
+                      hintText: "Name Surname",
+                      border: InputBorder.none,
+                      labelStyle: TextStyle(color: Colors.lightGreen),
+                      icon: Icon(
+                        FontAwesomeIcons.signature,
+                        color: Colors.lightGreen,
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -194,121 +216,236 @@ class _SetupPageState extends State<SetupPage> {
                 key: _fbKey,
                 child: Column(
                   children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.all(0),
-                      child: Text(
-                        "Where are you coming from?",
-                        style: TextStyle(
-                          color: Colors.lightGreen,
-                          fontSize: 15,
+                    Container(
+                      margin: EdgeInsets.all(6),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30.0),
+                        color: Colors.white,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.lightGreen.shade300,
+                            blurRadius: 10.0,
+                            spreadRadius: 5.0,
+                          )
+                        ],
+                      ),
+                      child: Container(
+                        width: 300,
+                        margin: EdgeInsets.all(10),
+                        child: Column(
+                          children: <Widget>[
+                            Padding(
+                              padding: EdgeInsets.all(0),
+                              child: Text(
+                                "Where are you coming from?",
+                                style: TextStyle(
+                                  color: Colors.lightGreen,
+                                  fontSize: 15,
+                                ),
+                              ),
+                            ),
+                            DropdownButtonHideUnderline(
+                              child: FormBuilderDropdown(
+                                attribute: "from",
+                                items: [
+                                  DropdownMenuItem(
+                                    child: Text(
+                                      "🇹🇷 Turkey",
+                                      style:
+                                          TextStyle(color: Colors.lightGreen),
+                                    ),
+                                    value: "tr",
+                                  ),
+                                  DropdownMenuItem(
+                                    child: Text(
+                                      "🇬🇧 United Kingdom",
+                                      style:
+                                          TextStyle(color: Colors.lightGreen),
+                                    ),
+                                    value: "gb",
+                                  ),
+                                  DropdownMenuItem(
+                                    child: Text(
+                                      "🇫🇷 France",
+                                      style:
+                                          TextStyle(color: Colors.lightGreen),
+                                    ),
+                                    value: "fr",
+                                  ),
+                                  DropdownMenuItem(
+                                    child: Text(
+                                      "🇮🇹 Italy",
+                                      style:
+                                          TextStyle(color: Colors.lightGreen),
+                                    ),
+                                    value: "it",
+                                  ),
+                                  DropdownMenuItem(
+                                    child: Text(
+                                      "🇩🇪 Germany",
+                                      style:
+                                          TextStyle(color: Colors.lightGreen),
+                                    ),
+                                    value: "ge",
+                                  ),
+                                  DropdownMenuItem(
+                                    child: Text(
+                                      "🇷🇺 Russia",
+                                      style:
+                                          TextStyle(color: Colors.lightGreen),
+                                    ),
+                                    value: "rs",
+                                  ),
+                                  DropdownMenuItem(
+                                    child: Text(
+                                      "🇺🇸 United States",
+                                      style:
+                                          TextStyle(color: Colors.lightGreen),
+                                    ),
+                                    value: "us",
+                                  ),
+                                  DropdownMenuItem(
+                                    child: Text(
+                                      "🇦🇪 United Arab Emirates",
+                                      style:
+                                          TextStyle(color: Colors.lightGreen),
+                                    ),
+                                    value: "ae",
+                                  )
+                                ],
+                                initialValue: dropDownValueFrom,
+                                onChanged: (value) {
+                                  setState(() {
+                                    dropDownValueFrom = value;
+                                  });
+                                },
+                                elevation: 10,
+                                validators: [
+                                  FormBuilderValidators.required(),
+                                ],
+                                iconSize: 40,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ),
-                    FormBuilderDropdown(
-                      attribute: "from",
-                      items: [
-                        DropdownMenuItem(
-                          child: Text("🇹🇷 Turkey"),
-                          value: "tr",
-                        ),
-                        DropdownMenuItem(
-                          child: Text("🇬🇧 United Kingdom"),
-                          value: "gb",
-                        ),
-                        DropdownMenuItem(
-                          child: Text("🇫🇷 France"),
-                          value: "fr",
-                        ),
-                        DropdownMenuItem(
-                          child: Text("🇮🇹 Italy"),
-                          value: "it",
-                        ),
-                        DropdownMenuItem(
-                          child: Text("🇩🇪 Germany"),
-                          value: "ge",
-                        ),
-                        DropdownMenuItem(
-                          child: Text("🇷🇺 Russia"),
-                          value: "rs",
-                        ),
-                        DropdownMenuItem(
-                          child: Text("🇺🇸 United States"),
-                          value: "us",
-                        ),
-                        DropdownMenuItem(
-                          child: Text("🇦🇪 United Arab Emirates"),
-                          value: "ae",
-                        )
-                      ],
-                      initialValue: dropDownValueFrom,
-                      onChanged: (value) {
-                        setState(() {
-                          dropDownValueFrom = value;
-                        });
-                      },
-                      elevation: 10,
-                      validators: [
-                        FormBuilderValidators.required(),
-                      ],
-                      iconSize: 40,
-                    ),
                     Padding(
-                      padding: EdgeInsets.all(5),
-                      child: Text(
-                        "Where are you now?",
-                        style: TextStyle(
-                          color: Colors.lightGreen,
-                          fontSize: 15,
+                      padding: EdgeInsets.all(10),
+                    ),
+                    Container(
+                      width: 320,
+                      margin: EdgeInsets.all(6),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30.0),
+                        color: Colors.white,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.lightGreen.shade300,
+                            blurRadius: 10.0,
+                            spreadRadius: 5.0,
+                          )
+                        ],
+                      ),
+                      child: Container(
+                        margin: EdgeInsets.all(10),
+                        child: Column(
+                          children: <Widget>[
+                            Padding(
+                              padding: EdgeInsets.all(5),
+                              child: Text(
+                                "Where are you now?",
+                                style: TextStyle(
+                                  color: Colors.lightGreen,
+                                  fontSize: 15,
+                                ),
+                              ),
+                            ),
+                            DropdownButtonHideUnderline(
+                              child: FormBuilderDropdown(
+                                attribute: "to",
+                                items: [
+                                  DropdownMenuItem(
+                                    child: Text(
+                                      "🇹🇷 Turkey",
+                                      style:
+                                          TextStyle(color: Colors.lightGreen),
+                                    ),
+                                    value: "tr",
+                                  ),
+                                  DropdownMenuItem(
+                                    child: Text(
+                                      "🇬🇧 United Kingdom",
+                                      style:
+                                          TextStyle(color: Colors.lightGreen),
+                                    ),
+                                    value: "gb",
+                                  ),
+                                  DropdownMenuItem(
+                                    child: Text(
+                                      "🇫🇷 France",
+                                      style:
+                                          TextStyle(color: Colors.lightGreen),
+                                    ),
+                                    value: "fr",
+                                  ),
+                                  DropdownMenuItem(
+                                    child: Text(
+                                      "🇮🇹 Italy",
+                                      style:
+                                          TextStyle(color: Colors.lightGreen),
+                                    ),
+                                    value: "it",
+                                  ),
+                                  DropdownMenuItem(
+                                    child: Text(
+                                      "🇩🇪 Germany",
+                                      style:
+                                          TextStyle(color: Colors.lightGreen),
+                                    ),
+                                    value: "ge",
+                                  ),
+                                  DropdownMenuItem(
+                                    child: Text(
+                                      "🇷🇺 Russia",
+                                      style:
+                                          TextStyle(color: Colors.lightGreen),
+                                    ),
+                                    value: "rs",
+                                  ),
+                                  DropdownMenuItem(
+                                    child: Text(
+                                      "🇺🇸 United States",
+                                      style:
+                                          TextStyle(color: Colors.lightGreen),
+                                    ),
+                                    value: "us",
+                                  ),
+                                  DropdownMenuItem(
+                                    child: Text(
+                                      "🇦🇪 United Arab Emirates",
+                                      style:
+                                          TextStyle(color: Colors.lightGreen),
+                                    ),
+                                    value: "ae",
+                                  )
+                                ],
+                                initialValue: dropDownValueTo,
+                                onChanged: (value) {
+                                  setState(() {
+                                    dropDownValueTo = value;
+                                  });
+                                },
+                                elevation: 10,
+                                validators: [
+                                  FormBuilderValidators.required(),
+                                ],
+                                iconSize: 40,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                    ),
-                    FormBuilderDropdown(
-                      attribute: "to",
-                      items: [
-                        DropdownMenuItem(
-                          child: Text("🇹🇷 Turkey"),
-                          value: "tr",
-                        ),
-                        DropdownMenuItem(
-                          child: Text("🇬🇧 United Kingdom"),
-                          value: "gb",
-                        ),
-                        DropdownMenuItem(
-                          child: Text("🇫🇷 France"),
-                          value: "fr",
-                        ),
-                        DropdownMenuItem(
-                          child: Text("🇮🇹 Italy"),
-                          value: "it",
-                        ),
-                        DropdownMenuItem(
-                          child: Text("🇩🇪 Germany"),
-                          value: "ge",
-                        ),
-                        DropdownMenuItem(
-                          child: Text("🇷🇺 Russia"),
-                          value: "rs",
-                        ),
-                        DropdownMenuItem(
-                          child: Text("🇺🇸 United States"),
-                          value: "us",
-                        ),
-                        DropdownMenuItem(
-                          child: Text("🇦🇪 United Arab Emirates"),
-                          value: "ae",
-                        )
-                      ],
-                      initialValue: dropDownValueTo,
-                      onChanged: (value) {
-                        setState(() {
-                          dropDownValueTo = value;
-                        });
-                      },
-                      elevation: 10,
-                      validators: [
-                        FormBuilderValidators.required(),
-                      ],
-                      iconSize: 40,
                     ),
                   ],
                 ),
