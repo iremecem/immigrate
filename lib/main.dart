@@ -1,15 +1,14 @@
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:immigrate/Pages/LoginPage.dart';
-import 'package:immigrate/Pages/PageCollecor.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:immigrate/Pages/PageCollector.dart';
 
 void main() async {
-  final prefs = await SharedPreferences.getInstance();
-  //TODO: ADD AUTH CHECK FOR FIREBASE
+  FirebaseUser user = await FirebaseAuth.instance.currentUser();
   runApp(
     MaterialApp(
-      home: PageCollector(),
+      home: user == null ? LoginPage() : PageCollector(),
     ),
   );
 }

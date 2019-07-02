@@ -2,37 +2,31 @@ import 'package:flutter/material.dart';
 
 class User{
   String name;
-  String mail;
   String id;
   String profilePic;
-  String nationality;
-  String password;
-  String goes;
+  String from;
+  String to;
   // String place; TODO: THİS WİLL CHANGE
 
-  User({@required this.id, @required this.name, @required this.profilePic, @required this.mail, @required this.nationality, @required this.password, @required this.goes});
+  User({@required this.id, @required this.name, @required this.profilePic, @required this.from, @required this.to});
 
   factory User.fromJson(Map<String, dynamic> json){
     return User(
       name: json["name"],
       id: json["id"],
-      mail: json["mail"],
-      nationality: json["nationality"],
-      goes: json["goes"],
+      from: json["fromi"],
+      to: json["toi"],
       profilePic: json["profilePic"],
-      password: json["password"],
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
       "name": name,
-      "mail": mail,
       "id": id,
-      "nationality" : nationality,
+      "fromi" : from,
       "profilePic" : profilePic,
-      "password" : password,
-      "goes" : goes,
+      "toi" : to,
     };
   }
 }

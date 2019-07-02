@@ -3,79 +3,51 @@ import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:immigrate/Pages/PageCollector.dart';
-import 'package:immigrate/Pages/SignInPage.dart';
+import 'package:immigrate/Pages/LoginPage.dart';
+import 'package:immigrate/Pages/SetupPage.dart';
 import 'package:nice_button/NiceButton.dart';
 
-class LoginPage extends StatefulWidget {
+class SignInPage extends StatefulWidget {
   @override
-  _LoginPageState createState() => _LoginPageState();
+  _SignInPageState createState() => _SignInPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _SignInPageState extends State<SignInPage> {
   final GlobalKey<FormBuilderState> _fbKey = GlobalKey<FormBuilderState>();
 
   TextEditingController _mailController = new TextEditingController();
   TextEditingController _passwordController = new TextEditingController();
+  TextEditingController _secondaryController = new TextEditingController();
 
-  void checkUser(String email, String password, BuildContext context) async {
+  void authUser(String email, String password, BuildContext ctx) async {
     FirebaseAuth auth = FirebaseAuth.instance;
     try {
-      await auth.signInWithEmailAndPassword(email: email, password: password);
+      var response = await auth.createUserWithEmailAndPassword(
+          email: email, password: password);
+      response.sendEmailVerification();
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
-          builder: (ctx) => PageCollector(),
+          builder: (ctx) => SetupPage(),
         ),
       );
-    } catch (e) {
-      if (e is PlatformException) {
-        if (e.code == "ERROR_INVALID_EMAIL" ||
-            e.code == "ERROR_WRONG_PASSWORD") {
+    } catch (exc) {
+      if (exc is PlatformException) {
+        if (exc.code == "ERROR_EMAIL_ALREADY_IN_USE") {
           Flushbar(
             backgroundColor: Colors.red,
             flushbarStyle: FlushbarStyle.FLOATING,
             flushbarPosition: FlushbarPosition.BOTTOM,
-            message: "Email or password is not correct!",
+            message: "Email is already in use!",
             isDismissible: true,
-            duration: Duration(seconds: 5),
-          )..show(context);
-        }
-        if (e.code == "ERROR_USER_NOT_FOUND") {
-          Flushbar(
-            backgroundColor: Colors.red,
-            flushbarStyle: FlushbarStyle.FLOATING,
-            flushbarPosition: FlushbarPosition.BOTTOM,
-            message: "User not found, please sign up.",
-            isDismissible: true,
-            duration: Duration(seconds: 5),
+            duration: Duration(seconds: 10),
             mainButton: FlatButton(
-              child: Text("Sign Up"),
+              child: Text("Login"),
               onPressed: () => Navigator.of(context).pushReplacement(
                     MaterialPageRoute(
-                      builder: (ctx) => SignInPage(),
+                      builder: (ctx) => LoginPage(),
                     ),
                   ),
             ),
-          )..show(context);
-        }
-        if (e.code == "ERROR_USER_DISABLED") {
-          Flushbar(
-            backgroundColor: Colors.red,
-            flushbarStyle: FlushbarStyle.FLOATING,
-            flushbarPosition: FlushbarPosition.BOTTOM,
-            message: "You have been banned from server Please contact for more information!",
-            isDismissible: true,
-            duration: Duration(seconds: 5),
-          )..show(context);
-        }
-        if (e.code == "ERROR_TOO_MANY_REQUESTS") {
-          Flushbar(
-            backgroundColor: Colors.red,
-            flushbarStyle: FlushbarStyle.FLOATING,
-            flushbarPosition: FlushbarPosition.BOTTOM,
-            message: "Too many request tries, please comeback in 10 minutes!",
-            isDismissible: true,
-            duration: Duration(seconds: 5),
           )..show(context);
         }
       }
@@ -86,7 +58,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Login"),
+        title: Text("Sign Up"),
         centerTitle: true,
         backgroundColor: Colors.lightGreen,
       ),
@@ -141,6 +113,24 @@ class _LoginPageState extends State<LoginPage> {
                     Padding(
                       padding: EdgeInsets.all(10),
                     ),
+                    FormBuilderTextField(
+                      attribute: "password",
+                      validators: [
+                        FormBuilderValidators.minLength(6),
+                        FormBuilderValidators.required(),
+                      ],
+                      obscureText: true,
+                      controller: _secondaryController,
+                      decoration: InputDecoration(
+                        labelText: "Password Again...",
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(10),
+                    ),
                   ],
                 ),
               ),
@@ -152,20 +142,22 @@ class _LoginPageState extends State<LoginPage> {
                   width: 255,
                   elevation: 8.0,
                   radius: 52.0,
-                  text: "Login",
+                  text: "Sign Up",
                   background: Colors.lightGreen,
                   onPressed: () {
                     _fbKey.currentState.save();
-                    if (_fbKey.currentState.validate()) {
+                    if (_fbKey.currentState.validate() &&
+                        _passwordController.text == _secondaryController.text) {
                       print(_fbKey.currentState.value);
-                      checkUser(_mailController.text, _passwordController.text,
+                      authUser(_mailController.text, _passwordController.text,
                           context);
                     } else {
                       Flushbar(
                         backgroundColor: Colors.red,
                         flushbarStyle: FlushbarStyle.FLOATING,
                         flushbarPosition: FlushbarPosition.BOTTOM,
-                        message: "Email or password is not correct!",
+                        message:
+                            "Passwords are not same or empty, please re-enter!",
                         isDismissible: true,
                         duration: Duration(seconds: 5),
                       )..show(context);
@@ -177,18 +169,18 @@ class _LoginPageState extends State<LoginPage> {
                 padding: EdgeInsets.all(10),
               ),
               FlatButton(
+                onPressed: () => Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(
+                        builder: (ctx) => LoginPage(),
+                      ),
+                    ),
                 child: Text(
-                  "Or create an account",
+                  "Already signed in?",
                   style: TextStyle(
                     color: Colors.lightGreen,
                     fontSize: 25,
                   ),
                 ),
-                onPressed: () => Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(
-                        builder: (ctx) => SignInPage(),
-                      ),
-                    ),
               ),
               Padding(
                 padding: EdgeInsets.all(10),

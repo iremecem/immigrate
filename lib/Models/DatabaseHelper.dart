@@ -21,14 +21,14 @@ class DatabaseHelper {
 
   initDb() async {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
-    String path = join(documentsDirectory.path, "dummy.db");
+    String path = join(documentsDirectory.path, "dummyNewest.db");
     var theDb = await openDatabase(path, version: 1, onCreate: _onCreate);
     return theDb;
   }
 
   void _onCreate(Database db, int version) async {
     await db.execute(
-        "CREATE TABLE User(id TEXT, name TEXT, mail TEXT, profilePic TEXT, nationality TEXT, password TEXT, goes TEXT)");
+        "CREATE TABLE User(id TEXT, name TEXT, profilePic TEXT, fromi TEXT, toi TEXT)");
   }
 
   Future<int> saveEvent(User u) async {
@@ -45,11 +45,9 @@ class DatabaseHelper {
       var event = new User(
         name: list[i]["name"],
         id: list[i]["id"],
-        mail: list[i]["mail"],
-        nationality: list[i]["nationality"],
+        from: list[i]["from"],
         profilePic: list[i]["profilePic"],
-        password: list[i]["password"],
-        goes: list[i]["goes"],
+        to: list[i]["to"],
       );
       user.add(event);
     }
