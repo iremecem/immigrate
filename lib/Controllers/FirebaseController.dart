@@ -159,14 +159,15 @@ class FirebaseController {
       targetPath,
       quality: 50,
     );
-    reference.putFile(result);
-    await reference.getDownloadURL().then((onValue) {
-      _userRef.child(userId).child("profilePic").set(onValue);
-      _prefs.setString("profilePic", onValue);
+    reference.putFile(result).onComplete.then((onValue) async {
+      await reference.getDownloadURL().then((onalue) {
+        _userRef.child(userId).child("profilePic").set(onalue);
+        _prefs.setString("profilePic", onalue);
+      });
     });
   }
 
-  void setupUser({String name, String from, String to}) async {
+  Future setupUser({String name, String from, String to, File image}) async {
     FirebaseUser fu = await FirebaseAuth.instance.currentUser();
     String userId = fu.uid;
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -177,6 +178,7 @@ class FirebaseController {
         "to": to,
       },
     );
+    await uploadProfilePic(image);
     prefs.setString("id", userId);
     prefs.setString("name", name);
     prefs.setString("to", to);

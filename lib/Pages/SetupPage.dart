@@ -446,6 +446,7 @@ class _SetupPageState extends State<SetupPage> {
                           name: _nameController.text.trim(),
                           from: dropDownValueFrom,
                           to: dropDownValueTo,
+                          image: _profilePic,
                         );
                         Navigator.pushReplacement(
                           context,
