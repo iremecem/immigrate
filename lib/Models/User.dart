@@ -6,9 +6,8 @@ class User{
   String profilePic;
   String from;
   String to;
-  // String place; TODO: THİS WİLL CHANGE
 
-  User({@required this.id, @required this.name, @required this.profilePic, @required this.from, @required this.to});
+  User({this.id, this.name, this.profilePic, this.from, this.to});
 
   factory User.fromJson(Map<String, dynamic> json){
     return User(

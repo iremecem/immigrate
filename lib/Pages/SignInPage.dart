@@ -1,11 +1,9 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:immigrate/Controllers/FirebaseController.dart';
 import 'package:immigrate/Pages/LoginPage.dart';
-import 'package:immigrate/Pages/SetupPage.dart';
 import 'package:nice_button/NiceButton.dart';
 
 class SignInPage extends StatefulWidget {
@@ -15,45 +13,10 @@ class SignInPage extends StatefulWidget {
 
 class _SignInPageState extends State<SignInPage> {
   final GlobalKey<FormBuilderState> _fbKey = GlobalKey<FormBuilderState>();
-
+  final FirebaseController _controller = new FirebaseController();
   TextEditingController _mailController = new TextEditingController();
   TextEditingController _passwordController = new TextEditingController();
   TextEditingController _secondaryController = new TextEditingController();
-
-  void authUser(String email, String password, BuildContext ctx) async {
-    FirebaseAuth auth = FirebaseAuth.instance;
-    try {
-      var response = await auth.createUserWithEmailAndPassword(
-          email: email, password: password);
-      response.sendEmailVerification();
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(
-          builder: (ctx) => SetupPage(),
-        ),
-      );
-    } catch (exc) {
-      if (exc is PlatformException) {
-        if (exc.code == "ERROR_EMAIL_ALREADY_IN_USE") {
-          Flushbar(
-            backgroundColor: Colors.red,
-            flushbarStyle: FlushbarStyle.FLOATING,
-            flushbarPosition: FlushbarPosition.BOTTOM,
-            message: "Email is already in use!",
-            isDismissible: true,
-            duration: Duration(seconds: 10),
-            mainButton: FlatButton(
-              child: Text("Login"),
-              onPressed: () => Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(
-                      builder: (ctx) => LoginPage(),
-                    ),
-                  ),
-            ),
-          )..show(context);
-        }
-      }
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -203,13 +166,16 @@ class _SignInPageState extends State<SignInPage> {
                   radius: 52.0,
                   text: "Sign Up",
                   background: Colors.lightGreen,
-                  onPressed: () {
+                  onPressed: () async {
                     _fbKey.currentState.save();
                     if (_fbKey.currentState.validate() &&
                         _passwordController.text == _secondaryController.text) {
                       print(_fbKey.currentState.value);
-                      authUser(_mailController.text, _passwordController.text,
-                          context);
+                      await _controller.authUser(
+                        ctx: context,
+                        email: _mailController.text.trim(),
+                        password: _passwordController.text.trim(),
+                      );
                     } else {
                       Flushbar(
                         backgroundColor: Colors.red,
@@ -229,10 +195,10 @@ class _SignInPageState extends State<SignInPage> {
               ),
               FlatButton(
                 onPressed: () => Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(
-                        builder: (ctx) => LoginPage(),
-                      ),
-                    ),
+                  MaterialPageRoute(
+                    builder: (ctx) => LoginPage(),
+                  ),
+                ),
                 child: Text(
                   "Already signed in?",
                   style: TextStyle(

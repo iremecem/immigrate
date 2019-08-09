@@ -1,19 +1,14 @@
 import 'dart:io';
 
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:immigrate/Models/DatabaseHelper.dart';
-import 'package:immigrate/Models/User.dart';
+import 'package:immigrate/Controllers/FirebaseController.dart';
 import 'package:immigrate/Pages/PageCollector.dart';
 import 'package:nice_button/NiceButton.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:uuid/uuid.dart';
 
 class SetupPage extends StatefulWidget {
   @override
@@ -23,8 +18,7 @@ class SetupPage extends StatefulWidget {
 class _SetupPageState extends State<SetupPage> {
   final GlobalKey<FormBuilderState> _fbKey = GlobalKey<FormBuilderState>();
   TextEditingController _nameController = new TextEditingController();
-  FirebaseStorage _storage = FirebaseStorage.instance;
-
+  FirebaseController _controller = new FirebaseController();
   File _profilePic;
   String dropDownValueFrom = "tr";
   String dropDownValueTo = "tr";
@@ -41,42 +35,6 @@ class _SetupPageState extends State<SetupPage> {
     setState(() {
       _profilePic = image;
     });
-  }
-
-  Future<String> uploadPic(File image) async {
-    FirebaseUser fu = await FirebaseAuth.instance.currentUser();
-    String userId = fu.uid;
-    StorageReference reference = _storage.ref().child(userId);
-    StorageUploadTask uploadTask = reference.putFile(image);
-    StorageTaskSnapshot taskSnapshot = await uploadTask.onComplete;
-    Uri location = taskSnapshot.uploadSessionUri;
-    return location.toString();
-  }
-
-  void setupUser(String name, String from, String to, File image) async {
-    FirebaseUser fu = await FirebaseAuth.instance.currentUser();
-    String userId = fu.uid;
-    String profileUriToString = await uploadPic(image);
-    DatabaseHelper helper = new DatabaseHelper();
-    final database = FirebaseDatabase.instance.reference();
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    User user = new User(
-      from: from,
-      id: userId,
-      name: name,
-      to: to,
-      profilePic: profileUriToString,
-    );
-    helper.saveEvent(user);
-    database.child(userId).set(
-      {
-        "name": name,
-        "from": from,
-        "to": to,
-        "profilePic": profileUriToString,
-      },
-    );
-    prefs.setString("id", userId);
   }
 
   @override
@@ -286,7 +244,7 @@ class _SetupPageState extends State<SetupPage> {
                                       style:
                                           TextStyle(color: Colors.lightGreen),
                                     ),
-                                    value: "ge",
+                                    value: "de",
                                   ),
                                   DropdownMenuItem(
                                     child: Text(
@@ -403,7 +361,7 @@ class _SetupPageState extends State<SetupPage> {
                                       style:
                                           TextStyle(color: Colors.lightGreen),
                                     ),
-                                    value: "ge",
+                                    value: "de",
                                   ),
                                   DropdownMenuItem(
                                     child: Text(
@@ -460,7 +418,7 @@ class _SetupPageState extends State<SetupPage> {
                   radius: 52.0,
                   text: "Create Profile",
                   background: Colors.lightGreen,
-                  onPressed: () {
+                  onPressed: () async {
                     _fbKey.currentState.save();
                     if (_fbKey.currentState.validate()) {
                       print(_fbKey.currentState.value);
@@ -484,8 +442,11 @@ class _SetupPageState extends State<SetupPage> {
                           duration: Duration(seconds: 5),
                         )..show(context);
                       } else {
-                        setupUser(_nameController.text, dropDownValueFrom,
-                            dropDownValueTo, _profilePic);
+                        await _controller.setupUser(
+                          name: _nameController.text.trim(),
+                          from: dropDownValueFrom,
+                          to: dropDownValueTo,
+                        );
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
