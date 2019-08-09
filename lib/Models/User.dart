@@ -6,8 +6,10 @@ class User{
   String profilePic;
   String from;
   String to;
+  double lat;
+  double lon;
 
-  User({this.id, this.name, this.profilePic, this.from, this.to});
+  User({this.id, this.name, this.profilePic, this.from, this.to, this.lat, this.lon});
 
   factory User.fromJson(Map<String, dynamic> json){
     return User(

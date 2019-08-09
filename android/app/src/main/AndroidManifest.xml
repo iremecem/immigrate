@@ -11,8 +11,10 @@
          FlutterApplication and put your custom class here. -->
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="immigrate"
+        android:label="Countryman"
         android:icon="@mipmap/ic_launcher">
+        <meta-data android:name="com.google.android.geo.API_KEY"
+               android:value="AIzaSyAziUhQQ13KmkRvK8_xw3dgByyc01bfAEE"/>
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

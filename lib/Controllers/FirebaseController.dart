@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:immigrate/Controllers/Globals.dart';
+import 'package:immigrate/Models/User.dart';
 import 'package:immigrate/Pages/LoginPage.dart';
 import 'package:immigrate/Pages/PageCollector.dart';
 import 'package:immigrate/Pages/SetupPage.dart';
@@ -182,5 +183,31 @@ class FirebaseController {
     prefs.setString("id", userId);
     prefs.setString("name", name);
     prefs.setString("to", to);
+  }
+
+  Future setUserLocation({String userId, double lat, double long}) async {
+    await _userRef.child(userId).set({"lat": lat, "lon": long});
+  }
+
+  Future getNearUsersLocation() async {
+    return await _userRef.once().then((onValue) {
+      List<User> locations = [];
+      Map users = onValue.value;
+      if (users != null) {
+        users.forEach((k, v) {
+          locations.add(
+            User(
+              lat: v["lat"],
+              lon: v["lon"],
+              name: v["name"],
+              id: v["id"],
+              profilePic: v["profilePic"],
+              from: v["from"],
+            ),
+          );
+        });
+      }
+      return locations;
+    });
   }
 }
