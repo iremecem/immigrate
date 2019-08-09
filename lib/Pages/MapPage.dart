@@ -79,6 +79,7 @@ class _MapPageState extends State<MapPage> {
                         position: LatLng(user.lat, user.lon),
                         visible: true,
                         draggable: false,
+                        
                       ));
                     });
                   }
