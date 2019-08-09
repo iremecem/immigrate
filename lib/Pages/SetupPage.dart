@@ -44,6 +44,7 @@ class _SetupPageState extends State<SetupPage> {
         title: Text("Setup Your Account"),
         centerTitle: true,
         backgroundColor: Colors.lightGreen,
+        elevation: 0,
       ),
       backgroundColor: Colors.lightGreen.shade400,
       body: Padding(

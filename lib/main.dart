@@ -22,18 +22,20 @@ void main() async {
 
   var location = new Location();
 
-  try {
-    var currentLocation = await location.getLocation();
-    user.lat = currentLocation.latitude;
-    user.lon = currentLocation.longitude;
-    await _controller.setUserLocation(
-      userId: user.id,
-      long: user.lon,
-      lat: user.lat,
-    );
-  } on PlatformException catch (e) {
-    if (e.code == 'PERMISSION_DENIED') {
-      print('Permission denied');
+  if (userId != null) {
+    try {
+      var currentLocation = await location.getLocation();
+      user.lat = currentLocation.latitude;
+      user.lon = currentLocation.longitude;
+      await _controller.setUserLocation(
+        userId: user.id,
+        long: user.lon,
+        lat: user.lat,
+      );
+    } on PlatformException catch (e) {
+      if (e.code == 'PERMISSION_DENIED') {
+        print('Permission denied');
+      }
     }
   }
 

@@ -27,6 +27,7 @@ class _LoginPageState extends State<LoginPage> {
         title: Text("Login"),
         centerTitle: true,
         backgroundColor: Colors.lightGreen,
+        elevation: 0,
       ),
       backgroundColor: Colors.lightGreen.shade400,
       resizeToAvoidBottomInset: true,

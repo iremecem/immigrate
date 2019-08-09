@@ -25,6 +25,7 @@ class _SignInPageState extends State<SignInPage> {
         title: Text("Sign Up"),
         centerTitle: true,
         backgroundColor: Colors.lightGreen,
+        elevation: 0,
       ),
       backgroundColor: Colors.lightGreen.shade400,
       resizeToAvoidBottomInset: true,

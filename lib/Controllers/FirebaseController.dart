@@ -71,14 +71,14 @@ class FirebaseController {
     FirebaseAuth auth = FirebaseAuth.instance;
     SharedPreferences _prefs = await SharedPreferences.getInstance();
     try {
-      var userAuth = await auth.signInWithEmailAndPassword(
+      var response = await auth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
-      await _userRef.child(userAuth.uid).once().then((onValue) {
+      await _userRef.child(response.uid).once().then((onValue) {
         user.name = onValue.value["name"];
         user.to = onValue.value["to"];
-        user.id = userAuth.uid;
+        user.id = onValue.value;
         user.profilePic = onValue.value["profilePic"];
         _prefs.setString("name", user.name);
         _prefs.setString("to", user.to);
@@ -183,31 +183,13 @@ class FirebaseController {
     prefs.setString("id", userId);
     prefs.setString("name", name);
     prefs.setString("to", to);
+    user.id = userId;
+    user.name = name;
+    user.to = to;
   }
 
   Future setUserLocation({String userId, double lat, double long}) async {
-    await _userRef.child(userId).set({"lat": lat, "lon": long});
-  }
-
-  Future getNearUsersLocation() async {
-    return await _userRef.once().then((onValue) {
-      List<User> locations = [];
-      Map users = onValue.value;
-      if (users != null) {
-        users.forEach((k, v) {
-          locations.add(
-            User(
-              lat: v["lat"],
-              lon: v["lon"],
-              name: v["name"],
-              id: v["id"],
-              profilePic: v["profilePic"],
-              from: v["from"],
-            ),
-          );
-        });
-      }
-      return locations;
-    });
+    await _userRef.child(userId).child("lat").set(lat);
+    await _userRef.child(userId).child("lon").set(long);
   }
 }
