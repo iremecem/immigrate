@@ -192,4 +192,8 @@ class FirebaseController {
     await _userRef.child(userId).child("lat").set(lat);
     await _userRef.child(userId).child("lon").set(long);
   }
+
+  Future createChatSpace({String senderName, String senderUid, String recieverName, String recieverUid, }) async {
+    
+  }
 }

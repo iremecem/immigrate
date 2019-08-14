@@ -40,6 +40,8 @@ dependencies:
   random_string: ^1.1.0
   google_maps_flutter: ^0.5.20+2
   location: ^2.3.5
+  dash_chat: ^1.0.4
+  simple_design: ^1.0.3
 
 
 dev_dependencies:

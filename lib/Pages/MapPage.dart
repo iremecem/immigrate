@@ -7,6 +7,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:immigrate/Controllers/FirebaseController.dart';
 import 'package:immigrate/Controllers/Globals.dart';
 import 'package:immigrate/Models/User.dart';
+import 'package:immigrate/Pages/ChatScreen.dart';
 import 'package:location/location.dart';
 
 class MapPage extends StatefulWidget {
@@ -68,26 +69,33 @@ class _MapPageState extends State<MapPage> {
                       );
                     });
                   }
-                  if(userList != null){
-                    userList.forEach((user){
+                  if (userList != null) {
+                    userList.forEach((user) {
                       print(user.name);
                       markerSet.add(Marker(
                         markerId: MarkerId(user.name),
-                        onTap: (){
-                          //TODO: IMPLEMENT CHAT MESSAGE
+                        onTap: () async {
+                          await _controller.createChatSpace(senderName: user.name, senderUid: user.id);
+                          //TODO: EDIT HERE
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => ChatScreen(
+                                recieverId: user.id,
+                                recieverName: user.name,
+                              ),
+                            ),
+                          );
                         },
                         position: LatLng(user.lat, user.lon),
                         visible: true,
                         draggable: false,
-                        
                       ));
                     });
                   }
                   return GoogleMap(
                     initialCameraPosition: CameraPosition(
-                      target: LatLng(user.lat, user.lon),
-                      zoom: 11.5
-                    ),
+                        target: LatLng(user.lat, user.lon), zoom: 11.5),
                     compassEnabled: true,
                     mapToolbarEnabled: false,
                     indoorViewEnabled: true,

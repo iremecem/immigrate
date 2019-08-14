@@ -7,6 +7,9 @@ import 'package:immigrate/Pages/PageCollector.dart';
 import 'package:immigrate/Pages/SetupPage.dart';
 import 'package:location/location.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:simple_design/simple_design.dart';
+
+final ThemeData theme = SimpleDesign.lightTheme;
 
 void main() async {
   SharedPreferences _prefs = await SharedPreferences.getInstance();
@@ -58,6 +61,19 @@ void main() async {
         userId: user.id,
         to: user.to,
       ),
+      theme: theme,
+    ),
+  );
+
+  SystemChrome.setSystemUIOverlayStyle(
+    SystemUiOverlayStyle(
+      statusBarColor: theme.backgroundColor.withOpacity(0.2),
+      systemNavigationBarColor: theme.scaffoldBackgroundColor,
+      systemNavigationBarDividerColor:
+          theme.brightness == Brightness.light ? Colors.black : Colors.white,
+      systemNavigationBarIconBrightness: theme.brightness == Brightness.light
+          ? Brightness.dark
+          : Brightness.light,
     ),
   );
 }

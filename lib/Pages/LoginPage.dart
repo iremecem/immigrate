@@ -8,6 +8,7 @@ import 'package:immigrate/Controllers/FirebaseController.dart';
 import 'package:immigrate/Pages/PageCollector.dart';
 import 'package:immigrate/Pages/SignInPage.dart';
 import 'package:nice_button/NiceButton.dart';
+import 'package:simple_design/simple_design.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -23,51 +24,74 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Login"),
-        centerTitle: true,
-        backgroundColor: Colors.lightGreen,
-        elevation: 0,
-      ),
-      backgroundColor: Colors.lightGreen.shade400,
+      backgroundColor: Colors.grey[50],
       resizeToAvoidBottomInset: true,
       body: Padding(
-        padding: EdgeInsets.all(10),
-        child: SingleChildScrollView(
+          padding: EdgeInsets.all(12),
           child: Column(
             children: <Widget>[
-              FormBuilder(
-                key: _fbKey,
-                autovalidate: false,
-                child: Column(
-                  children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.all(20),
-                    ),
-                    Container(
-                      child: Image.asset("assets/images/dummy-imm.png"),
-                      height: MediaQuery.of(context).size.height / 3,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.all(10),
-                    ),
-                    Container(
-                      margin: EdgeInsets.all(6),
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(30.0),
-                        color: Colors.white,
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.lightGreen.shade300,
-                            blurRadius: 10.0,
-                            spreadRadius: 5.0,
-                          )
-                        ],
+              Container(
+                height: 30,
+              ),
+              Image(
+                image: AssetImage("assets/images/dummy-imm.png"),
+                height: 300,
+                width: 300,
+              ),
+              Container(
+                height: 30,
+              ),
+              SDCard(
+                actions: <Widget>[
+                  FlatButton(
+                    child: Text(
+                      "Sign Up",
+                      style: TextStyle(
+                        color: Colors.grey,
                       ),
-                      child: Container(
-                        margin: EdgeInsets.all(10),
-                        child: FormBuilderTextField(
+                    ),
+                    onPressed: () => Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(
+                        builder: (ctx) => SignInPage(),
+                      ),
+                    ),
+                  ),
+                  FlatButton(
+                    child: Text(
+                      "Login",
+                      style: TextStyle(
+                        color: Colors.lightGreen,
+                      ),
+                    ),
+                    onPressed: () async {
+                      _fbKey.currentState.save();
+                      if (_fbKey.currentState.validate()) {
+                        print(_fbKey.currentState.value);
+                        _controller.loginUser(
+                          context: context,
+                          email: _mailController.text.trim(),
+                          password: _passwordController.text.trim(),
+                        );
+                      } else {
+                        Flushbar(
+                          backgroundColor: Colors.red,
+                          flushbarStyle: FlushbarStyle.FLOATING,
+                          flushbarPosition: FlushbarPosition.BOTTOM,
+                          message: "Email or password is not correct!",
+                          isDismissible: true,
+                          duration: Duration(seconds: 5),
+                        )..show(context);
+                      }
+                    },
+                  ),
+                ],
+                title: "Login to Countryman App",
+                content: Center(
+                  child: FormBuilder(
+                    key: _fbKey,
+                    child: Column(
+                      children: <Widget>[
+                        FormBuilderTextField(
                           attribute: "email",
                           validators: [
                             FormBuilderValidators.email(),
@@ -85,24 +109,7 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                           ),
                         ),
-                      ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.all(6),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(30.0),
-                        color: Colors.white,
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.lightGreen.shade300,
-                            blurRadius: 10.0,
-                            spreadRadius: 5.0,
-                          )
-                        ],
-                      ),
-                      child: Container(
-                        margin: EdgeInsets.all(10),
-                        child: FormBuilderTextField(
+                        FormBuilderTextField(
                           attribute: "password",
                           validators: [
                             FormBuilderValidators.minLength(6),
@@ -120,67 +127,13 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                           ),
                         ),
-                      ),
+                      ],
                     ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.all(10),
-              ),
-              Center(
-                child: NiceButton(
-                  width: 255,
-                  elevation: 8.0,
-                  radius: 52.0,
-                  text: "Login",
-                  background: Colors.lightGreen,
-                  onPressed: () async {
-                    _fbKey.currentState.save();
-                    if (_fbKey.currentState.validate()) {
-                      print(_fbKey.currentState.value);
-                      _controller.loginUser(
-                        context: context,
-                        email: _mailController.text.trim(),
-                        password: _passwordController.text.trim(),
-                      );
-                    } else {
-                      Flushbar(
-                        backgroundColor: Colors.red,
-                        flushbarStyle: FlushbarStyle.FLOATING,
-                        flushbarPosition: FlushbarPosition.BOTTOM,
-                        message: "Email or password is not correct!",
-                        isDismissible: true,
-                        duration: Duration(seconds: 5),
-                      )..show(context);
-                    }
-                  },
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.all(10),
-              ),
-              FlatButton(
-                child: Text(
-                  "Or create an account",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 25,
                   ),
                 ),
-                onPressed: () => Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(
-                    builder: (ctx) => SignInPage(),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.all(10),
               ),
             ],
-          ),
-        ),
-      ),
+          )),
     );
   }
 }
