@@ -13,6 +13,7 @@
         android:name="io.flutter.app.FlutterApplication"
         android:label="Countryman"
         android:icon="@mipmap/ic_launcher">
+        <meta-data android:name="com.mapbox.token" android:value="pk.eyJ1IjoiYXBwbGljYXRpb24tY291bnRyeW1hbiIsImEiOiJjanpjamgwMnYwNjgyM21wN3BhbG5kdG16In0.Cht2ln2Zj_EWlX8hyPY0Zg" />
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

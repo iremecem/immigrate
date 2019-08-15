@@ -7,7 +7,6 @@ import 'package:immigrate/Pages/PageCollector.dart';
 import 'package:immigrate/Pages/SetupPage.dart';
 import 'package:location/location.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:simple_design/simple_design.dart';
 
 final ThemeData theme = ThemeData(
   splashColor: Colors.greenAccent.withOpacity(0.15),

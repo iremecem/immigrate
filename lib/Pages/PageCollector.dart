@@ -35,6 +35,7 @@ class _PageCollectorState extends State<PageCollector> {
               )
             ],
             bottom: TabBar(
+              isScrollable: false,
               indicatorColor: Colors.lightGreen,
               indicatorWeight: 3,
               tabs: <Widget>[
@@ -80,6 +81,7 @@ class _PageCollectorState extends State<PageCollector> {
           preferredSize: Size.fromHeight(130),
         ),
         body: TabBarView(
+          physics: NeverScrollableScrollPhysics(),
           children: <Widget>[
             WallPage(),
             MapPage(),
