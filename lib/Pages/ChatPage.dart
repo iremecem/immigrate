@@ -18,6 +18,7 @@ class _ChatPageState extends State<ChatPage> {
       body: StreamBuilder(
         stream: FirebaseDatabase.instance
             .reference()
+            .child("users")
             .child(user.id)
             .child("rooms")
             .onValue,
@@ -25,30 +26,9 @@ class _ChatPageState extends State<ChatPage> {
           if (snapshot.hasData && !snapshot.hasError) {
             Map data = snapshot.data.snapshot.value;
             if (data != null) {
-              return ListView.builder(
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    leading: CircleAvatar(
-                      backgroundImage: data[index]["profilePic"],
-                    ),
-                    onTap: () async {
-                      String token = await _controller.retrieveChatToken(user1Uid: user.id, user2Uid: data[index]);
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => ChatScreen(
-                            roomKey: token,
-                            recieverId: data[index],
-                            recieverName: data[index]["name"],
-                            recieverProfilePic: data[index]["profilePic"],
-                          ),
-                        ),
-                      );
-                    },
-                    title: Text(
-                        "${data[index]["name1"] == user.name ? data[index]["name2"] : data[index]["name1"]}"),
-                  );
-                },
+              return StreamBuilder(
+                stream: FirebaseDatabase.instance.reference().child("chatRooms").onValue,
+                
               );
             } else {
               return Center(

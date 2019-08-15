@@ -229,7 +229,7 @@ class FirebaseController {
 
   Future<bool> checkUserHasConnectionWith(
       {String userUid, String otherUid}) async {
-    return await _userRef.child("rooms").once().then((onValue) async {
+    return await _userRef.child(userUid).child("rooms").once().then((onValue) async {
       if (onValue != null) {
         Map data = onValue.value;
         bool contains = false;
@@ -252,7 +252,7 @@ class FirebaseController {
   }
 
   Future<String> retrieveChatToken({String user1Uid, String user2Uid}) async {
-    return await _userRef.child("rooms").once().then((onValue) async {
+    return await _userRef.child(user1Uid).child("rooms").once().then((onValue) async {
       if (onValue.value != null) {
         Map data = onValue.value;
         String roomToken = "";
