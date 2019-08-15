@@ -26,8 +26,7 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       backgroundColor: Colors.grey[50],
       resizeToAvoidBottomInset: true,
-      body: Padding(
-        padding: EdgeInsets.all(12),
+      body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
             Container(
