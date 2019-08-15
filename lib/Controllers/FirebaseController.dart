@@ -183,6 +183,7 @@ class FirebaseController {
     prefs.setString("id", userId);
     prefs.setString("name", name);
     prefs.setString("to", to);
+    prefs.setString("from", from);
     user.id = userId;
     user.name = name;
     user.to = to;
@@ -193,7 +194,23 @@ class FirebaseController {
     await _userRef.child(userId).child("lon").set(long);
   }
 
+  Future<String> _createToken() async {
+    String token = randomAlphaNumeric(20);
+    return await _chatRef.once().then((onValue) {
+      Map<dynamic, dynamic> values = onValue.value;
+      if (values != null && values.keys.contains(token)) {
+        do {
+          token = randomAlphaNumeric(20);
+        } while (values.keys.contains(token));
+      }
+      return token;
+    });
+  }
+
   Future createChatSpace({String senderName, String senderUid, String recieverName, String recieverUid, }) async {
-    
+    String roomId = await _createToken();
+    await _chatRef.child(roomId).set({"user1" : senderUid, "user2" : recieverUid, "name1" : senderName, "name2" : recieverName});
+    await _userRef.child(senderUid).child("rooms").push().set(roomId);
+    await _userRef.child(recieverUid).child("rooms").push().set(roomId);
   }
 }

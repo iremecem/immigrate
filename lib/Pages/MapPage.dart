@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:immigrate/Controllers/FirebaseController.dart';
 import 'package:immigrate/Controllers/Globals.dart';
+import 'package:immigrate/Pages/ChatScreen.dart';
 import 'package:latlong/latlong.dart';
 
 class MapPage extends StatefulWidget {
@@ -11,6 +12,7 @@ class MapPage extends StatefulWidget {
 }
 
 class _MapPageState extends State<MapPage> {
+  FirebaseController _controller = new FirebaseController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,14 +23,37 @@ class _MapPageState extends State<MapPage> {
           List<Marker> markers = [];
           if (data != null) {
             data.forEach((k, v) {
-              if (k != user.id) {
+              if (k != user.id &&
+                  (v["lat"] - user.lat < 3 || v["lat"] - user.lat > 3) &&
+                  (v["lon"] - user.lon < 3 || v["lon"] - user.lon > 3) &&
+                  user.from == v["from"] &&
+                  user.to == v["to"]) {
                 markers.add(
                   new Marker(
-                    builder: (_) => CircleAvatar(
-                      backgroundImage: NetworkImage(v["profilePic"]),
+                    builder: (_) => InkWell(
+                      child: CircleAvatar(
+                        backgroundImage: NetworkImage(v["profilePic"]),
+                      ),
+                      onTap: () async {
+                        await _controller
+                            .createChatSpace(
+                          senderName: user.name,
+                          senderUid: user.id,
+                          recieverName: v["name"],
+                          recieverUid: k,
+                        )
+                            .then((onValue) {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => ChatScreen(),
+                            ),
+                          );
+                        });
+                      },
                     ),
-                    height: 100,
-                    width: 100,
+                    height: 50,
+                    width: 50,
                     point: LatLng(
                       v["lat"],
                       v["lon"],
@@ -44,7 +69,6 @@ class _MapPageState extends State<MapPage> {
                 center: LatLng(user.lat, user.lon),
                 zoom: 12,
                 //interactive: false,
-
                 minZoom: 12,
                 maxZoom: 15,
               ),

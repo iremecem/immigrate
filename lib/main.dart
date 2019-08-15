@@ -118,10 +118,12 @@ void main() async {
   String userId = _prefs.getString("id");
   String userName = _prefs.getString("name");
   String to = _prefs.getString("to");
+  String from = _prefs.getString("from");
   String profilePic = _prefs.getString("profilePic");
   user.id = userId;
   user.name = userName;
   user.to = to;
+  user.from = from;
   user.profilePic = profilePic;
 
   var location = new Location();
