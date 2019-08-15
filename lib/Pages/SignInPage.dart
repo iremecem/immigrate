@@ -39,51 +39,6 @@ class _SignInPageState extends State<SignInPage> {
               height: 30,
             ),
             SDCard(
-              actions: <Widget>[
-                FlatButton(
-                  onPressed: () => Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(
-                      builder: (ctx) => LoginPage(),
-                    ),
-                  ),
-                  child: Text(
-                    "Already signed in?",
-                    style: TextStyle(
-                      color: Colors.grey,
-                    ),
-                  ),
-                ),
-                FlatButton(
-                  onPressed: () async {
-                    _fbKey.currentState.save();
-                    if (_fbKey.currentState.validate() &&
-                        _passwordController.text == _secondaryController.text) {
-                      print(_fbKey.currentState.value);
-                      await _controller.authUser(
-                        ctx: context,
-                        email: _mailController.text.trim(),
-                        password: _passwordController.text.trim(),
-                      );
-                    } else {
-                      Flushbar(
-                        backgroundColor: Colors.red,
-                        flushbarStyle: FlushbarStyle.FLOATING,
-                        flushbarPosition: FlushbarPosition.BOTTOM,
-                        message:
-                            "Passwords are not same or empty, please re-enter!",
-                        isDismissible: true,
-                        duration: Duration(seconds: 5),
-                      )..show(context);
-                    }
-                  },
-                  child: Text(
-                    "Sign Up",
-                    style: TextStyle(
-                      color: Colors.lightGreen,
-                    ),
-                  ),
-                ),
-              ],
               title: "Sign Up to Countryman App",
               content: Center(
                 child: FormBuilder(
@@ -147,6 +102,57 @@ class _SignInPageState extends State<SignInPage> {
                       ),
                     ],
                   ),
+                ),
+              ),
+            ),
+            Container(
+              height: 25,
+            ),
+            FlatButton(
+              onPressed: () async {
+                _fbKey.currentState.save();
+                if (_fbKey.currentState.validate() &&
+                    _passwordController.text == _secondaryController.text) {
+                  print(_fbKey.currentState.value);
+                  await _controller.authUser(
+                    ctx: context,
+                    email: _mailController.text.trim(),
+                    password: _passwordController.text.trim(),
+                  );
+                } else {
+                  Flushbar(
+                    backgroundColor: Colors.red,
+                    flushbarStyle: FlushbarStyle.FLOATING,
+                    flushbarPosition: FlushbarPosition.BOTTOM,
+                    message:
+                        "Passwords are not same or empty, please re-enter!",
+                    isDismissible: true,
+                    duration: Duration(seconds: 5),
+                  )..show(context);
+                }
+              },
+              child: Text(
+                "Sign Up",
+                style: TextStyle(
+                  color: Colors.lightGreen,
+                  fontSize: 20
+                ),
+              ),
+            ),
+            Container(
+              height: 25,
+            ),
+            Text("Already signed in?"),
+            FlatButton(
+              onPressed: () => Navigator.of(context).pushReplacement(
+                MaterialPageRoute(
+                  builder: (ctx) => LoginPage(),
+                ),
+              ),
+              child: Text(
+                "Sign In",
+                style: TextStyle(
+                  color: Colors.lightGreen,
                 ),
               ),
             ),

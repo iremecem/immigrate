@@ -9,7 +9,109 @@ import 'package:location/location.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:simple_design/simple_design.dart';
 
-final ThemeData theme = SimpleDesign.lightTheme;
+final ThemeData theme = ThemeData(
+  splashColor: Colors.greenAccent.withOpacity(0.15),
+  textTheme: TextTheme(
+    title: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
+    body1: TextStyle(fontSize: 16.0),
+    body2: TextStyle(fontSize: 16.0, color: Colors.grey[800]),
+    button: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold),
+    caption: TextStyle(
+      fontSize: 16.0,
+      color: Colors.black.withOpacity(0.5),
+    ),
+  ),
+  accentColor: Colors.lightGreen,
+  accentColorBrightness: Brightness.dark,
+  backgroundColor: Colors.grey[200],
+  bottomAppBarColor: Colors.white,
+  brightness: Brightness.light,
+  buttonColor: Colors.lightGreen,
+  buttonTheme: ButtonThemeData(
+    textTheme: ButtonTextTheme.primary,
+    buttonColor: Colors.lightGreen,
+    alignedDropdown: true,
+    disabledColor: Colors.grey[400],
+    height: 44.0,
+    highlightColor: Colors.transparent,
+    layoutBehavior: ButtonBarLayoutBehavior.constrained,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(4.0),
+      side: BorderSide(style: BorderStyle.none),
+    ),
+  ),
+  highlightColor: Colors.transparent,
+  disabledColor: Colors.grey[400],
+  canvasColor: Colors.white,
+  cardColor: Colors.white,
+  cursorColor: Colors.lightGreen,
+  dialogBackgroundColor: Colors.white,
+  dialogTheme: DialogTheme(
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(4.0),
+      side: BorderSide(style: BorderStyle.none),
+    ),
+  ),
+  dividerColor: Colors.transparent,
+  errorColor: Colors.red[400],
+  inputDecorationTheme: InputDecorationTheme(
+    border: UnderlineInputBorder(),
+    contentPadding: EdgeInsets.all(8.0),
+    hasFloatingPlaceholder: false,
+    errorMaxLines: 1,
+    filled: false,
+  ),
+  indicatorColor: Colors.lightGreen,
+  primaryColor: Colors.lightGreen,
+  primaryColorBrightness: Brightness.light,
+  primaryColorDark: Colors.lightGreen[400],
+  primaryColorLight: Colors.lightGreen[100],
+  scaffoldBackgroundColor: Colors.white,
+  selectedRowColor: Colors.grey[200],
+  sliderTheme: SliderThemeData(
+    activeTrackColor: Colors.lightGreen,
+    inactiveTrackColor: Colors.grey[400],
+    disabledActiveTrackColor: Colors.grey[400],
+    disabledInactiveTrackColor: Colors.grey[300],
+    activeTickMarkColor: Colors.lightGreen,
+    inactiveTickMarkColor: Colors.grey,
+    disabledActiveTickMarkColor: Colors.grey[400],
+    disabledInactiveTickMarkColor: Colors.grey[400],
+    thumbColor: Colors.lightGreen,
+    disabledThumbColor: Colors.grey[400],
+    overlayColor: Colors.lightGreen.withOpacity(0.3),
+    valueIndicatorColor: Colors.lightGreen,
+    thumbShape: RoundSliderThumbShape(),
+    valueIndicatorShape: PaddleSliderValueIndicatorShape(),
+    showValueIndicator: ShowValueIndicator.onlyForDiscrete,
+    valueIndicatorTextStyle:
+        TextStyle(fontWeight: FontWeight.bold, fontSize: 14.0),
+  ),
+  fontFamily: "HK Grotesk",
+  splashFactory: InkRipple.splashFactory,
+  tabBarTheme: TabBarTheme(
+      indicator: BoxDecoration(
+        border: Border(
+          bottom: BorderSide(
+              color: Colors.lightGreen, width: 2.0, style: BorderStyle.solid),
+        ),
+        gradient: LinearGradient(
+          begin: Alignment.bottomCenter,
+          end: Alignment(0.0, 0.8),
+          colors: [
+            Colors.lightGreen.withOpacity(0.5),
+            Colors.lightGreen.withOpacity(0.0)
+          ],
+        ),
+      ),
+      indicatorSize: TabBarIndicatorSize.label,
+      labelColor: Colors.lightGreen,
+      unselectedLabelColor: Colors.grey),
+  textSelectionColor: Colors.lightGreen.withOpacity(0.5),
+  textSelectionHandleColor: Colors.lightGreen,
+  toggleableActiveColor: Colors.lightGreen,
+  unselectedWidgetColor: Colors.grey[600],
+);
 
 void main() async {
   SharedPreferences _prefs = await SharedPreferences.getInstance();
