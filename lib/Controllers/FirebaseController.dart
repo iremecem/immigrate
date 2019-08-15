@@ -223,13 +223,25 @@ class FirebaseController {
       "pic1": user1ProfPic,
       "pic2": user2ProfPic,
     });
-    await _userRef.child(senderUid).child("rooms").push().set(roomToken);
-    await _userRef.child(recieverUid).child("rooms").push().set(roomToken);
+    //await _userRef.child(senderUid).child("rooms").push().set(roomToken);
+    await _userRef.child(senderUid).child("rooms").child(roomToken).set({
+      "user1": senderUid,
+      "user2": recieverUid,
+    });
+    //await _userRef.child(recieverUid).child("rooms").push().set(roomToken);
+    await _userRef.child(recieverUid).child("rooms").child(roomToken).set({
+      "user1": senderUid,
+      "user2": recieverUid,
+    });
   }
 
   Future<bool> checkUserHasConnectionWith(
       {String userUid, String otherUid}) async {
-    return await _userRef.child("rooms").once().then((onValue) async {
+    return await _userRef
+        .child(userUid)
+        .child("rooms")
+        .once()
+        .then((onValue) async {
       if (onValue != null) {
         Map data = onValue.value;
         bool contains = false;
@@ -281,5 +293,10 @@ class FirebaseController {
 
   Future deleteMessage({String messageKey, String token}) async {
     await _chatRef.child(token).child("messages").child(messageKey).remove();
+  }
+
+  String getUserPic(String userId) {
+    print(_userRef.child(userId).child("profilePic").toString());
+    return _userRef.child(userId).child("profilePic").toString();
   }
 }

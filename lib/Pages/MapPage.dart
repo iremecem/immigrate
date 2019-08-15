@@ -25,8 +25,8 @@ class _MapPageState extends State<MapPage> {
             if (data != null) {
               data.forEach((k, v) {
                 if (k != user.id &&
-                    (v["lat"] - user.lat < 3 || v["lat"] - user.lat > 3) &&
-                    (v["lon"] - user.lon < 3 || v["lon"] - user.lon > 3) &&
+                    (v["lat"] - user.lat < 5 || v["lat"] - user.lat > 5) &&
+                    (v["lon"] - user.lon < 5 || v["lon"] - user.lon > 5) &&
                     user.from == v["from"] &&
                     user.to == v["to"]) {
                   markers.add(
