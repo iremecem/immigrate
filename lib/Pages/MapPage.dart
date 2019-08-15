@@ -19,74 +19,100 @@ class _MapPageState extends State<MapPage> {
       body: StreamBuilder(
         stream: FirebaseDatabase.instance.reference().child("users").onValue,
         builder: (context, snapshot) {
-          Map data = snapshot.data.snapshot.value;
-          List<Marker> markers = [];
-          if (data != null) {
-            data.forEach((k, v) {
-              if (k != user.id &&
-                  (v["lat"] - user.lat < 3 || v["lat"] - user.lat > 3) &&
-                  (v["lon"] - user.lon < 3 || v["lon"] - user.lon > 3) &&
-                  user.from == v["from"] &&
-                  user.to == v["to"]) {
-                markers.add(
-                  new Marker(
-                    builder: (_) => InkWell(
-                      child: CircleAvatar(
-                        backgroundImage: NetworkImage(v["profilePic"]),
-                      ),
-                      onTap: () async {
-                        await _controller
-                            .createChatSpace(
-                          senderName: user.name,
-                          senderUid: user.id,
-                          recieverName: v["name"],
-                          recieverUid: k,
-                        )
-                            .then((onValue) {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) => ChatScreen(),
-                            ),
-                          );
-                        });
-                      },
-                    ),
-                    height: 50,
-                    width: 50,
-                    point: LatLng(
-                      v["lat"],
-                      v["lon"],
-                    ),
-                  ),
-                );
-              }
-            });
-          }
           if (snapshot.hasData && !snapshot.hasError) {
-            return FlutterMap(
-              options: MapOptions(
-                center: LatLng(user.lat, user.lon),
-                zoom: 12,
-                //interactive: false,
-                minZoom: 12,
-                maxZoom: 15,
-              ),
-              layers: [
-                TileLayerOptions(
-                  urlTemplate: "https://api.tiles.mapbox.com/v4/"
-                      "{id}/{z}/{x}/{y}@2x.png?access_token={accessToken}",
-                  additionalOptions: {
-                    "accessToken":
-                        "pk.eyJ1IjoiYXBwbGljYXRpb24tY291bnRyeW1hbiIsImEiOiJjanpjamgwMnYwNjgyM21wN3BhbG5kdG16In0.Cht2ln2Zj_EWlX8hyPY0Zg",
-                    "id": "mapbox.streets-basic",
-                  },
+            Map data = snapshot.data.snapshot.value;
+            List<Marker> markers = [];
+            if (data != null) {
+              data.forEach((k, v) {
+                if (k != user.id &&
+                    (v["lat"] - user.lat < 3 || v["lat"] - user.lat > 3) &&
+                    (v["lon"] - user.lon < 3 || v["lon"] - user.lon > 3) &&
+                    user.from == v["from"] &&
+                    user.to == v["to"]) {
+                  markers.add(
+                    new Marker(
+                      builder: (_) => InkWell(
+                        child: CircleAvatar(
+                          backgroundImage: NetworkImage(v["profilePic"]),
+                        ),
+                        onTap: () async {
+                          bool hasConnection =
+                              await _controller.checkUserHasConnectionWith(
+                            userUid: user.id,
+                            otherUid: k,
+                          );
+                          if (hasConnection == true) {
+                            String token = await _controller.retrieveChatToken(
+                              user1Uid: user.id,
+                              user2Uid: k,
+                            );
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => ChatScreen(
+                                  roomKey: token,
+                                  recieverId: k,
+                                  recieverName: v["name"],
+                                  recieverProfilePic: v["profilePic"],
+                                ),
+                              ),
+                            );
+                          } else {
+                            String token = await _controller.createToken();
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => ChatScreen(
+                                  roomKey: token,
+                                  recieverId: k,
+                                  recieverName: v["name"],
+                                  recieverProfilePic: v["profilePic"],
+                                ),
+                              ),
+                            );
+                          }
+                        },
+                      ),
+                      height: 50,
+                      width: 50,
+                      point: LatLng(
+                        v["lat"],
+                        v["lon"],
+                      ),
+                    ),
+                  );
+                }
+              });
+            }
+            if (snapshot.hasData && !snapshot.hasError) {
+              return FlutterMap(
+                options: MapOptions(
+                  center: LatLng(user.lat, user.lon),
+                  zoom: 12,
+                  //interactive: false,
+                  minZoom: 12,
+                  maxZoom: 15,
                 ),
-                MarkerLayerOptions(markers: markers),
-              ],
-            );
+                layers: [
+                  TileLayerOptions(
+                    urlTemplate: "https://api.tiles.mapbox.com/v4/"
+                        "{id}/{z}/{x}/{y}@2x.png?access_token={accessToken}",
+                    additionalOptions: {
+                      "accessToken":
+                          "pk.eyJ1IjoiYXBwbGljYXRpb24tY291bnRyeW1hbiIsImEiOiJjanpjamgwMnYwNjgyM21wN3BhbG5kdG16In0.Cht2ln2Zj_EWlX8hyPY0Zg",
+                      "id": "mapbox.streets-basic",
+                    },
+                  ),
+                  MarkerLayerOptions(markers: markers),
+                ],
+              );
+            } else {
+              return Container();
+            }
           } else {
-            return Container();
+            return Center(
+              child: CircularProgressIndicator(),
+            );
           }
         },
       ),

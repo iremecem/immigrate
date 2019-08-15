@@ -15,47 +15,57 @@ class _ChatPageState extends State<ChatPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: FirebaseAnimatedList(
-        defaultChild: Center(
-          child: Padding(
-            padding: EdgeInsets.all(50),
-            child: Text(
-                "Look to the map for people nearby to start messaging...."),
-          ),
-        ),
-        itemBuilder: (context, snapshot, anim, index) {
-          if (snapshot.value != null) {
-            Map keys = snapshot.value;
-            keys.forEach((k, v) {
-              return ListTile(
-                contentPadding: EdgeInsets.all(8),
-                enabled: true,
-                leading: CircleAvatar(
-                  backgroundColor: Colors.lightGreen,
-                ),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => ChatScreen(
-                        recieverId: v["recieverId"],
-                        recieverName: v["recieverName"],
-                      ),
+      body: StreamBuilder(
+        stream: FirebaseDatabase.instance
+            .reference()
+            .child(user.id)
+            .child("rooms")
+            .onValue,
+        builder: (context, snapshot) {
+          if (snapshot.hasData && !snapshot.hasError) {
+            Map data = snapshot.data.snapshot.value;
+            if (data != null) {
+              return ListView.builder(
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    leading: CircleAvatar(
+                      backgroundImage: data[index]["profilePic"],
                     ),
+                    onTap: () async {
+                      String token = await _controller.retrieveChatToken(user1Uid: user.id, user2Uid: data[index]);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => ChatScreen(
+                            roomKey: token,
+                            recieverId: data[index],
+                            recieverName: data[index]["name"],
+                            recieverProfilePic: data[index]["profilePic"],
+                          ),
+                        ),
+                      );
+                    },
+                    title: Text(
+                        "${data[index]["name1"] == user.name ? data[index]["name2"] : data[index]["name1"]}"),
                   );
                 },
-                title: v["reciever"],
-                subtitle: Text("Tap to coonnect to the private chat..."),
               );
-            });
+            } else {
+              return Center(
+                child: Padding(
+                  padding: EdgeInsets.all(32),
+                  child: Text(
+                    "Look for countrymans nearby in discover to start a chat section...",
+                  ),
+                ),
+              );
+            }
+          } else {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
           }
-          return Container();
         },
-        query: FirebaseDatabase.instance
-            .reference()
-            .child("users")
-            .child(user.id)
-            .child("messageKeys"),
       ),
     );
   }

@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:immigrate/Controllers/Globals.dart';
-import 'package:immigrate/Models/User.dart';
 import 'package:immigrate/Pages/LoginPage.dart';
 import 'package:immigrate/Pages/PageCollector.dart';
 import 'package:immigrate/Pages/SetupPage.dart';
@@ -194,7 +193,7 @@ class FirebaseController {
     await _userRef.child(userId).child("lon").set(long);
   }
 
-  Future<String> _createToken() async {
+  Future<String> createToken() async {
     String token = randomAlphaNumeric(20);
     return await _chatRef.once().then((onValue) {
       Map<dynamic, dynamic> values = onValue.value;
@@ -207,10 +206,80 @@ class FirebaseController {
     });
   }
 
-  Future createChatSpace({String senderName, String senderUid, String recieverName, String recieverUid, }) async {
-    String roomId = await _createToken();
-    await _chatRef.child(roomId).set({"user1" : senderUid, "user2" : recieverUid, "name1" : senderName, "name2" : recieverName});
-    await _userRef.child(senderUid).child("rooms").push().set(roomId);
-    await _userRef.child(recieverUid).child("rooms").push().set(roomId);
+  Future createChatSpace({
+    String senderName,
+    String senderUid,
+    String recieverName,
+    String recieverUid,
+    String user1ProfPic,
+    String user2ProfPic,
+    String roomToken,
+  }) async {
+    await _chatRef.child(roomToken).set({
+      "user1": senderUid,
+      "user2": recieverUid,
+      "name1": senderName,
+      "name2": recieverName,
+      "pic1": user1ProfPic,
+      "pic2": user2ProfPic,
+    });
+    await _userRef.child(senderUid).child("rooms").push().set(roomToken);
+    await _userRef.child(recieverUid).child("rooms").push().set(roomToken);
+  }
+
+  Future<bool> checkUserHasConnectionWith(
+      {String userUid, String otherUid}) async {
+    return await _userRef.child("rooms").once().then((onValue) async {
+      if (onValue != null) {
+        Map data = onValue.value;
+        bool contains = false;
+        if (data != null) {
+          data.forEach((k, v) {
+            if (v["user1"] == userUid || v["user2"] == userUid) {
+              contains = true;
+              print("Contains 1: " + contains.toString());
+            }
+          });
+          print("Contains 2: " + contains.toString());
+          return contains;
+        } else {
+          return contains;
+        }
+      } else {
+        return false;
+      }
+    });
+  }
+
+  Future<String> retrieveChatToken({String user1Uid, String user2Uid}) async {
+    return await _userRef.child("rooms").once().then((onValue) async {
+      if (onValue.value != null) {
+        Map data = onValue.value;
+        String roomToken = "";
+        data.forEach((k, v) {
+          if ((v["user1"] == user1Uid && v["user2"] == user2Uid) ||
+              (v["user1"] == user2Uid && v["user2"] == user1Uid)) {
+            roomToken = k;
+          }
+        });
+        return roomToken;
+      } else {
+        return "";
+      }
+    });
+  }
+
+  Future sendMessage({String text, String token, String sender}) async {
+    String path = randomAlphaNumeric(30);
+    _chatRef.child(token).child("messages").child(path).set({
+      "message": text,
+      "date": DateTime.now().toIso8601String(),
+      "sender": sender,
+      "messageKey": path,
+    });
+  }
+
+  Future deleteMessage({String messageKey, String token}) async {
+    await _chatRef.child(token).child("messages").child(messageKey).remove();
   }
 }
