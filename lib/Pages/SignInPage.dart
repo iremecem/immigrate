@@ -21,6 +21,7 @@ class _SignInPageState extends State<SignInPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomPadding: true,
       resizeToAvoidBottomInset: true,
       body: Padding(
         padding: EdgeInsets.all(12),

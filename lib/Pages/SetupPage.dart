@@ -38,6 +38,7 @@ class _SetupPageState extends State<SetupPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomPadding: true,
       body: Padding(
         padding: EdgeInsets.all(12),
         child: Column(
