@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:immigrate/Pages/ChatPage.dart';
 import 'package:immigrate/Pages/MapPage.dart';
+import 'package:immigrate/Pages/ProfilePage.dart';
 import 'package:immigrate/Pages/WallPage.dart';
 import 'package:simple_design/simple_design.dart';
 
@@ -31,7 +32,9 @@ class _PageCollectorState extends State<PageCollector> {
                   FontAwesomeIcons.user,
                   color: Colors.lightGreen,
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (ctx) => ProfilePage()));
+                },
               )
             ],
             bottom: TabBar(

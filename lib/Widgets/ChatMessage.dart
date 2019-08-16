@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:bubble/bubble.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +13,7 @@ class ChatMessage extends StatelessWidget {
   final DataSnapshot messageSnapshot;
   final Animation animation;
   final String messageKey;
+
   ChatMessage({
     this.messageSnapshot,
     this.messageKey,
@@ -49,18 +51,27 @@ class ChatMessage extends StatelessWidget {
                     )
                   : Container(),
             ),
-            Container(
-              height: 15,
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 5),
-              child: new Text(
-                messageSnapshot.value['message'],
-                style: new TextStyle(
-                  fontSize: 14.0,
-                  color: Colors.black,
-                ),
+            // Padding(
+            //   padding: EdgeInsets.symmetric(horizontal: 5),
+            //   child: new Text(
+            //     messageSnapshot.value['message'],
+            //     style: new TextStyle(
+            //       fontSize: 14.0,
+            //       color: Colors.black,
+            //     ),
+            //   ),
+            // ),
+            Bubble(
+              child: Text(
+                messageSnapshot.value["message"],
+                textAlign: TextAlign.right,
+                style: TextStyle(fontSize: 13),
               ),
+              nip: BubbleNip.rightTop,
+              alignment: Alignment.topRight,
+              color: Colors.lightGreen.shade100,
+              radius: Radius.circular(10),
+              margin: BubbleEdges.only(top: 5, left: 100),
             ),
             Container(
               height: 5,
@@ -73,8 +84,8 @@ class ChatMessage extends StatelessWidget {
                   ),
                 ),
                 style: new TextStyle(
-                  fontSize: 9,
-                  color: Colors.black,
+                  fontSize: 8,
+                  color: Colors.grey.shade500,
                 ),
               ),
               margin: EdgeInsets.symmetric(horizontal: 5),
@@ -82,18 +93,18 @@ class ChatMessage extends StatelessWidget {
           ],
         ),
       ),
-      new Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: <Widget>[
-          new Container(
-            margin: const EdgeInsets.only(left: 8.0),
-            child: new CircleAvatar(
-              backgroundImage: NetworkImage(user.profilePic),
-              backgroundColor: Colors.teal.shade300,
-            ),
-          ),
-        ],
-      ),
+      // new Column(
+      //   crossAxisAlignment: CrossAxisAlignment.end,
+      //   children: <Widget>[
+      //     new Container(
+      //       margin: const EdgeInsets.only(left: 8.0),
+      //       child: new CircleAvatar(
+      //         backgroundImage: NetworkImage(user.profilePic),
+      //         backgroundColor: Colors.teal.shade300,
+      //       ),
+      //     ),
+      //   ],
+      // ),
     ];
   }
 
@@ -102,18 +113,18 @@ class ChatMessage extends StatelessWidget {
       new Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          new Container(
-            margin: const EdgeInsets.only(right: 8.0),
-            child: new CircleAvatar(
-              child: Text(
-                messageSnapshot.value["sender"][0],
-                style: TextStyle(
-                  color: Colors.white,
-                ),
-              ),
-              backgroundColor: Colors.teal.shade300,
-            ),
-          ),
+          // new Container(
+          //   margin: const EdgeInsets.only(right: 8.0),
+          //   child: new CircleAvatar(
+          //     child: Text(
+          //       messageSnapshot.value["sender"][0],
+          //       style: TextStyle(
+          //         color: Colors.white,
+          //       ),
+          //     ),
+          //     backgroundColor: Colors.teal.shade300,
+          //   ),
+          // ),
         ],
       ),
       new Expanded(
@@ -145,18 +156,30 @@ class ChatMessage extends StatelessWidget {
                     )
                   : Container(),
             ),
-            Container(
-              height: 15,
-            ),
-            Container(
-              //margin: EdgeInsets.symmetric(horizontal: 5),
-              child: new Text(
-                messageSnapshot.value['message'],
-                style: new TextStyle(
-                  fontSize: 14.0,
-                  color: Colors.black,
-                ),
+            // Container(
+            //   height: 15,
+            // ),
+            // Container(
+            //   //margin: EdgeInsets.symmetric(horizontal: 5),
+            //   child: new Text(
+            //     messageSnapshot.value['message'],
+            //     style: new TextStyle(
+            //       fontSize: 14.0,
+            //       color: Colors.black,
+            //     ),
+            //   ),
+            // ),
+            Bubble(
+              child: Text(
+                messageSnapshot.value["message"],
+                textAlign: TextAlign.left,
+                style: TextStyle(fontSize: 13),
               ),
+              nip: BubbleNip.leftTop,
+              alignment: Alignment.topLeft,
+              color: Colors.brown.shade50,
+              radius: Radius.circular(10),
+              margin: BubbleEdges.only(top: 10, right: 100),
             ),
             Container(
               height: 5,
@@ -169,8 +192,8 @@ class ChatMessage extends StatelessWidget {
                   ),
                 ),
                 style: new TextStyle(
-                  fontSize: 9,
-                  color: Colors.black,
+                  fontSize: 8,
+                  color: Colors.grey.shade500,
                 ),
               ),
               margin: EdgeInsets.symmetric(horizontal: 5),
@@ -184,7 +207,7 @@ class ChatMessage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
+      onTap: () {
         //TODO: EDIT
       },
       child: new SizeTransition(
@@ -206,11 +229,10 @@ class ChatMessage extends StatelessWidget {
             builder: (context) => AlertDialog(
               actions: <Widget>[
                 FlatButton(
-                  child: Text("Delete"),
-                  onPressed: (){
-                    //TODO: DELETE MESSAGE
-                  }
-                ),
+                    child: Text("Delete"),
+                    onPressed: () {
+                      //TODO: DELETE MESSAGE
+                    }),
                 FlatButton(
                   child: Text("Cancel"),
                   onPressed: () => Navigator.pop(context),
@@ -226,14 +248,13 @@ class ChatMessage extends StatelessWidget {
             builder: (context) => CupertinoAlertDialog(
               actions: <Widget>[
                 CupertinoDialogAction(
-                  child: Text(
-                    "Delete",
-                    style: TextStyle(color: Colors.red),
-                  ),
-                  onPressed: (){
-                    //TODO: DELETE MESSAGE
-                  }
-                ),
+                    child: Text(
+                      "Delete",
+                      style: TextStyle(color: Colors.red),
+                    ),
+                    onPressed: () {
+                      //TODO: DELETE MESSAGE
+                    }),
                 CupertinoDialogAction(
                   child: Text("Cancel"),
                   isDefaultAction: true,

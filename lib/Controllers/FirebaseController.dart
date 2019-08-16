@@ -253,7 +253,7 @@ class FirebaseController {
         bool contains = false;
         if (data != null) {
           data.forEach((k, v) {
-            if (v["user1"] == userUid || v["user2"] == userUid) {
+            if (v["user1"] == otherUid || v["user2"] == otherUid) {
               contains = true;
               print("Contains 1: " + contains.toString());
             }
