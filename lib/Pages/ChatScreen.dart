@@ -117,7 +117,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   child: Container(
                     child: new TextField(
                       decoration: new InputDecoration.collapsed(
-                        hintText: "    Write here...",
+                        hintText: "Write here...",
                       ),
                       controller: _chatController,
                       maxLines: null,
