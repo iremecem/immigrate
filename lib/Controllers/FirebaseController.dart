@@ -226,10 +226,18 @@ class FirebaseController {
     await _userRef.child(senderUid).child("rooms").child(roomToken).set({
       "user1": senderUid,
       "user2": recieverUid,
+      "name1": senderName,
+      "name2": recieverName,
+      "pic1": user1ProfPic,
+      "pic2": user2ProfPic,
     });
     await _userRef.child(recieverUid).child("rooms").child(roomToken).set({
       "user1": senderUid,
       "user2": recieverUid,
+      "name1": senderName,
+      "name2": recieverName,
+      "pic1": user1ProfPic,
+      "pic2": user2ProfPic,
     });
   }
 
