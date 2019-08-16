@@ -53,7 +53,7 @@ class _MapPageState extends State<MapPage> {
                     data.forEach((k, v) {
                       if (k != user.id &&
                           v["lat"] != null &&
-                          v["lon"] &&
+                          v["lon"] != null &&
                           (v["lat"] - user.lat < 5 ||
                               v["lat"] - user.lat > 5) &&
                           (v["lon"] - user.lon < 5 ||
