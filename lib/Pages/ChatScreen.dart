@@ -289,6 +289,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     messageSnapshot: messageSnapshot,
                     messageKey: messageSnapshot.value["messageKey"],
                     animation: animation,
+                    roomKey: widget.roomKey,
                   );
                 },
               ),
