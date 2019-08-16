@@ -293,8 +293,10 @@ class FirebaseController {
     await _chatRef.child(token).child("messages").child(messageKey).remove();
   }
 
-  String getUserPic(String userId) {
-    print(_userRef.child(userId).child("profilePic").toString());
-    return _userRef.child(userId).child("profilePic").toString();
+  Future getUserPic(String userId, String picholder) async {
+    var url = await _userRef.child(userId).child("profilePic").once().then((onValue){
+      return onValue.value;
+    });
+    picholder = url;
   }
 }
