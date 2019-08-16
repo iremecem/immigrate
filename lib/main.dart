@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_offline/flutter_offline.dart';
 import 'package:immigrate/Controllers/FirebaseController.dart';
 import 'package:immigrate/Controllers/Globals.dart';
 import 'package:immigrate/Pages/LoginPage.dart';
+import 'package:immigrate/Pages/NoNetPage.dart';
 import 'package:immigrate/Pages/PageCollector.dart';
 import 'package:immigrate/Pages/SetupPage.dart';
 import 'package:location/location.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:splashscreen/splashscreen.dart';
 
 final ThemeData theme = ThemeData(
   splashColor: Colors.greenAccent.withOpacity(0.15),
@@ -160,11 +163,29 @@ void main() async {
 
   runApp(
     MaterialApp(
-      home: _selectScreen(
-        userId: user.id,
-        to: user.to,
+      home: SplashScreen(
+        seconds: 3,
+        image: Image(
+          image: AssetImage("assets/images/dummy-imm.png"),
+        ),
+        loaderColor: Colors.lightGreen,
+        photoSize: 100,
+        loadingText: Text("Wecome Back, Countryman!"),
+        navigateAfterSeconds: OfflineBuilder(
+          child: Container(),
+          connectivityBuilder: (context, connectivity, child) {
+            final bool connected = connectivity != ConnectivityResult.none;
+            if (connected) {
+              return _selectScreen(
+                userId: user.id,
+                to: user.to,
+              );
+            } else {
+              return NoNetPage();
+            }
+          },
+        ),
       ),
-      theme: theme,
     ),
   );
 
