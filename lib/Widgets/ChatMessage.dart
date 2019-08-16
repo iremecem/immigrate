@@ -13,11 +13,12 @@ class ChatMessage extends StatelessWidget {
   final DataSnapshot messageSnapshot;
   final Animation animation;
   final String messageKey;
-
+  final String roomKey;
   ChatMessage({
     this.messageSnapshot,
     this.messageKey,
     this.animation,
+    this.roomKey,
   });
 
   List<Widget> getSentMessageLayout() {
@@ -208,7 +209,7 @@ class ChatMessage extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        //TODO: EDIT
+        FocusScope.of(context).unfocus();
       },
       child: new SizeTransition(
         sizeFactor:
@@ -230,8 +231,11 @@ class ChatMessage extends StatelessWidget {
               actions: <Widget>[
                 FlatButton(
                     child: Text("Delete"),
-                    onPressed: () {
-                      //TODO: DELETE MESSAGE
+                    onPressed: () async {
+                      await _controller.deleteMessage(
+                        messageKey: messageKey,
+                        token: roomKey,
+                      );
                     }),
                 FlatButton(
                   child: Text("Cancel"),
@@ -252,8 +256,11 @@ class ChatMessage extends StatelessWidget {
                       "Delete",
                       style: TextStyle(color: Colors.red),
                     ),
-                    onPressed: () {
-                      //TODO: DELETE MESSAGE
+                    onPressed: () async {
+                      await _controller.deleteMessage(
+                        messageKey: messageKey,
+                        token: roomKey,
+                      );
                     }),
                 CupertinoDialogAction(
                   child: Text("Cancel"),

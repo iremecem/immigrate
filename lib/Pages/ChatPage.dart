@@ -1,10 +1,8 @@
 import 'package:firebase_database/firebase_database.dart';
-import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:immigrate/Controllers/FirebaseController.dart';
 import 'package:immigrate/Controllers/Globals.dart';
 import 'package:immigrate/Pages/ChatScreen.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ChatPage extends StatefulWidget {
   @override
@@ -12,7 +10,6 @@ class ChatPage extends StatefulWidget {
 }
 
 class _ChatPageState extends State<ChatPage> {
-  FirebaseController _controller = new FirebaseController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,7 +24,7 @@ class _ChatPageState extends State<ChatPage> {
           if (snapshot.hasData && !snapshot.hasError) {
             Map data = snapshot.data.snapshot.value;
             if (data != null) {
-              List<ListTile> tiles = [];
+              List<Widget> tiles = [];
               print(data);
               data.forEach((k, v) {
                 tiles.add(new ListTile(
@@ -56,6 +53,9 @@ class _ChatPageState extends State<ChatPage> {
                         ),
                       ),
                     );
+                    tiles.add(new Divider(
+                      color: Colors.lightGreen,
+                    ));
                   },
                 ));
 

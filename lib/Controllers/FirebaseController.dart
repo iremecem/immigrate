@@ -270,7 +270,11 @@ class FirebaseController {
   }
 
   Future<String> retrieveChatToken({String user1Uid, String user2Uid}) async {
-    return await _userRef.child(user1Uid).child("rooms").once().then((onValue) async {
+    return await _userRef
+        .child(user1Uid)
+        .child("rooms")
+        .once()
+        .then((onValue) async {
       if (onValue.value != null) {
         Map data = onValue.value;
         String roomToken = "";
@@ -301,10 +305,59 @@ class FirebaseController {
     await _chatRef.child(token).child("messages").child(messageKey).remove();
   }
 
-  Future getUserPic(String userId, String picholder) async {
-    var url = await _userRef.child(userId).child("profilePic").once().then((onValue){
-      return onValue.value;
-    });
-    picholder = url;
+  Future sendPost({
+    String senderName,
+    String senderId,
+    String content,
+    File image,
+    String to,
+    String from,
+  }) async {
+    if (image != null) {
+      StorageReference reference = _storageRef.ref().child("postImages");
+      var dir = await getTemporaryDirectory();
+      var targetPath = dir.absolute.path + randomAlphaNumeric(20);
+      var result = await FlutterImageCompress.compressAndGetFile(
+        image.absolute.path,
+        targetPath,
+        quality: 50,
+      );
+      reference.putFile(result).onComplete.then((onValue) async {
+        await reference.getDownloadURL().then((onalue) async {
+          await _postsRef.child(to).child(randomAlphaNumeric(30)).set(
+            {
+              "senderId": senderId,
+              "senderName": senderName,
+              "content": content,
+              "imageUrl": onalue,
+              "date": DateTime.now().toIso8601String(),
+              "to": to,
+              "from": from,
+              "profilePicUrl": user.profilePic,
+            },
+          );
+          await _userRef.child("posts").push().set(onalue);
+        });
+      });
+    } else {
+      await _postsRef.child(to).child(randomAlphaNumeric(30)).set(
+        {
+          "senderId": senderId,
+          "senderName": senderName,
+          "content": content,
+          "date": DateTime.now().toIso8601String(),
+          "to": to,
+          "from": from,
+          "profilePicUrl": user.profilePic,
+        },
+      );
+    }
+  }
+
+  Future deletePost({String postId, String to}) async {
+    StorageReference storageReference =
+        FirebaseStorage.instance.ref().child("postImages");
+    await storageReference.child(postId).delete();
+    await _postsRef.child(to).child(postId).remove();
   }
 }

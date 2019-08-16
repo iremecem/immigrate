@@ -4,7 +4,6 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:immigrate/Controllers/FirebaseController.dart';
 import 'package:immigrate/Pages/LoginPage.dart';
-import 'package:nice_button/NiceButton.dart';
 import 'package:simple_design/simple_design.dart';
 
 class SignInPage extends StatefulWidget {

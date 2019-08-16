@@ -1,13 +1,9 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:immigrate/Controllers/FirebaseController.dart';
-import 'package:immigrate/Pages/PageCollector.dart';
 import 'package:immigrate/Pages/SignInPage.dart';
-import 'package:nice_button/NiceButton.dart';
 import 'package:simple_design/simple_design.dart';
 
 class LoginPage extends StatefulWidget {
