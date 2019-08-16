@@ -26,37 +26,38 @@ class _ChatPageState extends State<ChatPage> {
           if (snapshot.hasData && !snapshot.hasError) {
             Map data = snapshot.data.snapshot.value;
             if (data != null) {
+              List<ListTile> tiles = [];
               print(data);
-              print(data.keys.toList()[0]);
-              return ListView.builder(
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    leading: CircleAvatar(
-                      backgroundImage: user.id == data[data.keys.toList()[index]]["user1"]
-                          ? NetworkImage(
-                              _controller.getUserPic(data[data.keys.toList()[index]]["user2"]))
-                          : NetworkImage(
-                              _controller.getUserPic(data[data.keys.toList()[index]]["user1"])),
-                    ),
-                    onTap: () async {
-                      String token = await _controller.retrieveChatToken(
-                          user1Uid: user.id, user2Uid: data[index]);
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => ChatScreen(
-                            roomKey: token,
-                            recieverId: data[index],
-                            recieverName: data[index]["name"],
-                            recieverProfilePic: data[index]["profilePic"],
-                          ),
+              data.forEach((k, v) {
+                tiles.add(new ListTile(
+                  leading: CircleAvatar(
+                    backgroundImage: NetworkImage(
+                        "${v["pic1"] == user.profilePic ? v["pic2"] : v["pic1"]}"),
+                  ),
+                  title: Text(
+                      "${v["name1"] == user.name ? v["name2"] : v["name1"]}"),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => ChatScreen(
+                          roomKey: k,
+                          recieverId:
+                              "${v["user1"] == user.id ? v["user2"] : v["user1"]}",
+                          recieverName:
+                              "${v["name1"] == user.name ? v["name2"] : v["name1"]}",
+                          recieverProfilePic:
+                              "${v["pic1"] == user.profilePic ? v["pic2"] : v["pic1"]}",
                         ),
-                      );
-                    },
-                    title: Text(
-                        "${data[data.keys.toList()[index]]["name1"] == user.name ? data[data.keys.toList()[index]]["name2"] : data[data.keys.toList()[index]]["name1"]}"),
-                  );
-                },
+                      ),
+                    );
+                  },
+                ));
+              });
+              return ListView(
+                children: tiles,
+                padding: EdgeInsets.all(8),
+                shrinkWrap: true,
               );
             } else {
               return Center(
