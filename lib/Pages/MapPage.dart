@@ -28,17 +28,19 @@ class _MapPageState extends State<MapPage> {
                 ),
                 onPressed: () async {
                   var loc = Location();
-                  await loc.requestPermission();
-                  var locData = await loc.getLocation();
-                  _controller.setUserLocation(
-                    lat: user.lat,
-                    long: user.lon,
-                    userId: user.id,
-                  );
-                  setState(() {
-                    user.lat = locData.latitude;
-                    user.lon = locData.longitude;
-                  });
+                  var acxcxepted = await loc.requestPermission();
+                  if (acxcxepted == true) {
+                    var locData = await loc.getLocation();
+                    _controller.setUserLocation(
+                      lat: user.lat,
+                      long: user.lon,
+                      userId: user.id,
+                    );
+                    setState(() {
+                      user.lat = locData.latitude;
+                      user.lon = locData.longitude;
+                    });
+                  }
                 },
               ),
             )
