@@ -2,14 +2,12 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
-import 'package:flushbar/flushbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:immigrate/Controllers/FirebaseController.dart';
 import 'package:immigrate/Controllers/Globals.dart';
 import 'package:immigrate/Widgets/ChatMessage.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:simple_design/simple_design.dart';
 
 class ChatScreen extends StatefulWidget {

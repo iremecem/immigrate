@@ -42,34 +42,38 @@ class _MapPageState extends State<MapPage> {
                             otherUid: k,
                           );
                           if (hasConnection == true) {
-                            String token = await _controller.retrieveChatToken(
+                            await _controller
+                                .retrieveChatToken(
                               user1Uid: user.id,
                               user2Uid: k,
-                            );
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (_) => ChatScreen(
-                                  roomKey: token,
-                                  recieverId: k,
-                                  recieverName: v["name"],
-                                  recieverProfilePic: v["profilePic"],
+                            )
+                                .then((onValue) {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => ChatScreen(
+                                    roomKey: onValue,
+                                    recieverId: k,
+                                    recieverName: v["name"],
+                                    recieverProfilePic: v["profilePic"],
+                                  ),
                                 ),
-                              ),
-                            );
+                              );
+                            });
                           } else {
-                            String token = await _controller.createToken();
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (_) => ChatScreen(
-                                  roomKey: token,
-                                  recieverId: k,
-                                  recieverName: v["name"],
-                                  recieverProfilePic: v["profilePic"],
+                            await _controller.createToken().then((onValue) {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => ChatScreen(
+                                    roomKey: onValue,
+                                    recieverId: k,
+                                    recieverName: v["name"],
+                                    recieverProfilePic: v["profilePic"],
+                                  ),
                                 ),
-                              ),
-                            );
+                              );
+                            });
                           }
                         },
                       ),

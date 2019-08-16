@@ -223,12 +223,10 @@ class FirebaseController {
       "pic1": user1ProfPic,
       "pic2": user2ProfPic,
     });
-    //await _userRef.child(senderUid).child("rooms").push().set(roomToken);
     await _userRef.child(senderUid).child("rooms").child(roomToken).set({
       "user1": senderUid,
       "user2": recieverUid,
     });
-    //await _userRef.child(recieverUid).child("rooms").push().set(roomToken);
     await _userRef.child(recieverUid).child("rooms").child(roomToken).set({
       "user1": senderUid,
       "user2": recieverUid,
@@ -283,7 +281,7 @@ class FirebaseController {
 
   Future sendMessage({String text, String token, String sender}) async {
     String path = randomAlphaNumeric(30);
-    _chatRef.child(token).child("messages").child(path).set({
+    await _chatRef.child(token).child("messages").child(path).set({
       "message": text,
       "date": DateTime.now().toIso8601String(),
       "sender": sender,
