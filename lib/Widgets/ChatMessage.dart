@@ -222,60 +222,6 @@ class ChatMessage extends StatelessWidget {
           ),
         ),
       ),
-      onLongPress: () async {
-        if (Platform.isAndroid) {
-          showDialog(
-            context: context,
-            barrierDismissible: true,
-            builder: (context) => AlertDialog(
-              actions: <Widget>[
-                FlatButton(
-                    child: Text("Delete"),
-                    onPressed: () async {
-                      await _controller.deleteMessage(
-                        messageKey: messageKey,
-                        token: roomKey,
-                      );
-                    }),
-                FlatButton(
-                  child: Text("Cancel"),
-                  onPressed: () => Navigator.pop(context),
-                ),
-              ],
-              content: Text("The message will be deleted..."),
-              title: Text("Delete Message"),
-            ),
-          );
-        } else if (Platform.isIOS) {
-          showCupertinoModalPopup(
-            context: context,
-            builder: (context) => CupertinoAlertDialog(
-              actions: <Widget>[
-                CupertinoDialogAction(
-                    child: Text(
-                      "Delete",
-                      style: TextStyle(color: Colors.red),
-                    ),
-                    onPressed: () async {
-                      await _controller.deleteMessage(
-                        messageKey: messageKey,
-                        token: roomKey,
-                      );
-                    }),
-                CupertinoDialogAction(
-                  child: Text("Cancel"),
-                  isDefaultAction: true,
-                  onPressed: () {
-                    Navigator.pop(context, "Cancel");
-                  },
-                ),
-              ],
-              title: Text("Delete Message"),
-              content: Text("This message will be deleted!"),
-            ),
-          );
-        }
-      },
     );
   }
 }
