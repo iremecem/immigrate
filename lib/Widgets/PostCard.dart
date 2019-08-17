@@ -94,6 +94,7 @@ class _PostCardState extends State<PostCard> {
                                   await _controller.deletePost(
                                     postId: widget.post.postId,
                                     to: user.to,
+                                    absolutePath: widget.post.absolutePAth,
                                   );
                                 },
                               ),

@@ -322,7 +322,7 @@ class FirebaseController {
         targetPath,
         quality: 50,
       );
-      reference.putFile(result).onComplete.then((onValue) async {
+      reference.child(targetPath).putFile(result).onComplete.then((onValue) async {
         await reference.getDownloadURL().then((onalue) async {
           await _postsRef.child(to).child(randomAlphaNumeric(30)).set(
             {
@@ -334,9 +334,10 @@ class FirebaseController {
               "to": to,
               "from": from,
               "profilePicUrl": user.profilePic,
+              "absolutePath" : targetPath,
             },
           );
-          await _userRef.child("posts").push().set(onalue);
+          await _userRef.child(senderId).child("posts").push().set(onalue);
         });
       });
     } else {
@@ -354,10 +355,10 @@ class FirebaseController {
     }
   }
 
-  Future deletePost({String postId, String to}) async {
+  Future deletePost({String postId, String to, String absolutePath}) async {
     StorageReference storageReference =
         FirebaseStorage.instance.ref().child("postImages");
-    await storageReference.child(postId).delete();
+    await storageReference.child(absolutePath).child(postId).delete();
     await _postsRef.child(to).child(postId).remove();
   }
 }

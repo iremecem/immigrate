@@ -56,6 +56,7 @@ class _WallPageState extends State<WallPage> {
                 senderId: data["senderId"],
                 to: data["to"],
                 postId: data.keys.elementAt(index),
+                absolutePAth: data["absolutePath"],
               ),
               postKey: data.keys.elementAt(index),
             );

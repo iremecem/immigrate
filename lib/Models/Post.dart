@@ -9,6 +9,7 @@ class Post{
   String profilePicUrl;
   String postId;
   String senderId;
+  String absolutePAth;
 
-  Post({this.profilePicUrl,this.name, this.likeCount, this.date, this.to, this.from, this.description, this.photoURL, this.senderId, this.postId});
+  Post({this.profilePicUrl,this.name, this.likeCount, this.date, this.to, this.from, this.description, this.photoURL, this.senderId, this.postId, this.absolutePAth});
 }

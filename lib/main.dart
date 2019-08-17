@@ -127,7 +127,8 @@ void main() async {
   user.name = userName;
   user.to = to;
   user.from = from;
-  user.profilePic = profilePic;
+  user.profilePic = profilePic
+  ;
 
   var location = new Location();
 
@@ -186,6 +187,7 @@ void main() async {
           },
         ),
       ),
+      theme: theme,
     ),
   );
 
