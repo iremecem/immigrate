@@ -60,93 +60,105 @@ class _PostCardState extends State<PostCard> {
                       text: TextSpan(
                     children: <TextSpan>[
                       TextSpan(
-                          text: (" ${widget.post.name} "),
-                          style: TextStyle(
-                            fontSize: 15,
-                            color: Colors.blueGrey.shade900,
-                            fontWeight: FontWeight.w500,
-                          )),
+                        text: (" ${widget.post.name} "),
+                        style: TextStyle(
+                          fontSize: 15,
+                          color: Colors.blueGrey.shade900,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      TextSpan(
+                        text: ("· from " + "${widget.post.from}"),
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: Colors.blueGrey.shade200,
+                        ),
+                      ),
                     ],
                   )),
                 ],
               ),
               Row(
                 children: <Widget>[
-                  widget.post.senderId == user.id ? IconButton(
-                    icon: Icon(
-                      FontAwesomeIcons.trashAlt,
-                      color: Colors.red.shade300,
-                      size: 18,
-                    ),
-                    onPressed: () async {
-                      if (Platform.isIOS) {
-                        showCupertinoModalPopup(
-                          context: context,
-                          builder: (context) => CupertinoAlertDialog(
-                            actions: <Widget>[
-                              CupertinoDialogAction(
-                                child: Text(
-                                  "Delete",
-                                  style: TextStyle(color: Colors.red),
-                                ),
-                                onPressed: () async {
-                                  Navigator.pop(context);
-                                  await _controller.deletePost(
-                                    postId: widget.post.postId,
-                                    to: user.to,
-                                    absolutePath: widget.post.absolutePAth,
-                                    userId: user.id,
-                                  );
-                                },
-                              ),
-                              CupertinoDialogAction(
-                                child: Text("Cancel"),
-                                isDefaultAction: true,
-                                onPressed: () {
-                                  Navigator.pop(context, "Cancel");
-                                },
-                              ),
-                            ],
-                            title: Text("Delete"),
-                            content:
-                                Text("This post will be deleted permanently!"),
+                  widget.post.senderId == user.id
+                      ? IconButton(
+                          icon: Icon(
+                            FontAwesomeIcons.trashAlt,
+                            color: Colors.red.shade300,
+                            size: 18,
                           ),
-                        );
-                      } else if (Platform.isAndroid) {
-                        showDialog(
-                          context: context,
-                          builder: (context) => AlertDialog(
-                            actions: <Widget>[
-                              FlatButton(
-                                child: Text(
-                                  "Delete",
-                                  style: TextStyle(color: Colors.red),
+                          onPressed: () async {
+                            if (Platform.isIOS) {
+                              showCupertinoModalPopup(
+                                context: context,
+                                builder: (context) => CupertinoAlertDialog(
+                                  actions: <Widget>[
+                                    CupertinoDialogAction(
+                                      child: Text(
+                                        "Delete",
+                                        style: TextStyle(color: Colors.red),
+                                      ),
+                                      onPressed: () async {
+                                        Navigator.pop(context);
+                                        await _controller.deletePost(
+                                          postId: widget.post.postId,
+                                          to: user.to,
+                                          absolutePath:
+                                              widget.post.absolutePAth,
+                                          userId: user.id,
+                                        );
+                                      },
+                                    ),
+                                    CupertinoDialogAction(
+                                      child: Text("Cancel"),
+                                      isDefaultAction: true,
+                                      onPressed: () {
+                                        Navigator.pop(context, "Cancel");
+                                      },
+                                    ),
+                                  ],
+                                  title: Text("Delete"),
+                                  content: Text(
+                                      "This post will be deleted permanently!"),
                                 ),
-                                onPressed: () async {
-                                  Navigator.pop(context);
-                                  await _controller.deletePost(
-                                    postId: widget.post.postId,
-                                    to: user.to,
-                                    absolutePath: widget.post.absolutePAth,
-                                    userId: user.id,
-                                  );
-                                },
-                              ),
-                              FlatButton(
-                                child: Text("Cancel"),
-                                onPressed: () {
-                                  Navigator.pop(context, "Cancel");
-                                },
-                              ),
-                            ],
-                            title: Text("Delete"),
-                            content:
-                                Text("This post will be deleted permanently!"),
-                          ),
-                        );
-                      }
-                    },
-                  ) : Container(),
+                              );
+                            } else if (Platform.isAndroid) {
+                              showDialog(
+                                context: context,
+                                builder: (context) => AlertDialog(
+                                  actions: <Widget>[
+                                    FlatButton(
+                                      child: Text(
+                                        "Delete",
+                                        style: TextStyle(color: Colors.red),
+                                      ),
+                                      onPressed: () async {
+                                        Navigator.pop(context);
+                                        await _controller.deletePost(
+                                          postId: widget.post.postId,
+                                          to: user.to,
+                                          absolutePath:
+                                              widget.post.absolutePAth,
+                                          userId: user.id,
+                                        );
+                                      },
+                                    ),
+                                    FlatButton(
+                                      child: Text("Cancel"),
+                                      onPressed: () {
+                                        Navigator.pop(context, "Cancel");
+                                      },
+                                    ),
+                                  ],
+                                  title: Text("Delete"),
+                                  content: Text(
+                                      "This post will be deleted permanently!"),
+                                ),
+                              );
+                            }
+                          },
+                        )
+                      : Container(),
                   Container(
                     width: 8,
                   ),
@@ -197,11 +209,11 @@ class _PostCardState extends State<PostCard> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: <Widget>[
                           Text(
-                            DateFormat("HH : mm").format(
-                                    DateTime.parse(widget.post.date)) +
+                            DateFormat("HH : mm")
+                                    .format(DateTime.parse(widget.post.date)) +
                                 " · " +
-                                DateFormat("dd / MMMM / yyyy").format(
-                                    DateTime.parse(widget.post.date)),
+                                DateFormat("dd / MMMM / yyyy")
+                                    .format(DateTime.parse(widget.post.date)),
                             style: TextStyle(
                                 color: Colors.blueGrey.shade500, fontSize: 11),
                           ),
@@ -234,11 +246,11 @@ class _PostCardState extends State<PostCard> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: <Widget>[
                           Text(
-                            DateFormat("HH : mm").format(
-                                    DateTime.parse(widget.post.date)) +
+                            DateFormat("HH : mm")
+                                    .format(DateTime.parse(widget.post.date)) +
                                 " · " +
-                                DateFormat("dd / MMMM / yyyy").format(
-                                    DateTime.parse(widget.post.date)),
+                                DateFormat("dd / MMMM / yyyy")
+                                    .format(DateTime.parse(widget.post.date)),
                             style: TextStyle(
                                 color: Colors.blueGrey.shade500, fontSize: 11),
                           ),

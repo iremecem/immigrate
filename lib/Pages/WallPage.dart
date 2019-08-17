@@ -17,7 +17,7 @@ class _WallPageState extends State<WallPage> {
 
   int postLimit = 20;
 
-  void scrollListener(){
+  void scrollListener() {
     if (_controller.offset >= _controller.position.maxScrollExtent &&
         !_controller.position.outOfRange) {
       setState(() {
@@ -25,6 +25,7 @@ class _WallPageState extends State<WallPage> {
       });
     }
   }
+
   @override
   Widget build(BuildContext context) {
     String filterQueue = user.to;
@@ -41,44 +42,64 @@ class _WallPageState extends State<WallPage> {
         child: Icon(FontAwesomeIcons.penFancy),
         isExtended: true,
       ),
-      body: FirebaseAnimatedList(
-        controller: _controller,
-        defaultChild: Center(
-          child: Text("No posts found, be the first one"),
-        ),
-        padding: EdgeInsets.all(8),
-        shrinkWrap: true,
-        sort: (a, b) => b.value["date"].compareTo(a.value["date"]),
-        query: FirebaseDatabase.instance
-            .reference()
-            .child("posts")
-            .child(filterQueue)
-            .limitToFirst(postLimit),
-        itemBuilder: (context, snapshot, anim, index) {
-          if (snapshot.value != null) {
-            Map data = snapshot.value;
-            return PostCard(
-              animation: anim,
-              post: Post(
-                date: data["date"],
-                description: data["content"],
-                from: data["from"],
-                name: data["senderName"],
-                photoURL: data["imageUrl"],
-                profilePicUrl: data["profilePicUrl"],
-                senderId: data["senderId"],
-                to: data["to"],
-                postId: data.keys.elementAt(index),
-                absolutePAth: data["absolutePath"],
+      body: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                FlatButton(
+                  child: Text("Show all"),
+                  onPressed: null,
+                ),
+                FlatButton(
+                  child: Text("Show From My Country"),
+                  onPressed: null,
+                ),
+              ],
+            ),
+            FirebaseAnimatedList(
+              controller: _controller,
+              defaultChild: Center(
+                child: Text("No posts found, be the first one"),
               ),
-              postKey: data.keys.elementAt(index),
-            );
-          } else {
-            return Center(
-              child: Text("No posts found, be the first one"),
-            );
-          }
-        },
+              padding: EdgeInsets.all(8),
+              shrinkWrap: true,
+              sort: (a, b) => b.value["date"].compareTo(a.value["date"]),
+              query: FirebaseDatabase.instance
+                  .reference()
+                  .child("posts")
+                  .child(filterQueue)
+                  .limitToFirst(postLimit),
+              itemBuilder: (context, snapshot, anim, index) {
+                if (snapshot.value != null) {
+                  Map data = snapshot.value;
+                  return PostCard(
+                    animation: anim,
+                    post: Post(
+                      date: data["date"],
+                      description: data["content"],
+                      from: data["from"],
+                      name: data["senderName"],
+                      photoURL: data["imageUrl"],
+                      profilePicUrl: data["profilePicUrl"],
+                      senderId: data["senderId"],
+                      to: data["to"],
+                      postId: data.keys.elementAt(index),
+                      absolutePAth: data["absolutePath"],
+                    ),
+                    postKey: data.keys.elementAt(index),
+                  );
+                } else {
+                  return Center(
+                    child: Text("No posts found, be the first one"),
+                  );
+                }
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
