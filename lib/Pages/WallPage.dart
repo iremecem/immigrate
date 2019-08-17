@@ -13,6 +13,18 @@ class WallPage extends StatefulWidget {
 }
 
 class _WallPageState extends State<WallPage> {
+  final ScrollController _controller = new ScrollController();
+
+  int postLimit = 20;
+
+  void scrollListener(){
+    if (_controller.offset >= _controller.position.maxScrollExtent &&
+        !_controller.position.outOfRange) {
+      setState(() {
+        postLimit += 20;
+      });
+    }
+  }
   @override
   Widget build(BuildContext context) {
     String filterQueue = user.to;
@@ -30,6 +42,7 @@ class _WallPageState extends State<WallPage> {
         isExtended: true,
       ),
       body: FirebaseAnimatedList(
+        controller: _controller,
         defaultChild: Center(
           child: Text("No posts found, be the first one"),
         ),
@@ -40,7 +53,7 @@ class _WallPageState extends State<WallPage> {
             .reference()
             .child("posts")
             .child(filterQueue)
-            .limitToFirst(20),
+            .limitToFirst(postLimit),
         itemBuilder: (context, snapshot, anim, index) {
           if (snapshot.value != null) {
             Map data = snapshot.value;

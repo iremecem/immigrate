@@ -335,14 +335,26 @@ class FirebaseController {
               "to": to,
               "from": from,
               "profilePicUrl": user.profilePic,
-              "absolutePath" : absPath,
+              "absolutePath": absPath,
             },
           );
-          await _userRef.child(senderId).child("posts").push().set(onalue);
+          await _userRef.child(senderId).child("posts").child(absPath).set(
+            {
+              "senderId": senderId,
+              "senderName": senderName,
+              "content": content,
+              "imageUrl": onalue,
+              "date": DateTime.now().toIso8601String(),
+              "to": to,
+              "from": from,
+              "profilePicUrl": user.profilePic,
+              "absolutePath": absPath,
+            },
+          );
         });
       });
     } else {
-      var absPath  = randomAlphaNumeric(30);
+      var absPath = randomAlphaNumeric(30);
       await _postsRef.child(to).child(randomAlphaNumeric(30)).set(
         {
           "senderId": senderId,
@@ -352,17 +364,29 @@ class FirebaseController {
           "to": to,
           "from": from,
           "profilePicUrl": user.profilePic,
-          "absolutePath" : absPath,
+          "absolutePath": absPath,
         },
       );
-      await _userRef.child(senderId).child("posts").push().set(absPath);
+      await _userRef.child(senderId).child("posts").child(absPath).set(
+        {
+          "senderId": senderId,
+          "senderName": senderName,
+          "content": content,
+          "date": DateTime.now().toIso8601String(),
+          "to": to,
+          "from": from,
+          "profilePicUrl": user.profilePic,
+          "absolutePath": absPath,
+        },
+      );
     }
   }
 
-  Future deletePost({String postId, String to, String absolutePath, String userId}) async {
+  Future deletePost(
+      {String postId, String to, String absolutePath, String userId}) async {
     StorageReference storageReference =
         FirebaseStorage.instance.ref().child("postImages");
-    await storageReference.child(absolutePath).child(postId).delete();
+    await storageReference.child(absolutePath).delete();
     await _postsRef.child(to).child(postId).remove();
     await _userRef.child(userId).child("posts").child(absolutePath).remove();
   }

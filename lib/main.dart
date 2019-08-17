@@ -164,6 +164,7 @@ void main() async {
 
   runApp(
     MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: SplashScreen(
         seconds: 3,
         image: Image(
