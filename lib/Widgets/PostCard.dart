@@ -95,6 +95,7 @@ class _PostCardState extends State<PostCard> {
                                     postId: widget.post.postId,
                                     to: user.to,
                                     absolutePath: widget.post.absolutePAth,
+                                    userId: user.id,
                                   );
                                 },
                               ),
@@ -124,8 +125,10 @@ class _PostCardState extends State<PostCard> {
                                 onPressed: () async {
                                   Navigator.pop(context);
                                   await _controller.deletePost(
-                                    postId: widget.postKey,
+                                    postId: widget.post.postId,
                                     to: user.to,
+                                    absolutePath: widget.post.absolutePAth,
+                                    userId: user.id,
                                   );
                                 },
                               ),
