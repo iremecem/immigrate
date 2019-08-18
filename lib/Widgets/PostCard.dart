@@ -22,6 +22,33 @@ class _PostCardState extends State<PostCard> {
   final FirebaseController _controller = new FirebaseController();
   @override
   Widget build(BuildContext context) {
+    String from = widget.post.from;
+    switch (from) {
+      case "tr":
+        from = "Turkey";
+        break;
+      case "gb":
+        from = "United Kingdom";
+        break;
+      case "fr":
+        from = "France";
+        break;
+      case "it":
+        from = "Italy";
+        break;
+      case "de":
+        from = "Germany";
+        break;
+      case "rs":
+        from = "Russia";
+        break;
+      case "us":
+        from = "United States";
+        break;
+      case "ae":
+        from = "Arab Emirates";
+        break;
+    }
     return Card(
       elevation: 3,
       shape: RoundedRectangleBorder(
@@ -68,7 +95,7 @@ class _PostCardState extends State<PostCard> {
                         ),
                       ),
                       TextSpan(
-                        text: ("· from " + "${widget.post.from}"),
+                        text: ("· from " + "$from"),
                         style: TextStyle(
                           fontSize: 12,
                           color: Colors.blueGrey.shade200,
