@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:immigrate/Pages/ChatPage.dart';
-import 'package:immigrate/Pages/MapPage.dart';
 import 'package:immigrate/Pages/ProfilePage.dart';
 import 'package:immigrate/Pages/ProfileSettings.dart';
-import 'package:immigrate/Pages/WallPage.dart';
 import 'package:simple_design/simple_design.dart';
 
 class ProfileCollector extends StatefulWidget {

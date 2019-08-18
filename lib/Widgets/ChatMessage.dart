@@ -1,15 +1,11 @@
-import 'dart:io';
-
 import 'package:bubble/bubble.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:immigrate/Controllers/FirebaseController.dart';
 import 'package:immigrate/Controllers/Globals.dart';
 import 'package:intl/intl.dart';
 
 class ChatMessage extends StatelessWidget {
-  final FirebaseController _controller = new FirebaseController();
   final DataSnapshot messageSnapshot;
   final Animation animation;
   final String messageKey;

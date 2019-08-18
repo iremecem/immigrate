@@ -1,7 +1,6 @@
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:immigrate/Controllers/FirebaseController.dart';
 import 'package:simple_design/simple_design.dart';
 
 class ChangeLivingScreen extends StatefulWidget {
@@ -15,8 +14,6 @@ class ChangeLivingScreen extends StatefulWidget {
 
 class _ChangeLivingScreenState extends State<ChangeLivingScreen> {
   final GlobalKey<FormBuilderState> _fbKey = GlobalKey<FormBuilderState>();
-  final FirebaseController _controller = new FirebaseController();
-  final TextEditingController _editingController = new TextEditingController();
   var dropDownValue;
   @override
   void initState() {
