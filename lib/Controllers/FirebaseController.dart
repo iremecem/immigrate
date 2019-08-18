@@ -419,4 +419,183 @@ class FirebaseController {
       });
     }
   }
+
+  Future changeUserName({String newName}) async {
+    FirebaseUser _user = await FirebaseAuth.instance.currentUser();
+    SharedPreferences _prefs = await SharedPreferences.getInstance();
+    _prefs.setString("name", newName);
+    await _userRef.child(_user.uid).child("name").set(newName);
+  }
+
+  Future changeUserMail({String newMail, BuildContext context}) async {
+    try {
+      FirebaseUser _user = await FirebaseAuth.instance.currentUser();
+      SharedPreferences _prefs = await SharedPreferences.getInstance();
+      await _user.updateEmail(newMail);
+      await _user.sendEmailVerification();
+      _prefs.setString("mail", newMail);
+      await _userRef.child(_user.uid).child("mail").set(newMail);
+    } on PlatformException catch (exc) {
+      if (exc.code == "ERROR_INVALID_CREDENTIAL") {
+        Flushbar(
+          animationDuration: Duration(milliseconds: 400),
+          backgroundColor: Colors.red,
+          flushbarStyle: FlushbarStyle.FLOATING,
+          flushbarPosition: FlushbarPosition.BOTTOM,
+          message:
+              "The new email has been malformed! Please try another one...",
+          isDismissible: true,
+          duration: Duration(seconds: 5),
+        )..show(context);
+      }
+      if (exc.code == "ERROR_EMAIL_ALREADY_IN_USE") {
+        Flushbar(
+          animationDuration: Duration(milliseconds: 400),
+          backgroundColor: Colors.red,
+          flushbarStyle: FlushbarStyle.FLOATING,
+          flushbarPosition: FlushbarPosition.BOTTOM,
+          message: "The new mail address has been used!",
+          isDismissible: true,
+          duration: Duration(seconds: 5),
+        )..show(context);
+      }
+      if (exc.code == "ERROR_USER_DISABLED") {
+        Flushbar(
+          animationDuration: Duration(milliseconds: 400),
+          backgroundColor: Colors.red,
+          flushbarStyle: FlushbarStyle.FLOATING,
+          flushbarPosition: FlushbarPosition.BOTTOM,
+          message:
+              "The new mail has been banned from server, please contact with an administirator!",
+          isDismissible: true,
+          duration: Duration(seconds: 5),
+        )..show(context);
+      }
+      if (exc.code == "ERROR_USER_NOT_FOUND") {
+        Flushbar(
+          animationDuration: Duration(milliseconds: 400),
+          backgroundColor: Colors.red,
+          flushbarStyle: FlushbarStyle.FLOATING,
+          flushbarPosition: FlushbarPosition.BOTTOM,
+          message:
+              "It looks like you have been deleted from the server, please contact with an administirator!",
+          isDismissible: true,
+          duration: Duration(seconds: 5),
+        )..show(context);
+      }
+      if (exc.code == "ERROR_REQUIRES_RECENT_LOGIN") {
+        Flushbar(
+          animationDuration: Duration(milliseconds: 400),
+          backgroundColor: Colors.red,
+          flushbarStyle: FlushbarStyle.FLOATING,
+          flushbarPosition: FlushbarPosition.BOTTOM,
+          message:
+              "It looks like you have not been logged to server for a long time, please login again to continue!",
+          isDismissible: true,
+          duration: Duration(seconds: 8),
+          mainButton: FlatButton(
+            child: Text("Login Again"),
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => LoginPage(),
+              ),
+            ),
+          ),
+        )..show(context);
+      }
+      if (exc.code == "ERROR_OPERATION_NOT_ALLOWED") {
+        Flushbar(
+          animationDuration: Duration(milliseconds: 400),
+          backgroundColor: Colors.red,
+          flushbarStyle: FlushbarStyle.FLOATING,
+          flushbarPosition: FlushbarPosition.BOTTOM,
+          message:
+              "You have not been verified your recent email yet, please verify and try again!",
+          isDismissible: true,
+          duration: Duration(seconds: 5),
+        )..show(context);
+      }
+    }
+  }
+
+  Future changePassword({String password, BuildContext context}) async {
+    try {
+      FirebaseUser _user = await FirebaseAuth.instance.currentUser();
+      SharedPreferences _prefs = await SharedPreferences.getInstance();
+      await _user.updatePassword(password);
+      _prefs.setString("password", password);
+      _userRef.child(_user.uid).child("password").set(password);
+    } on PlatformException catch (exc) {
+      print(exc.code);
+      if (exc.code == "ERROR_WEAK_PASSWORD") {
+        Flushbar(
+          animationDuration: Duration(milliseconds: 400),
+          backgroundColor: Colors.red,
+          flushbarStyle: FlushbarStyle.FLOATING,
+          flushbarPosition: FlushbarPosition.BOTTOM,
+          message: "The new password is not strong enough, please try again!",
+          isDismissible: true,
+          duration: Duration(seconds: 5),
+        )..show(context);
+      }
+      if (exc.code == "ERROR_USER_DISABLED") {
+        Flushbar(
+          animationDuration: Duration(milliseconds: 400),
+          backgroundColor: Colors.red,
+          flushbarStyle: FlushbarStyle.FLOATING,
+          flushbarPosition: FlushbarPosition.BOTTOM,
+          message:
+              "The new mail has been banned from server, please contact with an administirator!",
+          isDismissible: true,
+          duration: Duration(seconds: 5),
+        )..show(context);
+      }
+      if (exc.code == "ERROR_USER_NOT_FOUND") {
+        Flushbar(
+          animationDuration: Duration(milliseconds: 400),
+          backgroundColor: Colors.red,
+          flushbarStyle: FlushbarStyle.FLOATING,
+          flushbarPosition: FlushbarPosition.BOTTOM,
+          message:
+              "It looks like you have been deleted from the server, please contact with an administirator!",
+          isDismissible: true,
+          duration: Duration(seconds: 5),
+        )..show(context);
+      }
+      if (exc.code == "ERROR_REQUIRES_RECENT_LOGIN") {
+        Flushbar(
+          animationDuration: Duration(milliseconds: 400),
+          backgroundColor: Colors.red,
+          flushbarStyle: FlushbarStyle.FLOATING,
+          flushbarPosition: FlushbarPosition.BOTTOM,
+          message:
+              "It looks like you have not been logged to server for a long time, please login again to continue!",
+          isDismissible: true,
+          duration: Duration(seconds: 8),
+          mainButton: FlatButton(
+            child: Text("Login Again"),
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => LoginPage(),
+              ),
+            ),
+          ),
+        )..show(context);
+      }
+      if (exc.code == "ERROR_OPERATION_NOT_ALLOWED") {
+        Flushbar(
+          animationDuration: Duration(milliseconds: 400),
+          backgroundColor: Colors.red,
+          flushbarStyle: FlushbarStyle.FLOATING,
+          flushbarPosition: FlushbarPosition.BOTTOM,
+          message:
+              "You have not been verified your recent email yet, please verify and try again!",
+          isDismissible: true,
+          duration: Duration(seconds: 5),
+        )..show(context);
+      }
+    }
+  }
 }
