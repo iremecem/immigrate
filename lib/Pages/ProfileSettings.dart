@@ -298,32 +298,6 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                           ),
                         ),
                       ),
-                      InkWell(
-                        onTap: () {
-                          //TODO: ADD CHANGER
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(16)),
-                            border:
-                                Border.all(color: Colors.lightGreen.shade200),
-                          ),
-                          margin: EdgeInsets.all(8),
-                          padding: EdgeInsets.all(12),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Text(
-                                "Terms Of Use",
-                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14,),
-                              ),
-                              Icon(
-                                FontAwesomeIcons.chevronRight,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
                       Divider(
                         endIndent: 15,
                         indent: 15,
@@ -399,13 +373,13 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                             showDialog(
                               context: context,
                               builder: (_) => AboutDialog(
-                                applicationName: "Valentines App",
+                                applicationName: "Countryman App",
                                 applicationVersion: "v0.1 Beta",
                                 children: <Widget>[
                                   Text(
-                                      "Thank you for using our application, we wish you have a happy togetherness..."),
+                                      "Thank you for using the application."),
                                   Text(
-                                      "\nDeveloped in Connected2Me studios at Ankara/Bilkent, Turkey by İrem Ecem Yelkanat and Ali Taha Dinçer.")
+                                      "\nDeveloped in Ankara/Turkey by İrem Ecem Yelkanat and Ali Taha Dinçer.")
                                 ],
                               ),
                             );
@@ -420,7 +394,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                                       Navigator.pop(context);
                                       showLicensePage(
                                         context: context,
-                                        applicationName: "Valentines App",
+                                        applicationName: "Countryman App",
                                         applicationVersion: "v0.1 Beta",
                                       );
                                     },
@@ -435,8 +409,8 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                                 ],
                                 title: Text("Valentines App"),
                                 content: Text(
-                                    "\nThank you for using our application, we wish you have a happy togetherness..." +
-                                        "\n\nDeveloped in Connected2Me studios at Ankara/Bilkent, Turkey by İrem Ecem Yelkanat and Ali Taha Dinçer."),
+                                    "\nThank you for using the application." +
+                                        "\n\nDeveloped in Ankara/Turkey by İrem Ecem Yelkanat and Ali Taha Dinçer."),
                               ),
                             );
                           }
@@ -453,7 +427,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               Text(
-                                "About Us",
+                                "About",
                                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14,),
                               ),
                               Icon(
