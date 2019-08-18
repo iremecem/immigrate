@@ -325,7 +325,7 @@ class FirebaseController {
       var absPath = randomAlphaNumeric(40);
       reference.child(absPath).putFile(result).onComplete.then((onValue) async {
         await reference.child(absPath).getDownloadURL().then((onalue) async {
-          await _postsRef.child(to).child(randomAlphaNumeric(30)).set(
+          await _postsRef.child(to).child(absPath).set(
             {
               "senderId": senderId,
               "senderName": senderName,
@@ -355,7 +355,7 @@ class FirebaseController {
       });
     } else {
       var absPath = randomAlphaNumeric(30);
-      await _postsRef.child(to).child(randomAlphaNumeric(30)).set(
+      await _postsRef.child(to).child(absPath).set(
         {
           "senderId": senderId,
           "senderName": senderName,
@@ -382,12 +382,41 @@ class FirebaseController {
     }
   }
 
-  Future deletePost(
-      {String postId, String to, String absolutePath, String userId}) async {
-    StorageReference storageReference =
-        FirebaseStorage.instance.ref().child("postImages");
-    await storageReference.child(absolutePath).delete();
-    await _postsRef.child(to).child(postId).remove();
-    await _userRef.child(userId).child("posts").child(absolutePath).remove();
+  Future deletePost({
+    String postId,
+    String to,
+    String absolutePath,
+    String userId,
+  }) async {
+    try {
+      StorageReference storageReference =
+          FirebaseStorage.instance.ref().child("postImages");
+      await storageReference.child(absolutePath).delete().then((onValue) async {
+        await _postsRef
+            .child(to)
+            .child(absolutePath)
+            .remove()
+            .then((onValue) async {
+          await _userRef
+              .child(userId)
+              .child("posts")
+              .child(absolutePath)
+              .remove();
+        });
+      });
+    } on PlatformException catch (exc) {
+      print(exc.details);
+      await _postsRef
+          .child(to)
+          .child(absolutePath)
+          .remove()
+          .then((onValue) async {
+        await _userRef
+            .child(userId)
+            .child("posts")
+            .child(absolutePath)
+            .remove();
+      });
+    }
   }
 }
