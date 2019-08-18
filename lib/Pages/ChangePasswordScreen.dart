@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:immigrate/Controllers/FirebaseController.dart';
+import 'package:simple_design/simple_design.dart';
 
 class ChangePasswordScreen extends StatefulWidget {
   final String value;
@@ -22,8 +23,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.grey[50],
+      appBar: SDAppBar(
         title: Text(
           "Edit",
           style: TextStyle(
@@ -31,14 +31,13 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
             fontSize: 35,
           ),
         ),
-        elevation: 0,
-        leading: IconButton(
-          icon: Icon(
-            MaterialIcons.getIconData("arrow-back"),
-            color: Colors.amber.shade200,
-          ),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
+        // leading: IconButton(
+        //   icon: Icon(
+        //     MaterialIcons.getIconData("arrow-back"),
+        //     color: Colors.amber.shade200,
+        //   ),
+        //   onPressed: () => Navigator.of(context).pop(),
+        // ),
       ),
       body: SingleChildScrollView(
         child: FormBuilder(
