@@ -50,11 +50,14 @@ class _SetupPageState extends State<SetupPage> {
               InkWell(
                 child: _profilePic == null
                     ? Center(
-                        child: Text(
-                          "Tap here to setup profile picture",
-                          style: TextStyle(
-                            color: Colors.lightGreen,
-                            fontSize: 15,
+                        child: Padding(
+                          padding: EdgeInsets.all(64),
+                          child: Text(
+                            "Tap here to setup profile picture",
+                            style: TextStyle(
+                              color: Colors.lightGreen,
+                              fontSize: 15,
+                            ),
                           ),
                         ),
                       )
