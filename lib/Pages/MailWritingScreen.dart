@@ -33,13 +33,13 @@ class _MailWritingScreenState extends State<MailWritingScreen> {
           ),
         ),
         elevation: 0,
-        leading: IconButton(
-          icon: Icon(
-            MaterialIcons.getIconData("arrow-back"),
-            color: Colors.amber.shade200,
-          ),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
+        // leading: IconButton(
+        //   icon: Icon(
+        //     MaterialIcons.getIconData("arrow-back"),
+        //     color: Colors.amber.shade200,
+        //   ),
+        //   onPressed: () => Navigator.of(context).pop(),
+        // ),
         actions: <Widget>[
           IconButton(
             icon: Icon(
