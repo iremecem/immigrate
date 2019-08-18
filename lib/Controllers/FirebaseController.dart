@@ -27,16 +27,15 @@ class FirebaseController {
 
   Future authUser({String email, String password, BuildContext ctx}) async {
     FirebaseAuth auth = FirebaseAuth.instance;
+    SharedPreferences _prefs = await SharedPreferences.getInstance();
     try {
       var response = await auth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
-      await _userRef.child(response.uid).set({
-        "email" : email,
-        "password" : password,
-      });
       response.sendEmailVerification();
+      _prefs.setString("mail", email);
+      _prefs.setString("password", password);
       Navigator.of(ctx).pushReplacement(
         MaterialPageRoute(
           builder: (ctx) => SetupPage(),
@@ -87,6 +86,9 @@ class FirebaseController {
         _prefs.setString("to", user.to);
         _prefs.setString("id", user.id);
         _prefs.setString("profilePic", user.profilePic);
+
+      _prefs.setString("mail", email);
+      _prefs.setString("password", password);
       }).then((onValue) {
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
@@ -180,6 +182,8 @@ class FirebaseController {
         "name": name,
         "from": from,
         "to": to,
+        "mail" : fu.email,
+        "password" : prefs.getString("password"),
       },
     );
     await uploadProfilePic(image);
