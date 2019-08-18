@@ -171,11 +171,11 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                             children: <Widget>[
                               Text(
                                 "Name:    ",
-                                style: TextStyle(fontWeight: FontWeight.bold),
+                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14,),
                               ),
                               Row(
                                 children: <Widget>[
-                                  Text("${userData["name"]}    "),
+                                  Text("${userData["name"]}    ", style: TextStyle(fontSize: 14,),),
                                   Icon(
                                     FontAwesomeIcons.chevronRight,
                                   ),
@@ -210,11 +210,11 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                             children: <Widget>[
                               Text(
                                 "Email:    ",
-                                style: TextStyle(fontWeight: FontWeight.bold),
+                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14,),
                               ),
                               Row(
                                 children: <Widget>[
-                                  Text("${userData["mail"]}    "),
+                                  Text("${userData["mail"]}    ", style: TextStyle(fontSize: 14,),),
                                   Icon(
                                     FontAwesomeIcons.chevronRight,
                                   ),
@@ -250,11 +250,11 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                             children: <Widget>[
                               Text(
                                 "Living in:    ",
-                                style: TextStyle(fontWeight: FontWeight.bold),
+                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14,),
                               ),
                               Row(
                                 children: <Widget>[
-                                  Text("$to    "),
+                                  Text("$to    ", style: TextStyle(fontSize: 14,),),
                                   Icon(
                                     FontAwesomeIcons.chevronRight,
                                   ),
@@ -289,7 +289,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                             children: <Widget>[
                               Text(
                                 "Change Password",
-                                style: TextStyle(fontWeight: FontWeight.bold),
+                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14,),
                               ),
                               Icon(
                                 FontAwesomeIcons.chevronRight,
@@ -315,7 +315,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                             children: <Widget>[
                               Text(
                                 "Terms Of Use",
-                                style: TextStyle(fontWeight: FontWeight.bold),
+                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14,),
                               ),
                               Icon(
                                 FontAwesomeIcons.chevronRight,
@@ -376,7 +376,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                             children: <Widget>[
                               Text(
                                 "Sign Out",
-                                style: TextStyle(fontWeight: FontWeight.bold),
+                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14,),
                               ),
                               Icon(
                                 FontAwesomeIcons.chevronRight,
@@ -454,7 +454,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                             children: <Widget>[
                               Text(
                                 "About Us",
-                                style: TextStyle(fontWeight: FontWeight.bold),
+                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14,),
                               ),
                               Icon(
                                 FontAwesomeIcons.chevronRight,
@@ -485,7 +485,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                             children: <Widget>[
                               Text(
                                 "Contact Us",
-                                style: TextStyle(fontWeight: FontWeight.bold),
+                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14,),
                               ),
                               Icon(
                                 FontAwesomeIcons.chevronRight,
@@ -511,7 +511,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                             children: <Widget>[
                               Text(
                                 "Terms Of Use",
-                                style: TextStyle(fontWeight: FontWeight.bold),
+                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14,),
                               ),
                               Icon(
                                 FontAwesomeIcons.chevronRight,
