@@ -8,6 +8,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:immigrate/Controllers/FirebaseController.dart';
 import 'package:immigrate/Controllers/Globals.dart';
+import 'package:immigrate/Pages/ChangeLivingInScreen.dart';
 import 'package:immigrate/Pages/ChangePasswordScreen.dart';
 import 'package:immigrate/Pages/LoginPage.dart';
 import 'package:immigrate/Pages/MailWritingScreen.dart';
@@ -42,10 +43,20 @@ class _ProfileSettingsState extends State<ProfileSettings> {
             .child(user.id)
             .onValue,
         builder: (context, snapshot) {
-          Map userData = snapshot.data.snapshot.value;
-          if (snapshot.hasData) {
-            Map room = snapshot.data.snapshot.value;
-            if (room != null) {
+          if (snapshot.hasData && !snapshot.hasError) {
+            Map userData = snapshot.data.snapshot.value;
+            if (userData != null) {
+              String to = userData["to"];
+              switch(to){
+                case "tr" : to = "Turkey"; break;
+                case "gb" : to = "United Kingdom"; break;
+                case "fr" : to = "France"; break;
+                case "it" : to = "Italy"; break;
+                case "de" : to = "Germany"; break;
+                case "rs" : to = "Russia"; break;
+                case "us" : to = "United States"; break;
+                case "ae" : to = "Arab Emirates"; break; 
+              }
               return SingleChildScrollView(
                 child: FormBuilder(
                   key: _fbKey,
@@ -119,9 +130,9 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                           child: CircleAvatar(
                             radius: 125,
                             backgroundColor: Colors.lightGreen.shade200,
-                            backgroundImage: room["profilePic"] == null
+                            backgroundImage: userData["profilePic"] == null
                                 ? AssetImage("assets/images/sample.jpg")
-                                : NetworkImage(room["profilePic"]),
+                                : NetworkImage(userData["profilePic"]),
                           ),
                         ),
                       ),
@@ -218,6 +229,46 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
+                              builder: (_) => ChangeLivingScreen(
+                                value: userData["to"],
+                                context: context,
+                                absoulteValue: to,
+                              ),
+                            ),
+                          );
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(16)),
+                            border:
+                                Border.all(color: Colors.lightGreen.shade200),
+                          ),
+                          margin: EdgeInsets.all(8),
+                          padding: EdgeInsets.all(12),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Text(
+                                "Living in:    ",
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                              Row(
+                                children: <Widget>[
+                                  Text("$to    "),
+                                  Icon(
+                                    FontAwesomeIcons.chevronRight,
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
                               builder: (_) => ChangePasswordScreen(
                                 value: userData["password"],
                                 context: context,
@@ -238,6 +289,32 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                             children: <Widget>[
                               Text(
                                 "Change Password",
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                              Icon(
+                                FontAwesomeIcons.chevronRight,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          //TODO: ADD CHANGER
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(16)),
+                            border:
+                                Border.all(color: Colors.lightGreen.shade200),
+                          ),
+                          margin: EdgeInsets.all(8),
+                          padding: EdgeInsets.all(12),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Text(
+                                "Terms Of Use",
                                 style: TextStyle(fontWeight: FontWeight.bold),
                               ),
                               Icon(

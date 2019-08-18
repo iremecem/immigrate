@@ -26,10 +26,6 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
       appBar: SDAppBar(
         title: Text(
           "Edit",
-          style: TextStyle(
-            color: Colors.amber.shade200,
-            fontSize: 35,
-          ),
         ),
         // leading: IconButton(
         //   icon: Icon(
@@ -52,7 +48,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                 padding: EdgeInsets.all(8),
                 child: Row(
                   children: <Widget>[
-                    Text("    Enter current password:    "),
+                    Text("  Current password:    "),
                     Container(
                       width: MediaQuery.of(context).size.width - 250,
                       child: FormBuilderTextField(
@@ -85,7 +81,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                 padding: EdgeInsets.all(8),
                 child: Row(
                   children: <Widget>[
-                    Text("    Enter new password:    "),
+                    Text("  New password:    "),
                     Container(
                       width: MediaQuery.of(context).size.width - 250,
                       child: FormBuilderTextField(
@@ -118,7 +114,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                 padding: EdgeInsets.all(8),
                 child: Row(
                   children: <Widget>[
-                    Text("    Enter new password again:    "),
+                    Text("  Again:    "),
                     Container(
                       width: MediaQuery.of(context).size.width - 250,
                       child: FormBuilderTextField(
@@ -151,17 +147,6 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
               ),
               FlatButton(
                 child: Container(
-                  height: 50,
-                  width: 200,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(50),
-                    gradient: LinearGradient(
-                      colors: [
-                        Colors.amberAccent.shade100,
-                        Colors.amber.shade600
-                      ],
-                    ),
-                  ),
                   child: Center(
                     child: Text("Continue"),
                   ),
@@ -178,7 +163,6 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                             context: widget.context,
                             password: _editingController.text.trim(),
                           );
-                          //TODO: SOLVE HERE
                           Flushbar(
                             animationDuration: Duration(milliseconds: 400),
                             backgroundColor: Colors.green,

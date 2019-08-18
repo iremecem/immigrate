@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_mailer/flutter_mailer.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:simple_design/simple_design.dart';
 
 class MailWritingScreen extends StatefulWidget {
   @override
@@ -23,16 +24,10 @@ class _MailWritingScreenState extends State<MailWritingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.grey[50],
+      appBar: SDAppBar(
         title: Text(
           "Send Us",
-          style: TextStyle(
-            color: Colors.amber.shade200,
-            fontSize: 35,
-          ),
         ),
-        elevation: 0,
         // leading: IconButton(
         //   icon: Icon(
         //     MaterialIcons.getIconData("arrow-back"),
@@ -44,7 +39,7 @@ class _MailWritingScreenState extends State<MailWritingScreen> {
           IconButton(
             icon: Icon(
               FontAwesomeIcons.paperPlane,
-              color: Colors.amber.shade200,
+              color: Colors.lightGreen,
             ),
             onPressed: () async {
               if (_bodycontroller.text.trim().length != 0) {
@@ -101,7 +96,7 @@ class _MailWritingScreenState extends State<MailWritingScreen> {
                   icon: Icon(
                     FontAwesomeIcons.hashtag,
                     size: 35,
-                    color: Colors.amber.shade500,
+                    color: Colors.lightGreen,
                   ),
                   hoverColor: Colors.green.shade200,
                   hintText: "Subject",
@@ -129,7 +124,7 @@ class _MailWritingScreenState extends State<MailWritingScreen> {
                   icon: Icon(
                     FontAwesomeIcons.penFancy,
                     size: 35,
-                    color: Colors.amber.shade500,
+                    color: Colors.lightGreen,
                   ),
                   hoverColor: Colors.green.shade200,
                   hintText: "Start writing...",

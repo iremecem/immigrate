@@ -441,6 +441,13 @@ class FirebaseController {
     await _userRef.child(_user.uid).child("name").set(newName);
   }
 
+  Future changeCountry({String newCountry}) async {
+    FirebaseUser _user = await FirebaseAuth.instance.currentUser();
+    SharedPreferences _prefs = await SharedPreferences.getInstance();
+    _prefs.setString("to", newCountry);
+    await _userRef.child(_user.uid).child("to").set(newCountry);
+  }
+
   Future changeUserMail({String newMail, BuildContext context}) async {
     try {
       FirebaseUser _user = await FirebaseAuth.instance.currentUser();

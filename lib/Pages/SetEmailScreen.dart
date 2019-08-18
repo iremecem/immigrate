@@ -22,10 +22,6 @@ class _SetEmailScreenState extends State<SetEmailScreen> {
       appBar: SDAppBar(
         title: Text(
           "Edit",
-          style: TextStyle(
-            color: Colors.amber.shade200,
-            fontSize: 35,
-          ),
         ),
         // leading: IconButton(
         //   icon: Icon(
@@ -86,17 +82,6 @@ class _SetEmailScreenState extends State<SetEmailScreen> {
                 ),
                 FlatButton(
                   child: Container(
-                    height: 50,
-                    width: 200,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(50),
-                      gradient: LinearGradient(
-                        colors: [
-                          Colors.amberAccent.shade100,
-                          Colors.amber.shade600
-                        ],
-                      ),
-                    ),
                     child: Center(
                       child: Text("Continue"),
                     ),
