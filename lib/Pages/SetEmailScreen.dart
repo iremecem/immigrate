@@ -2,6 +2,7 @@ import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_icons/material_icons.dart';
+import 'package:immigrate/Controllers/FirebaseController.dart';
 import 'package:valentines/Controllers/FirebaseController.dart';
 
 class SetEmailScreen extends StatefulWidget {

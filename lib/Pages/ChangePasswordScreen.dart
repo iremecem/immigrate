@@ -1,9 +1,8 @@
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:flutter_icons/entypo.dart';
-import 'package:flutter_icons/material_icons.dart';
-import 'package:valentines/Controllers/FirebaseController.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:immigrate/Controllers/FirebaseController.dart';
 
 class ChangePasswordScreen extends StatefulWidget {
   final String value;
@@ -69,7 +68,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                           border: InputBorder.none,
                           hintText: "Tap here to add...",
                           suffixIcon: IconButton(
-                            icon: Icon(Entypo.getIconData("eye-with-line")),
+                            icon: Icon(FontAwesomeIcons.eyeSlash),
                             onPressed: () {
                               setState(() {
                                 obscure = !obscure;
@@ -102,7 +101,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                           border: InputBorder.none,
                           hintText: "Tap here to add...",
                           suffixIcon: IconButton(
-                            icon: Icon(Entypo.getIconData("eye-with-line")),
+                            icon: Icon(FontAwesomeIcons.eyeSlash),
                             onPressed: () {
                               setState(() {
                                 obscure = !obscure;
@@ -135,7 +134,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                           border: InputBorder.none,
                           hintText: "Tap here to add...",
                           suffixIcon: IconButton(
-                            icon: Icon(Entypo.getIconData("eye-with-line")),
+                            icon: Icon(FontAwesomeIcons.eyeSlash),
                             onPressed: () {
                               setState(() {
                                 obscure = !obscure;
