@@ -2,10 +2,7 @@ import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:immigrate/Controllers/FirebaseController.dart';
-<<<<<<< HEAD
-=======
 import 'package:simple_design/simple_design.dart';
->>>>>>> 5dde7f2c9f6999fd630f6fb64a85f4d77b8eb5b6
 
 class SetNameScreen extends StatefulWidget {
   final String value;

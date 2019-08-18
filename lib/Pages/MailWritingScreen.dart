@@ -1,9 +1,8 @@
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_icons/flutter_icons.dart';
-import 'package:flutter_icons/material_icons.dart';
 import 'package:flutter_mailer/flutter_mailer.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class MailWritingScreen extends StatefulWidget {
   @override
@@ -44,7 +43,7 @@ class _MailWritingScreenState extends State<MailWritingScreen> {
         actions: <Widget>[
           IconButton(
             icon: Icon(
-              Feather.getIconData("send"),
+              FontAwesomeIcons.paperPlane,
               color: Colors.amber.shade200,
             ),
             onPressed: () async {
@@ -100,7 +99,7 @@ class _MailWritingScreenState extends State<MailWritingScreen> {
                 decoration: InputDecoration(
                   border: InputBorder.none,
                   icon: Icon(
-                    Feather.getIconData("hash"),
+                    FontAwesomeIcons.hashtag,
                     size: 35,
                     color: Colors.amber.shade500,
                   ),
@@ -128,7 +127,7 @@ class _MailWritingScreenState extends State<MailWritingScreen> {
                 decoration: InputDecoration(
                   border: InputBorder.none,
                   icon: Icon(
-                    EvilIcons.getIconData("pencil"),
+                    FontAwesomeIcons.penFancy,
                     size: 35,
                     color: Colors.amber.shade500,
                   ),
