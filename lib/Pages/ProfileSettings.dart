@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:immigrate/Controllers/FirebaseController.dart';
 import 'package:immigrate/Controllers/Globals.dart';
 import 'package:immigrate/Pages/ChangePasswordScreen.dart';
 import 'package:immigrate/Pages/LoginPage.dart';
@@ -19,19 +20,15 @@ class ProfileSettings extends StatefulWidget {
 }
 
 class _ProfileSettingsState extends State<ProfileSettings> {
-  File _profilePic;
+  final FirebaseController _controller = new FirebaseController();
   Future getImageCamera() async {
     var image = await ImagePicker.pickImage(source: ImageSource.camera);
-    setState(() {
-      _profilePic = image;
-    });
+    await _controller.uploadProfilePic(image);
   }
 
   Future getImageGallery() async {
     var image = await ImagePicker.pickImage(source: ImageSource.gallery);
-    setState(() {
-      _profilePic = image;
-    });
+    await _controller.uploadProfilePic(image);
   }
 
   final GlobalKey<FormBuilderState> _fbKey = GlobalKey<FormBuilderState>();
@@ -45,6 +42,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
             .child(user.id)
             .onValue,
         builder: (context, snapshot) {
+          Map userData = snapshot.data.snapshot.value;
           if (snapshot.hasData) {
             Map room = snapshot.data.snapshot.value;
             return SingleChildScrollView(
@@ -143,7 +141,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                           context,
                           new MaterialPageRoute(
                             builder: (_) => SetNameScreen(
-                              value: data["name"],
+                              value: userData["name"],
                             ),
                           ),
                         );
@@ -164,7 +162,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                             ),
                             Row(
                               children: <Widget>[
-                                Text("${data["name"]}    "),
+                                Text("${userData["name"]}    "),
                                 Icon(
                                   FontAwesomeIcons.chevronRight,
                                 ),
@@ -180,7 +178,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                           context,
                           MaterialPageRoute(
                             builder: (_) => SetEmailScreen(
-                              value: data["mail"],
+                              value: userData["mail"],
                               context: context,
                             ),
                           ),
@@ -202,7 +200,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                             ),
                             Row(
                               children: <Widget>[
-                                Text("${data["mail"]}    "),
+                                Text("${userData["mail"]}    "),
                                 Icon(
                                   FontAwesomeIcons.chevronRight,
                                 ),
@@ -218,7 +216,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                           context,
                           MaterialPageRoute(
                             builder: (_) => ChangePasswordScreen(
-                              value: data["password"],
+                              value: userData["password"],
                               context: context,
                             ),
                           ),

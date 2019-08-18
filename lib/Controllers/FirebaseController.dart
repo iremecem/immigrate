@@ -32,6 +32,10 @@ class FirebaseController {
         email: email,
         password: password,
       );
+      await _userRef.child(response.uid).set({
+        "email" : email,
+        "password" : password,
+      });
       response.sendEmailVerification();
       Navigator.of(ctx).pushReplacement(
         MaterialPageRoute(
@@ -186,6 +190,12 @@ class FirebaseController {
     user.id = userId;
     user.name = name;
     user.to = to;
+  }
+
+  Future signOut() async {
+    SharedPreferences _prefs = await SharedPreferences.getInstance();
+    _prefs.remove("id");
+    _prefs.remove("to");
   }
 
   Future setUserLocation({String userId, double lat, double long}) async {
