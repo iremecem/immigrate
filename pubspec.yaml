@@ -46,6 +46,7 @@ dependencies:
   intl: ^0.15.8
   flutter_offline: ^0.2.4+1
   splashscreen: ^1.2.0
+  flutter_mailer: ^0.4.1+1
 
 
 dev_dependencies:

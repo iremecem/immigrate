@@ -1,8 +1,8 @@
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:flutter_icons/material_icons.dart';
-import 'package:valentines/Controllers/FirebaseController.dart';
+import 'package:immigrate/Controllers/FirebaseController.dart';
+import 'package:simple_design/simple_design.dart';
 
 class SetNameScreen extends StatefulWidget {
   final String value;
@@ -18,8 +18,7 @@ class _SetNameScreenState extends State<SetNameScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.grey[50],
+      appBar: SDAppBar(
         title: Text(
           "Edit",
           style: TextStyle(
@@ -27,14 +26,13 @@ class _SetNameScreenState extends State<SetNameScreen> {
             fontSize: 35,
           ),
         ),
-        elevation: 0,
-        leading: IconButton(
-          icon: Icon(
-            MaterialIcons.getIconData("arrow-back"),
-            color: Colors.amber.shade200,
-          ),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
+        // leading: IconButton(
+        //   icon: Icon(
+        //     MaterialIcons.getIconData("arrow-back"),
+        //     color: Colors.amber.shade200,
+        //   ),
+        //   onPressed: () => Navigator.of(context).pop(),
+        // ),
       ),
       body: FormBuilder(
         child: Column(
