@@ -1,6 +1,7 @@
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:immigrate/Controllers/FirebaseController.dart';
 import 'package:simple_design/simple_design.dart';
 
 class ChangeLivingScreen extends StatefulWidget {
@@ -14,6 +15,7 @@ class ChangeLivingScreen extends StatefulWidget {
 
 class _ChangeLivingScreenState extends State<ChangeLivingScreen> {
   final GlobalKey<FormBuilderState> _fbKey = GlobalKey<FormBuilderState>();
+  final FirebaseController _controller = new FirebaseController();
   var dropDownValue;
   @override
   void initState() {
@@ -21,6 +23,7 @@ class _ChangeLivingScreenState extends State<ChangeLivingScreen> {
     super.initState();
   }
 
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -120,8 +123,9 @@ class _ChangeLivingScreenState extends State<ChangeLivingScreen> {
                     ],
                     initialValue: dropDownValue,
                     onChanged: (value) {
-                      setState(() {
+                      setState(() async {
                         dropDownValue = value;
+                        await _controller.changeCountry(newCountry: dropDownValue);
                       });
                     },
                     elevation: 10,

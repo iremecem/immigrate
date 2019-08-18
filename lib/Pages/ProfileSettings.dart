@@ -47,15 +47,31 @@ class _ProfileSettingsState extends State<ProfileSettings> {
             Map userData = snapshot.data.snapshot.value;
             if (userData != null) {
               String to = userData["to"];
-              switch(to){
-                case "tr" : to = "Turkey"; break;
-                case "gb" : to = "United Kingdom"; break;
-                case "fr" : to = "France"; break;
-                case "it" : to = "Italy"; break;
-                case "de" : to = "Germany"; break;
-                case "rs" : to = "Russia"; break;
-                case "us" : to = "United States"; break;
-                case "ae" : to = "Arab Emirates"; break; 
+              switch (to) {
+                case "tr":
+                  to = "Turkey";
+                  break;
+                case "gb":
+                  to = "United Kingdom";
+                  break;
+                case "fr":
+                  to = "France";
+                  break;
+                case "it":
+                  to = "Italy";
+                  break;
+                case "de":
+                  to = "Germany";
+                  break;
+                case "rs":
+                  to = "Russia";
+                  break;
+                case "us":
+                  to = "United States";
+                  break;
+                case "ae":
+                  to = "Arab Emirates";
+                  break;
               }
               return SingleChildScrollView(
                 child: FormBuilder(
@@ -171,11 +187,19 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                             children: <Widget>[
                               Text(
                                 "Name:    ",
-                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14,),
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14,
+                                ),
                               ),
                               Row(
                                 children: <Widget>[
-                                  Text("${userData["name"]}    ", style: TextStyle(fontSize: 14,),),
+                                  Text(
+                                    "${userData["name"]}    ",
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                    ),
+                                  ),
                                   Icon(
                                     FontAwesomeIcons.chevronRight,
                                   ),
@@ -210,11 +234,19 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                             children: <Widget>[
                               Text(
                                 "Email:    ",
-                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14,),
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14,
+                                ),
                               ),
                               Row(
                                 children: <Widget>[
-                                  Text("${userData["mail"]}    ", style: TextStyle(fontSize: 14,),),
+                                  Text(
+                                    "${userData["mail"]}    ",
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                    ),
+                                  ),
                                   Icon(
                                     FontAwesomeIcons.chevronRight,
                                   ),
@@ -250,11 +282,19 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                             children: <Widget>[
                               Text(
                                 "Living in:    ",
-                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14,),
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14,
+                                ),
                               ),
                               Row(
                                 children: <Widget>[
-                                  Text("$to    ", style: TextStyle(fontSize: 14,),),
+                                  Text(
+                                    "$to    ",
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                    ),
+                                  ),
                                   Icon(
                                     FontAwesomeIcons.chevronRight,
                                   ),
@@ -289,7 +329,10 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                             children: <Widget>[
                               Text(
                                 "Change Password",
-                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14,),
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14,
+                                ),
                               ),
                               Icon(
                                 FontAwesomeIcons.chevronRight,
@@ -350,7 +393,10 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                             children: <Widget>[
                               Text(
                                 "Sign Out",
-                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14,),
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14,
+                                ),
                               ),
                               Icon(
                                 FontAwesomeIcons.chevronRight,
@@ -376,8 +422,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                                 applicationName: "Countryman App",
                                 applicationVersion: "v0.1 Beta",
                                 children: <Widget>[
-                                  Text(
-                                      "Thank you for using the application."),
+                                  Text("Thank you for using the application."),
                                   Text(
                                       "\nDeveloped in Ankara/Turkey by İrem Ecem Yelkanat and Ali Taha Dinçer.")
                                 ],
@@ -428,7 +473,10 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                             children: <Widget>[
                               Text(
                                 "About",
-                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14,),
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14,
+                                ),
                               ),
                               Icon(
                                 FontAwesomeIcons.chevronRight,
@@ -459,7 +507,10 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                             children: <Widget>[
                               Text(
                                 "Contact Us",
-                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14,),
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14,
+                                ),
                               ),
                               Icon(
                                 FontAwesomeIcons.chevronRight,
@@ -485,7 +536,10 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                             children: <Widget>[
                               Text(
                                 "Terms Of Use",
-                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14,),
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14,
+                                ),
                               ),
                               Icon(
                                 FontAwesomeIcons.chevronRight,
