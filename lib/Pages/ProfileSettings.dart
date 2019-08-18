@@ -72,7 +72,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                                     child: Text(
                                       "Camera",
                                       style: TextStyle(
-                                          color: Colors.cyan.shade200),
+                                          color: Colors.lightGreen.shade200),
                                     ),
                                     onPressed: getImageCamera,
                                   ),
@@ -80,7 +80,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                                     child: Text(
                                       "Gallery",
                                       style: TextStyle(
-                                          color: Colors.cyan.shade200),
+                                          color: Colors.lightGreen.shade200),
                                     ),
                                     onPressed: getImageGallery,
                                   ),
@@ -117,7 +117,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                         },
                         child: CircleAvatar(
                           radius: 125,
-                          backgroundColor: Colors.cyan.shade200,
+                          backgroundColor: Colors.lightGreen.shade200,
                           backgroundImage: room["profilePic"] == null
                               ? AssetImage("assets/images/sample.jpg")
                               : NetworkImage(room["profilePic"]),
@@ -149,7 +149,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                       child: Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.all(Radius.circular(16)),
-                          border: Border.all(color: Colors.cyan.shade200),
+                          border: Border.all(color: Colors.lightGreen.shade200),
                         ),
                         margin: EdgeInsets.all(8),
                         padding: EdgeInsets.all(12),
@@ -187,7 +187,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                       child: Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.all(Radius.circular(16)),
-                          border: Border.all(color: Colors.cyan.shade200),
+                          border: Border.all(color: Colors.lightGreen.shade200),
                         ),
                         margin: EdgeInsets.all(8),
                         padding: EdgeInsets.all(12),
@@ -225,7 +225,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                       child: Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.all(Radius.circular(16)),
-                          border: Border.all(color: Colors.cyan.shade200),
+                          border: Border.all(color: Colors.lightGreen.shade200),
                         ),
                         margin: EdgeInsets.all(8),
                         padding: EdgeInsets.all(12),
@@ -285,7 +285,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                       child: Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.all(Radius.circular(16)),
-                          border: Border.all(color: Colors.cyan.shade200),
+                          border: Border.all(color: Colors.lightGreen.shade200),
                         ),
                         margin: EdgeInsets.all(8),
                         padding: EdgeInsets.all(12),
@@ -362,7 +362,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                       child: Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.all(Radius.circular(16)),
-                          border: Border.all(color: Colors.cyan.shade200),
+                          border: Border.all(color: Colors.lightGreen.shade200),
                         ),
                         margin: EdgeInsets.all(8),
                         padding: EdgeInsets.all(12),
@@ -392,7 +392,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                       child: Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.all(Radius.circular(16)),
-                          border: Border.all(color: Colors.cyan.shade200),
+                          border: Border.all(color: Colors.lightGreen.shade200),
                         ),
                         margin: EdgeInsets.all(8),
                         padding: EdgeInsets.all(12),
@@ -417,7 +417,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                       child: Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.all(Radius.circular(16)),
-                          border: Border.all(color: Colors.cyan.shade200),
+                          border: Border.all(color: Colors.lightGreen.shade200),
                         ),
                         margin: EdgeInsets.all(8),
                         padding: EdgeInsets.all(12),
