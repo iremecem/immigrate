@@ -56,10 +56,10 @@ class _MapPageState extends State<MapPage> {
                       if (k != user.id &&
                           v["lat"] != null &&
                           v["lon"] != null &&
-                          (v["lat"] - user.lat < 5 ||
-                              v["lat"] - user.lat > 5) &&
-                          (v["lon"] - user.lon < 5 ||
-                              v["lon"] - user.lon > 5) &&
+                          (v["lat"] - user.lat < 0.5 ||
+                              v["lat"] - user.lat > 0.5) &&
+                          (v["lon"] - user.lon < 0.5 ||
+                              v["lon"] - user.lon > 0.5) &&
                           user.from == v["from"] &&
                           user.to == v["to"]) {
                         markers.add(
