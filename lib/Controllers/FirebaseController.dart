@@ -87,8 +87,8 @@ class FirebaseController {
         _prefs.setString("id", user.id);
         _prefs.setString("profilePic", user.profilePic);
 
-      _prefs.setString("mail", email);
-      _prefs.setString("password", password);
+        _prefs.setString("mail", email);
+        _prefs.setString("password", password);
       }).then((onValue) {
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
@@ -182,8 +182,8 @@ class FirebaseController {
         "name": name,
         "from": from,
         "to": to,
-        "mail" : fu.email,
-        "password" : prefs.getString("password"),
+        "mail": fu.email,
+        "password": prefs.getString("password"),
       },
     );
     await uploadProfilePic(image);
@@ -305,14 +305,39 @@ class FirebaseController {
     });
   }
 
-  Future sendMessage({String text, String token, String sender}) async {
-    String path = randomAlphaNumeric(30);
-    await _chatRef.child(token).child("messages").child(path).set({
-      "message": text,
-      "date": DateTime.now().toIso8601String(),
-      "sender": sender,
-      "messageKey": path,
-    });
+  Future sendMessage(
+      {String text, String token, String sender, File image}) async {
+    if (image != null) {
+      StorageReference reference =
+          _storageRef.ref().child(token).child(randomAlphaNumeric(40));
+      var dir = await getTemporaryDirectory();
+      var targetPath = dir.absolute.path + randomAlphaNumeric(20);
+      var result = await FlutterImageCompress.compressAndGetFile(
+        image.absolute.path,
+        targetPath,
+        quality: 50,
+      );
+      await reference.putFile(result).onComplete.then((onValue) async {
+        await reference.getDownloadURL().then((onalue) async {
+          String path = randomAlphaNumeric(30);
+          await _chatRef.child(token).child("messages").child(path).set({
+            "message": text,
+            "date": DateTime.now().toIso8601String(),
+            "sender": sender,
+            "messageKey": path,
+            "photoUrl": onalue,
+          });
+        });
+      });
+    } else {
+      String path = randomAlphaNumeric(30);
+      await _chatRef.child(token).child("messages").child(path).set({
+        "message": text,
+        "date": DateTime.now().toIso8601String(),
+        "sender": sender,
+        "messageKey": path,
+      });
+    }
   }
 
   Future deleteMessage({String messageKey, String token}) async {
@@ -618,5 +643,13 @@ class FirebaseController {
         )..show(context);
       }
     }
+  }
+
+  Future blockUser({String userID, String otherUserID, String roomID}) async {
+    await _chatRef.child(roomID).remove();
+    await _userRef.child(userID).child("rooms").child(roomID).remove();
+    await _userRef.child(otherUserID).child("rooms").child(roomID).remove();
+    await _userRef.child(userID).child("blockedUsers").push().set(otherUserID);
+    await _userRef.child(otherUserID).child("blockedUsers").push().set(userID);
   }
 }

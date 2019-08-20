@@ -2,11 +2,13 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
+import 'package:flushbar/flushbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:immigrate/Controllers/FirebaseController.dart';
 import 'package:immigrate/Controllers/Globals.dart';
+import 'package:immigrate/Pages/MailWritingScreen.dart';
 import 'package:immigrate/Pages/OthersProfilePage.dart';
 import 'package:immigrate/Widgets/ChatMessage.dart';
 import 'package:simple_design/simple_design.dart';
@@ -77,33 +79,36 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget _chatEnvironment() {
     return Column(
       children: <Widget>[
-        // imageToSend != null
-        //     ? InkWell(
-        //         child: Container(
-        //           decoration: BoxDecoration(
-        //             image: DecorationImage(
-        //               image: FileImage(imageToSend),
-        //               fit: BoxFit.cover,
-        //             ),
-        //             borderRadius: BorderRadius.circular(30.0),
-        //             color: Colors.lightGreen,
-        //             boxShadow: [
-        //               BoxShadow(
-        //                 color: Colors.grey,
-        //                 blurRadius: 5.0,
-        //                 spreadRadius: 3.0,
-        //               )
-        //             ],
-        //           ),
-        //           padding: EdgeInsets.all(10),
-        //           margin: EdgeInsets.all(10),
-        //           height: 100,
-        //           width: 100,
-        //         ),
-        //         onTap: () {
-        //           //TODO: EDIT
-        //         })
-        //     : Container(),
+        imageToSend != null
+            ? InkWell(
+                child: Container(
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: FileImage(imageToSend),
+                      fit: BoxFit.cover,
+                    ),
+                    borderRadius: BorderRadius.circular(30.0),
+                    color: Colors.lightGreen,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey,
+                        blurRadius: 5.0,
+                        spreadRadius: 3.0,
+                      )
+                    ],
+                  ),
+                  padding: EdgeInsets.all(10),
+                  margin: EdgeInsets.all(10),
+                  height: 100,
+                  width: 100,
+                ),
+                onLongPress: (){
+                  setState(() {
+                    imageToSend = null;
+                  });
+                },
+              )
+            : Container(),
         IconTheme(
           data: new IconThemeData(
             color: Colors.lightGreen,
@@ -127,77 +132,77 @@ class _ChatScreenState extends State<ChatScreen> {
                     padding: EdgeInsets.all(5),
                   ),
                 ),
-                // new Container(
-                //   margin: const EdgeInsets.symmetric(
-                //     horizontal: 4.0,
-                //   ),
-                //   child: new IconButton(
-                //     icon: new Icon(
-                //       Icons.camera,
-                //       color: Colors.lightGreen,
-                //     ),
-                //     onPressed: () {
-                //       if (Platform.isAndroid) {
-                //         showDialog(
-                //             context: context,
-                //             barrierDismissible: true,
-                //             builder: (context) {
-                //               return AlertDialog(
-                //                 title: Text("Pick an Image"),
-                //                 content: Text(
-                //                     "You can either select an image from camera or gallery"),
-                //                 actions: <Widget>[
-                //                   FlatButton(
-                //                     child: Text(
-                //                       "Camera",
-                //                       style: TextStyle(
-                //                         color: Colors.lightGreen,
-                //                       ),
-                //                     ),
-                //                     onPressed: getImageCamera,
-                //                   ),
-                //                   FlatButton(
-                //                     child: Text(
-                //                       "Gallery",
-                //                       style: TextStyle(
-                //                         color: Colors.lightGreen,
-                //                       ),
-                //                     ),
-                //                     onPressed: getImageGallery,
-                //                   ),
-                //                 ],
-                //               );
-                //             });
-                //       } else if (Platform.isIOS) {
-                //         showCupertinoModalPopup(
-                //           context: context,
-                //           builder: (context) => CupertinoActionSheet(
-                //             title: Text("Pick an image"),
-                //             message: Text(
-                //                 "You can either select an image from camera or gallery"),
-                //             actions: <Widget>[
-                //               CupertinoActionSheetAction(
-                //                 child: Text("Camera"),
-                //                 onPressed: getImageCamera,
-                //               ),
-                //               CupertinoActionSheetAction(
-                //                 child: Text("Gallery"),
-                //                 onPressed: getImageGallery,
-                //               ),
-                //             ],
-                //             cancelButton: CupertinoActionSheetAction(
-                //               child: Text("Cancel"),
-                //               isDefaultAction: true,
-                //               onPressed: () {
-                //                 Navigator.pop(context, "Cancel");
-                //               },
-                //             ),
-                //           ),
-                //         );
-                //       }
-                //     },
-                //   ),
-                // ),
+                new Container(
+                  margin: const EdgeInsets.symmetric(
+                    horizontal: 4.0,
+                  ),
+                  child: new IconButton(
+                    icon: new Icon(
+                      Icons.camera,
+                      color: Colors.lightGreen,
+                    ),
+                    onPressed: () {
+                      if (Platform.isAndroid) {
+                        showDialog(
+                            context: context,
+                            barrierDismissible: true,
+                            builder: (context) {
+                              return AlertDialog(
+                                title: Text("Pick an Image"),
+                                content: Text(
+                                    "You can either select an image from camera or gallery"),
+                                actions: <Widget>[
+                                  FlatButton(
+                                    child: Text(
+                                      "Camera",
+                                      style: TextStyle(
+                                        color: Colors.lightGreen,
+                                      ),
+                                    ),
+                                    onPressed: getImageCamera,
+                                  ),
+                                  FlatButton(
+                                    child: Text(
+                                      "Gallery",
+                                      style: TextStyle(
+                                        color: Colors.lightGreen,
+                                      ),
+                                    ),
+                                    onPressed: getImageGallery,
+                                  ),
+                                ],
+                              );
+                            });
+                      } else if (Platform.isIOS) {
+                        showCupertinoModalPopup(
+                          context: context,
+                          builder: (context) => CupertinoActionSheet(
+                            title: Text("Pick an image"),
+                            message: Text(
+                                "You can either select an image from camera or gallery"),
+                            actions: <Widget>[
+                              CupertinoActionSheetAction(
+                                child: Text("Camera"),
+                                onPressed: getImageCamera,
+                              ),
+                              CupertinoActionSheetAction(
+                                child: Text("Gallery"),
+                                onPressed: getImageGallery,
+                              ),
+                            ],
+                            cancelButton: CupertinoActionSheetAction(
+                              child: Text("Cancel"),
+                              isDefaultAction: true,
+                              onPressed: () {
+                                Navigator.pop(context, "Cancel");
+                              },
+                            ),
+                          ),
+                        );
+                      }
+                    },
+                  ),
+                ),
                 new Container(
                   margin: const EdgeInsets.symmetric(
                     horizontal: 4.0,
@@ -216,27 +221,27 @@ class _ChatScreenState extends State<ChatScreen> {
                               await _handleSubmit(
                                 text: _chatController.text.trim(),
                               );
-                              // if (imageToSend != null) {
-                              //   Flushbar(
-                              //     animationDuration:
-                              //         Duration(milliseconds: 400),
-                              //     backgroundColor: Colors.green,
-                              //     flushbarStyle: FlushbarStyle.FLOATING,
-                              //     flushbarPosition: FlushbarPosition.BOTTOM,
-                              //     message: "Sending media, please wait...",
-                              //     isDismissible: true,
-                              //     duration: Duration(seconds: 5),
-                              //   )..show(context);
-                              //   await _handleSubmit(
-                              //     text: _chatController.text.trim(),
-                              //     image: imageToSend,
-                              //   );
-                              // } else {
-                              //   await _handleSubmit(
-                              //     text: _chatController.text.trim(),
-                              //     image: imageToSend,
-                              //   );
-                              // }
+                              if (imageToSend != null) {
+                                Flushbar(
+                                  animationDuration:
+                                      Duration(milliseconds: 400),
+                                  backgroundColor: Colors.green,
+                                  flushbarStyle: FlushbarStyle.FLOATING,
+                                  flushbarPosition: FlushbarPosition.BOTTOM,
+                                  message: "Sending media, please wait...",
+                                  isDismissible: true,
+                                  duration: Duration(seconds: 5),
+                                )..show(context);
+                                await _handleSubmit(
+                                  text: _chatController.text.trim(),
+                                  image: imageToSend,
+                                );
+                              } else {
+                                await _handleSubmit(
+                                  text: _chatController.text.trim(),
+                                  image: imageToSend,
+                                );
+                              }
                               setState(() {
                                 isSending = false;
                               });
@@ -252,8 +257,41 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   Widget build(BuildContext context) {
+    const List<Choice> choices = const <Choice>[
+      const Choice(title: 'Block', icon: Icons.block),
+      const Choice(title: 'Report', icon: Icons.report),
+    ];
     return Scaffold(
       appBar: SDAppBar(
+        actions: <Widget>[
+          PopupMenuButton<Choice>(
+            itemBuilder: (_) {
+              return choices.map((f) {
+                return PopupMenuItem<Choice>(
+                  value: f,
+                  child: Text(f.title),
+                );
+              }).toList();
+            },
+            onSelected: (coice) async {
+              if (coice.title == "Report") {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => MailWritingScreen(),
+                  ),
+                );
+              } else {
+                await _controller.blockUser(
+                  otherUserID: widget.recieverId,
+                  userID: user.id,
+                  roomID: widget.roomKey,
+                );
+                Navigator.pop(context);
+              }
+            },
+          ),
+        ],
         title: Text("${widget.recieverName}"),
         leading: Row(
           children: <Widget>[
@@ -320,4 +358,11 @@ class _ChatScreenState extends State<ChatScreen> {
       ),
     );
   }
+}
+
+class Choice {
+  const Choice({this.title, this.icon});
+
+  final String title;
+  final IconData icon;
 }
