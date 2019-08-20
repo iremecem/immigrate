@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:immigrate/Controllers/FirebaseController.dart';
 import 'package:immigrate/Controllers/Globals.dart';
+import 'package:immigrate/Pages/OthersProfilePage.dart';
 import 'package:immigrate/Widgets/ChatMessage.dart';
 import 'package:simple_design/simple_design.dart';
 
@@ -53,7 +54,7 @@ class _ChatScreenState extends State<ChatScreen> {
   Future<void> _handleSubmit({String text, File image}) async {
     bool hasConnection = await _controller.checkUserHasConnectionWith(
         userUid: user.id, otherUid: widget.recieverId);
-        print(hasConnection);
+    print(hasConnection);
     if (hasConnection == false) {
       await _controller.createChatSpace(
         recieverName: widget.recieverName,
@@ -254,12 +255,26 @@ class _ChatScreenState extends State<ChatScreen> {
     return Scaffold(
       appBar: SDAppBar(
         title: Text("${widget.recieverName}"),
-        actions: <Widget>[
-          CircleAvatar(
-            backgroundImage: NetworkImage(widget.recieverProfilePic),
-            radius: 25,
-          ),
-        ],
+        leading: Row(
+          children: <Widget>[
+            IconButton(
+              icon: Icon(Icons.arrow_back),
+              onPressed: () => Navigator.pop(context),
+            ),
+            CircleAvatar(
+              backgroundImage: NetworkImage(widget.recieverProfilePic),
+              radius: 25,
+              child: InkWell(
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => OthersProfilePage(id: widget.recieverId),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
       body: GestureDetector(
         onTap: () {

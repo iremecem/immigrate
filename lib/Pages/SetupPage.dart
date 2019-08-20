@@ -142,7 +142,7 @@ class _SetupPageState extends State<SetupPage> {
                         height: 10,
                       ),
                       Text(
-                        "Where are you coming from?",
+                        "Where are you coming from? (You can't change this in the future!)",
                         style: TextStyle(
                           color: Colors.lightGreen,
                           fontSize: 15,

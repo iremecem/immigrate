@@ -6,6 +6,8 @@ import 'package:immigrate/Models/Post.dart';
 import 'package:immigrate/Widgets/PostCard.dart';
 
 class ProfilePage extends StatefulWidget {
+  final String id;
+  ProfilePage({@required this.id});
   @override
   _ProfilePageState createState() => _ProfilePageState();
 }
@@ -24,7 +26,7 @@ class _ProfilePageState extends State<ProfilePage> {
         query: FirebaseDatabase.instance
             .reference()
             .child("users")
-            .child(user.id)
+            .child(widget.id)
             .child("posts"),
         itemBuilder: (context, snapshot, anim, index) {
           Map data = snapshot.value;
@@ -47,7 +49,7 @@ class _ProfilePageState extends State<ProfilePage> {
             );
           } else {
             return Center(
-              child: Text("No posts found, send a new post..."),
+              child: Text(user.id == widget.id ? "No posts found, send a new post..." : "This user has not send any posts yet..."),
             );
           }
         },

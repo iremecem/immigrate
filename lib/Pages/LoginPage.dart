@@ -46,7 +46,6 @@ class _LoginPageState extends State<LoginPage> {
                       FormBuilderTextField(
                         attribute: "email",
                         validators: [
-                          FormBuilderValidators.email(),
                           FormBuilderValidators.required(),
                         ],
                         controller: _mailController,

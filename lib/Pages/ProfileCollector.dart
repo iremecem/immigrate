@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:immigrate/Controllers/Globals.dart';
 import 'package:immigrate/Pages/ProfilePage.dart';
 import 'package:immigrate/Pages/ProfileSettings.dart';
 import 'package:simple_design/simple_design.dart';
@@ -72,7 +73,7 @@ class _ProfileCollectorState extends State<ProfileCollector> {
         body: TabBarView(
           physics: NeverScrollableScrollPhysics(),
           children: <Widget>[
-            ProfilePage(),
+            ProfilePage(id: user.id,),
             ProfileSettings(),
           ],
         ),

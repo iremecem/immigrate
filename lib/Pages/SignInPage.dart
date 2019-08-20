@@ -50,7 +50,6 @@ class _SignInPageState extends State<SignInPage> {
                         FormBuilderTextField(
                           attribute: "email",
                           validators: [
-                            FormBuilderValidators.email(),
                             FormBuilderValidators.required(),
                           ],
                           controller: _mailController,

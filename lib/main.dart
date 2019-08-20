@@ -166,7 +166,7 @@ void main() async {
     MaterialApp(
       debugShowCheckedModeBanner: false,
       home: SplashScreen(
-        seconds: 3,
+        seconds: 1,
         image: Image(
           image: AssetImage("assets/images/dummy-imm.png"),
         ),
