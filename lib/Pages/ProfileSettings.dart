@@ -535,7 +535,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                                 children: <Widget>[
                                   Text("Thank you for using the application."),
                                   Text(
-                                      "\nDeveloped in Ankara/Turkey by İrem Ecem Yelkanat and Ali Taha Dinçer.")
+                                      "\nDeveloped in Ankara/Turkey by Gürkan Subatan.")
                                 ],
                               ),
                             );
@@ -566,7 +566,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                                 title: Text("Valentines App"),
                                 content: Text(
                                     "\nThank you for using the application." +
-                                        "\n\nDeveloped in Ankara/Turkey by İrem Ecem Yelkanat and Ali Taha Dinçer."),
+                                        "\n\nDeveloped in Ankara/Turkey by Gürkan Subatan."),
                               ),
                             );
                           }
