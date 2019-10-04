@@ -58,29 +58,36 @@ class _ChatScreenState extends State<ChatScreen> {
         userUid: user.id, otherUid: widget.recieverId);
     print(hasConnection);
     if (hasConnection == false) {
-      String check = text.trim();
-      if (check.length != 0) {
-        await _controller.createChatSpace(
-          recieverName: widget.recieverName,
-          recieverUid: widget.recieverId,
-          roomToken: widget.roomKey,
-          senderName: user.name,
-          senderUid: user.id,
-          user1ProfPic: user.profilePic,
-          user2ProfPic: widget.recieverProfilePic,
-        );
-      }
+      await _controller.createChatSpace(
+        recieverName: widget.recieverName,
+        recieverUid: widget.recieverId,
+        roomToken: widget.roomKey,
+        senderName: user.name,
+        senderUid: user.id,
+        user1ProfPic: user.profilePic,
+        user2ProfPic: widget.recieverProfilePic,
+      );
       _chatController.clear();
     }
     String check = text.trim();
-    if (check.length != 0) {
-      await _controller.sendMessage(
-        text: text,
-        sender: user.id,
-        token: widget.roomKey,
-      );
+    if (check.length != 0 || imageToSend != null) {
+      if (imageToSend == null) {
+        await _controller.sendMessage(
+          text: text,
+          sender: user.id,
+          token: widget.roomKey,
+        );
+      } else if (check.length == 0 && imageToSend != null) {
+        await _controller.sendMessage(
+          text: null,
+          sender: user.id,
+          token: widget.roomKey,
+          image: image,
+        );
+      }
     }
     _chatController.clear();
+    imageToSend = null;
   }
 
   Widget _chatEnvironment() {
@@ -227,6 +234,7 @@ class _ChatScreenState extends State<ChatScreen> {
                               });
                               await _handleSubmit(
                                 text: _chatController.text.trim(),
+                                image: imageToSend,
                               );
                               if (imageToSend != null) {
                                 Flushbar(
@@ -299,26 +307,40 @@ class _ChatScreenState extends State<ChatScreen> {
             },
           ),
         ],
-        title: Text("${widget.recieverName}"),
-        leading: Row(
-          children: <Widget>[
-            IconButton(
-              icon: Icon(Icons.arrow_back),
-              onPressed: () => Navigator.pop(context),
-            ),
-            CircleAvatar(
-              backgroundImage: NetworkImage(widget.recieverProfilePic),
-              radius: 25,
-              child: InkWell(
-                onTap: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => OthersProfilePage(id: widget.recieverId),
+        title: SizedBox(
+          width: double.infinity,
+          child: Stack(
+            overflow: Overflow.visible,
+            children: <Widget>[
+              Positioned(
+                left: 0,
+                top: 13,
+                child: CircleAvatar(
+                  backgroundImage: NetworkImage(widget.recieverProfilePic),
+                  radius: 15,
+                  child: InkWell(
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) =>
+                            OthersProfilePage(id: widget.recieverId),
+                      ),
+                    ),
                   ),
                 ),
               ),
-            ),
-          ],
+              Positioned(
+                left: 50,
+                top: 20,
+                child: Text(
+                  "${widget.recieverName}",
+                  style: TextStyle(
+                    fontSize: 17.5,
+                  ),
+                ),
+              )
+            ],
+          ),
         ),
       ),
       body: GestureDetector(
