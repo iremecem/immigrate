@@ -180,7 +180,8 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                             backgroundColor: Colors.red,
                             flushbarStyle: FlushbarStyle.FLOATING,
                             flushbarPosition: FlushbarPosition.BOTTOM,
-                            message: "Old password area and re-entered password area are same...",
+                            message:
+                                "Old password area and re-entered password area are same...",
                             isDismissible: true,
                             duration: Duration(seconds: 5),
                           )..show(context);
