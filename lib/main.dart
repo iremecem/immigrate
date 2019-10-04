@@ -116,6 +116,7 @@ final ThemeData theme = ThemeData(
 );
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences _prefs = await SharedPreferences.getInstance();
   FirebaseController _controller = FirebaseController();
   String userId = _prefs.getString("id");
@@ -172,7 +173,7 @@ void main() async {
         ),
         loaderColor: Colors.lightGreen,
         photoSize: 100,
-        loadingText: Text("Wecome Back, Countryman!"),
+        loadingText: Text("Welcome Back, Countryman!"),
         navigateAfterSeconds: OfflineBuilder(
           child: Container(),
           connectivityBuilder: (context, connectivity, child) {

@@ -58,21 +58,28 @@ class _ChatScreenState extends State<ChatScreen> {
         userUid: user.id, otherUid: widget.recieverId);
     print(hasConnection);
     if (hasConnection == false) {
-      await _controller.createChatSpace(
-        recieverName: widget.recieverName,
-        recieverUid: widget.recieverId,
-        roomToken: widget.roomKey,
-        senderName: user.name,
-        senderUid: user.id,
-        user1ProfPic: user.profilePic,
-        user2ProfPic: widget.recieverProfilePic,
+      String check = text.trim();
+      if (check.length != 0) {
+        await _controller.createChatSpace(
+          recieverName: widget.recieverName,
+          recieverUid: widget.recieverId,
+          roomToken: widget.roomKey,
+          senderName: user.name,
+          senderUid: user.id,
+          user1ProfPic: user.profilePic,
+          user2ProfPic: widget.recieverProfilePic,
+        );
+      }
+      _chatController.clear();
+    }
+    String check = text.trim();
+    if (check.length != 0) {
+      await _controller.sendMessage(
+        text: text,
+        sender: user.id,
+        token: widget.roomKey,
       );
     }
-    await _controller.sendMessage(
-      text: text,
-      sender: user.id,
-      token: widget.roomKey,
-    );
     _chatController.clear();
   }
 
@@ -102,7 +109,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   height: 100,
                   width: 100,
                 ),
-                onLongPress: (){
+                onLongPress: () {
                   setState(() {
                     imageToSend = null;
                   });
