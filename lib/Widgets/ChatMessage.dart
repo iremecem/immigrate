@@ -58,18 +58,20 @@ class ChatMessage extends StatelessWidget {
             //     ),
             //   ),
             // ),
-            Bubble(
-              child: Text(
-                messageSnapshot.value["message"],
-                textAlign: TextAlign.right,
-                style: TextStyle(fontSize: 13),
-              ),
-              nip: BubbleNip.rightTop,
-              alignment: Alignment.topRight,
-              color: Colors.lightGreen.shade100,
-              radius: Radius.circular(10),
-              margin: BubbleEdges.only(top: 5, left: 100),
-            ),
+            messageSnapshot.value["message"].toString() != ""
+                ? Bubble(
+                    child: Text(
+                      messageSnapshot.value["message"],
+                      textAlign: TextAlign.right,
+                      style: TextStyle(fontSize: 13),
+                    ),
+                    nip: BubbleNip.rightTop,
+                    alignment: Alignment.topRight,
+                    color: Colors.lightGreen.shade100,
+                    radius: Radius.circular(10),
+                    margin: BubbleEdges.only(top: 5, left: 100),
+                  )
+                : Container(),
             Container(
               height: 5,
             ),
@@ -166,18 +168,20 @@ class ChatMessage extends StatelessWidget {
             //     ),
             //   ),
             // ),
-            Bubble(
-              child: Text(
-                messageSnapshot.value["message"],
-                textAlign: TextAlign.left,
-                style: TextStyle(fontSize: 13),
-              ),
-              nip: BubbleNip.leftTop,
-              alignment: Alignment.topLeft,
-              color: Colors.brown.shade50,
-              radius: Radius.circular(10),
-              margin: BubbleEdges.only(top: 10, right: 100),
-            ),
+            messageSnapshot.value["message"] != ""
+                ? Bubble(
+                    child: Text(
+                      messageSnapshot.value["message"],
+                      textAlign: TextAlign.left,
+                      style: TextStyle(fontSize: 13),
+                    ),
+                    nip: BubbleNip.leftTop,
+                    alignment: Alignment.topLeft,
+                    color: Colors.brown.shade50,
+                    radius: Radius.circular(10),
+                    margin: BubbleEdges.only(top: 10, right: 100),
+                  )
+                : Container(),
             Container(
               height: 5,
             ),

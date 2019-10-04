@@ -79,7 +79,7 @@ class _ChatScreenState extends State<ChatScreen> {
         );
       } else if (check.length == 0 && imageToSend != null) {
         await _controller.sendMessage(
-          text: null,
+          text: "",
           sender: user.id,
           token: widget.roomKey,
           image: image,
