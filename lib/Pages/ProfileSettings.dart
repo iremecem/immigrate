@@ -8,8 +8,11 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:immigrate/Controllers/FirebaseController.dart';
 import 'package:immigrate/Controllers/Globals.dart';
+import 'package:immigrate/Pages/ChangeAgeScreen.dart';
+import 'package:immigrate/Pages/ChangeGenderScreen.dart';
 import 'package:immigrate/Pages/ChangeLivingInScreen.dart';
 import 'package:immigrate/Pages/ChangePasswordScreen.dart';
+import 'package:immigrate/Pages/ChangeProffessionScreen.dart';
 import 'package:immigrate/Pages/LoginPage.dart';
 import 'package:immigrate/Pages/MailWritingScreen.dart';
 import 'package:immigrate/Pages/SetEmailScreen.dart';
@@ -309,7 +312,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (_) => ChangePasswordScreen(
+                              builder: (_) => ChangeAgeScreen(
                                 value: userData["age"],
                                 context: context,
                               ),
@@ -346,7 +349,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (_) => ChangePasswordScreen(
+                              builder: (_) => ChangeProffessionScreen(
                                 value: userData["proffession"],
                                 context: context,
                               ),
@@ -383,7 +386,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (_) => ChangePasswordScreen(
+                              builder: (_) => ChangeGenderScreen(
                                 value: userData["gender"],
                                 context: context,
                               ),

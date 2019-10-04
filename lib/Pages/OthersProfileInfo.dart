@@ -182,6 +182,16 @@ class _OthersProfileInfoPageState extends State<OthersProfileInfoPage> {
                             fontSize: 14,
                           ),
                         ),
+                        Row(
+                          children: <Widget>[
+                            Text(
+                              "${userData["age"]}    ",
+                              style: TextStyle(
+                                fontSize: 14,
+                              ),
+                            ),
+                          ],
+                        )
                       ],
                     ),
                   ),
@@ -202,6 +212,16 @@ class _OthersProfileInfoPageState extends State<OthersProfileInfoPage> {
                             fontSize: 14,
                           ),
                         ),
+                        Row(
+                          children: <Widget>[
+                            Text(
+                              "${userData["profession"]}    ",
+                              style: TextStyle(
+                                fontSize: 14,
+                              ),
+                            ),
+                          ],
+                        )
                       ],
                     ),
                   ),
@@ -222,6 +242,16 @@ class _OthersProfileInfoPageState extends State<OthersProfileInfoPage> {
                             fontSize: 14,
                           ),
                         ),
+                        Row(
+                          children: <Widget>[
+                            Text(
+                              "${userData["gender"]}    ",
+                              style: TextStyle(
+                                fontSize: 14,
+                              ),
+                            ),
+                          ],
+                        )
                       ],
                     ),
                   ),

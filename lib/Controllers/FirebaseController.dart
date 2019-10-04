@@ -652,4 +652,16 @@ class FirebaseController {
     await _userRef.child(userID).child("blockedUsers").push().set(otherUserID);
     await _userRef.child(otherUserID).child("blockedUsers").push().set(userID);
   }
+
+  Future setAge({String userID, String age}) async {
+    await _userRef.child(userID).child("age").set(age);
+  }
+
+  Future setProffession({String userID, String proffession}) async {
+    await _userRef.child(userID).child("proffession").set(proffession);
+  }
+
+  Future setGender({String userID, String gender}) async {
+    await _userRef.child(userID).child("gender").set(gender);
+  }
 }
