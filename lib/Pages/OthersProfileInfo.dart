@@ -193,7 +193,7 @@ class _OthersProfileInfoPageState extends State<OthersProfileInfoPage> {
                         Row(
                           children: <Widget>[
                             Text(
-                              "${userData["age"]}    ",
+                              "${userData["age"]==null ? "-" : userData["age"]}    ",
                               style: TextStyle(
                                 fontSize: 14,
                               ),
@@ -223,7 +223,7 @@ class _OthersProfileInfoPageState extends State<OthersProfileInfoPage> {
                         Row(
                           children: <Widget>[
                             Text(
-                              "${userData["profession"]}    ",
+                              "${userData["proffession"] == null ? "-" : userData["proffession"]}    ",
                               style: TextStyle(
                                 fontSize: 14,
                               ),
@@ -253,7 +253,7 @@ class _OthersProfileInfoPageState extends State<OthersProfileInfoPage> {
                         Row(
                           children: <Widget>[
                             Text(
-                              "${userData["gender"]}    ",
+                              "${userData["gender"] == null ? "-" : userData["gender"]}    ",
                               style: TextStyle(
                                 fontSize: 14,
                               ),

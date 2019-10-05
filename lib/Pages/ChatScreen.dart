@@ -273,7 +273,7 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   Widget build(BuildContext context) {
     const List<Choice> choices = const <Choice>[
-      const Choice(title: 'Block', icon: Icons.block),
+      // const Choice(title: 'Block', icon: Icons.block),
       const Choice(title: 'Report', icon: Icons.report),
     ];
     return Scaffold(

@@ -48,8 +48,7 @@ class _MailWritingScreenState extends State<MailWritingScreen> {
                     subject: _subjcontroller.text,
                     body: _bodycontroller.text,
                     recipients: [
-                      "alitahasubfly@gmail.com",
-                      "iremecemyelkanat@gmail.com",
+                      "applicationcountryman@gmail.com",
                     ],
                   )).then((onValue) {
                     Navigator.pop(context);

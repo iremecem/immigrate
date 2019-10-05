@@ -345,9 +345,19 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                                   fontSize: 14,
                                 ),
                               ),
-                              Icon(
-                                FontAwesomeIcons.chevronRight,
-                              ),
+                              Row(
+                                children: <Widget>[
+                                  Text(
+                                    "${userData["age"] == null ? "-" : userData["age"]}    ",
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                  Icon(
+                                    FontAwesomeIcons.chevronRight,
+                                  ),
+                                ],
+                              )
                             ],
                           ),
                         ),
@@ -382,9 +392,19 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                                   fontSize: 14,
                                 ),
                               ),
-                              Icon(
-                                FontAwesomeIcons.chevronRight,
-                              ),
+                              Row(
+                                children: <Widget>[
+                                  Text(
+                                    "${userData["proffession"] == null ? "-" : userData["proffession"]}    ",
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                  Icon(
+                                    FontAwesomeIcons.chevronRight,
+                                  ),
+                                ],
+                              )
                             ],
                           ),
                         ),
@@ -419,9 +439,19 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                                   fontSize: 14,
                                 ),
                               ),
-                              Icon(
-                                FontAwesomeIcons.chevronRight,
-                              ),
+                              Row(
+                                children: <Widget>[
+                                  Text(
+                                    "${userData["gender"] == null ? "-" : userData["gender"]}    ",
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                  Icon(
+                                    FontAwesomeIcons.chevronRight,
+                                  ),
+                                ],
+                              )
                             ],
                           ),
                         ),
@@ -551,78 +581,78 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                         height: 1,
                         thickness: 1,
                       ),
-                      InkWell(
-                        onTap: () {
-                          if (Platform.isAndroid) {
-                            showDialog(
-                              context: context,
-                              builder: (_) => AboutDialog(
-                                applicationName: "Countryman App",
-                                applicationVersion: "v0.1 Beta",
-                                children: <Widget>[
-                                  Text("Thank you for using the application."),
-                                  Text(
-                                      "\nDeveloped in Ankara/Turkey by Gürkan Subatan.")
-                                ],
-                              ),
-                            );
-                          } else if (Platform.isIOS) {
-                            showCupertinoModalPopup(
-                              context: context,
-                              builder: (context) => CupertinoAlertDialog(
-                                actions: <Widget>[
-                                  CupertinoDialogAction(
-                                    child: Text("View Licenses"),
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                      showLicensePage(
-                                        context: context,
-                                        applicationName: "Countryman App",
-                                        applicationVersion: "v0.1 Beta",
-                                      );
-                                    },
-                                  ),
-                                  CupertinoDialogAction(
-                                    child: Text("Cancel"),
-                                    isDefaultAction: true,
-                                    onPressed: () {
-                                      Navigator.pop(context, "Cancel");
-                                    },
-                                  ),
-                                ],
-                                title: Text("Valentines App"),
-                                content: Text(
-                                    "\nThank you for using the application." +
-                                        "\n\nDeveloped in Ankara/Turkey by Gürkan Subatan."),
-                              ),
-                            );
-                          }
-                        },
-                        child: Container(
-                          // decoration: BoxDecoration(
-                          //   borderRadius: BorderRadius.all(Radius.circular(16)),
-                          //   border:
-                          //       Border.all(color: Colors.lightGreen.shade200),
-                          // ),
-                          margin: EdgeInsets.all(4),
-                          padding: EdgeInsets.all(8),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Text(
-                                "About",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 14,
-                                ),
-                              ),
-                              Icon(
-                                FontAwesomeIcons.chevronRight,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
+                      // InkWell(
+                      //   onTap: () {
+                      //     if (Platform.isAndroid) {
+                      //       showDialog(
+                      //         context: context,
+                      //         builder: (_) => AboutDialog(
+                      //           applicationName: "Countryman App",
+                      //           applicationVersion: "v0.1 Beta",
+                      //           children: <Widget>[
+                      //             Text("Thank you for using the application."),
+                      //             Text(
+                      //                 "\nDeveloped in Ankara/Turkey by Gürkan Subatan.")
+                      //           ],
+                      //         ),
+                      //       );
+                      //     } else if (Platform.isIOS) {
+                      //       showCupertinoModalPopup(
+                      //         context: context,
+                      //         builder: (context) => CupertinoAlertDialog(
+                      //           actions: <Widget>[
+                      //             CupertinoDialogAction(
+                      //               child: Text("View Licenses"),
+                      //               onPressed: () {
+                      //                 Navigator.pop(context);
+                      //                 showLicensePage(
+                      //                   context: context,
+                      //                   applicationName: "Countryman App",
+                      //                   applicationVersion: "v0.1 Beta",
+                      //                 );
+                      //               },
+                      //             ),
+                      //             CupertinoDialogAction(
+                      //               child: Text("Cancel"),
+                      //               isDefaultAction: true,
+                      //               onPressed: () {
+                      //                 Navigator.pop(context, "Cancel");
+                      //               },
+                      //             ),
+                      //           ],
+                      //           title: Text("Valentines App"),
+                      //           content: Text(
+                      //               "\nThank you for using the application." +
+                      //                   "\n\nDeveloped in Ankara/Turkey by Gürkan Subatan."),
+                      //         ),
+                      //       );
+                      //     }
+                      //   },
+                      //   child: Container(
+                      //     // decoration: BoxDecoration(
+                      //     //   borderRadius: BorderRadius.all(Radius.circular(16)),
+                      //     //   border:
+                      //     //       Border.all(color: Colors.lightGreen.shade200),
+                      //     // ),
+                      //     margin: EdgeInsets.all(4),
+                      //     padding: EdgeInsets.all(8),
+                      //     child: Row(
+                      //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //       children: <Widget>[
+                      //         Text(
+                      //           "About",
+                      //           style: TextStyle(
+                      //             fontWeight: FontWeight.bold,
+                      //             fontSize: 14,
+                      //           ),
+                      //         ),
+                      //         Icon(
+                      //           FontAwesomeIcons.chevronRight,
+                      //         ),
+                      //       ],
+                      //     ),
+                      //   ),
+                      // ),
                       InkWell(
                         onTap: () {
                           Navigator.push(

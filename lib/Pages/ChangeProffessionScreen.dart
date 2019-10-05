@@ -53,7 +53,6 @@ class _ChangeProffessionScreenState extends State<ChangeProffessionScreen> {
                         controller: _editingController,
                         validators: [
                           FormBuilderValidators.required(),
-                          FormBuilderValidators.numeric(),
                         ],
                         attribute: "pass2",
                         decoration: InputDecoration(

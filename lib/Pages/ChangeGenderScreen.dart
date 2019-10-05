@@ -79,6 +79,7 @@ class _ChangeGenderScreenState extends State<ChangeGenderScreen> {
                     userID: user.id,
                     gender: gender,
                   );
+                  Navigator.pop(context);
                 },
               ),
               Container(
