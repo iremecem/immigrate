@@ -45,7 +45,7 @@ class _OthersProfilePageState extends State<OthersProfilePage> {
                 ),
                 Tab(
                   child: Text(
-                    "Info & Settings",
+                    "Info",
                     style: TextStyle(
                       color: Colors.lightGreen,
                     ),

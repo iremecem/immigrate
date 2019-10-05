@@ -16,10 +16,10 @@ class _OthersProfileInfoPageState extends State<OthersProfileInfoPage> {
       body: SingleChildScrollView(
         child: StreamBuilder(
           stream: FirebaseDatabase.instance
-            .reference()
-            .child("users")
-            .child(widget.id)
-            .onValue,
+              .reference()
+              .child("users")
+              .child(widget.id)
+              .onValue,
           builder: (context, snapshot) {
             if (snapshot.hasData && !snapshot.hasError) {
               Map userData = snapshot.data.snapshot.value;
@@ -73,15 +73,23 @@ class _OthersProfileInfoPageState extends State<OthersProfileInfoPage> {
                   ),
                   Padding(
                     padding: EdgeInsets.all(4),
-                    child: Text("   User Info"),
+                    child: Text(
+                      "   User Info",
+                      style: TextStyle(fontSize: 18),
+                    ),
+                  ),
+                  Divider(
+                    color: Colors.lightGreen.shade200,
+                    height: 1,
+                    thickness: 1,
                   ),
                   Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(16)),
-                      border: Border.all(color: Colors.lightGreen.shade200),
-                    ),
-                    margin: EdgeInsets.all(8),
-                    padding: EdgeInsets.all(12),
+                    // decoration: BoxDecoration(
+                    //   borderRadius: BorderRadius.all(Radius.circular(16)),
+                    //   border: Border.all(color: Colors.lightGreen.shade200),
+                    // ),
+                    margin: EdgeInsets.all(4),
+                    padding: EdgeInsets.all(8),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
@@ -105,43 +113,43 @@ class _OthersProfileInfoPageState extends State<OthersProfileInfoPage> {
                       ],
                     ),
                   ),
+                  // Container(
+                  //   // decoration: BoxDecoration(
+                  //   //   borderRadius: BorderRadius.all(Radius.circular(16)),
+                  //   //   border: Border.all(color: Colors.lightGreen.shade200),
+                  //   // ),
+                  //   margin: EdgeInsets.all(4),
+                  //   padding: EdgeInsets.all(8),
+                  //   child: Row(
+                  //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //     children: <Widget>[
+                  //       Text(
+                  //         "Email:    ",
+                  //         style: TextStyle(
+                  //           fontWeight: FontWeight.bold,
+                  //           fontSize: 14,
+                  //         ),
+                  //       ),
+                  //       Row(
+                  //         children: <Widget>[
+                  //           Text(
+                  //             "${userData["mail"]}    ",
+                  //             style: TextStyle(
+                  //               fontSize: 14,
+                  //             ),
+                  //           ),
+                  //         ],
+                  //       )
+                  //     ],
+                  //   ),
+                  // ),
                   Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(16)),
-                      border: Border.all(color: Colors.lightGreen.shade200),
-                    ),
-                    margin: EdgeInsets.all(8),
-                    padding: EdgeInsets.all(12),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Text(
-                          "Email:    ",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14,
-                          ),
-                        ),
-                        Row(
-                          children: <Widget>[
-                            Text(
-                              "${userData["mail"]}    ",
-                              style: TextStyle(
-                                fontSize: 14,
-                              ),
-                            ),
-                          ],
-                        )
-                      ],
-                    ),
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(16)),
-                      border: Border.all(color: Colors.lightGreen.shade200),
-                    ),
-                    margin: EdgeInsets.all(8),
-                    padding: EdgeInsets.all(12),
+                    // decoration: BoxDecoration(
+                    //   borderRadius: BorderRadius.all(Radius.circular(16)),
+                    //   border: Border.all(color: Colors.lightGreen.shade200),
+                    // ),
+                    margin: EdgeInsets.all(4),
+                    padding: EdgeInsets.all(8),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
@@ -166,12 +174,12 @@ class _OthersProfileInfoPageState extends State<OthersProfileInfoPage> {
                     ),
                   ),
                   Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(16)),
-                      border: Border.all(color: Colors.lightGreen.shade200),
-                    ),
-                    margin: EdgeInsets.all(8),
-                    padding: EdgeInsets.all(12),
+                    // decoration: BoxDecoration(
+                    //   borderRadius: BorderRadius.all(Radius.circular(16)),
+                    //   border: Border.all(color: Colors.lightGreen.shade200),
+                    // ),
+                    margin: EdgeInsets.all(4),
+                    padding: EdgeInsets.all(8),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
@@ -196,12 +204,12 @@ class _OthersProfileInfoPageState extends State<OthersProfileInfoPage> {
                     ),
                   ),
                   Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(16)),
-                      border: Border.all(color: Colors.lightGreen.shade200),
-                    ),
-                    margin: EdgeInsets.all(8),
-                    padding: EdgeInsets.all(12),
+                    // decoration: BoxDecoration(
+                    //   borderRadius: BorderRadius.all(Radius.circular(16)),
+                    //   border: Border.all(color: Colors.lightGreen.shade200),
+                    // ),
+                    margin: EdgeInsets.all(4),
+                    padding: EdgeInsets.all(8),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
@@ -226,12 +234,12 @@ class _OthersProfileInfoPageState extends State<OthersProfileInfoPage> {
                     ),
                   ),
                   Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(16)),
-                      border: Border.all(color: Colors.lightGreen.shade200),
-                    ),
-                    margin: EdgeInsets.all(8),
-                    padding: EdgeInsets.all(12),
+                    // decoration: BoxDecoration(
+                    //   borderRadius: BorderRadius.all(Radius.circular(16)),
+                    //   border: Border.all(color: Colors.lightGreen.shade200),
+                    // ),
+                    margin: EdgeInsets.all(4),
+                    padding: EdgeInsets.all(8),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[

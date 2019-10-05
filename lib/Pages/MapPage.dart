@@ -120,6 +120,27 @@ class _MapPageState extends State<MapPage> {
                             ),
                           ),
                         );
+                      } else if (k == user.id &&
+                          v["lat"] != null &&
+                          v["lon"] != null) {
+                        print("girdi");
+                        print(v["lon"]);
+                        markers.add(new Marker(
+                          builder: (_) => InkWell(
+                            child: CircleAvatar(
+                              backgroundColor: Colors.red.shade900,
+                              
+                              //backgroundImage: NetworkImage(v["profilePic"]),
+                            ),
+                            onTap: null,
+                          ),
+                          height: 20,
+                          width: 20,
+                          point: LatLng(
+                              v["lat"],
+                              v["lon"],
+                            ),
+                        ));
                       }
                     });
                   }
