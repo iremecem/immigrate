@@ -164,7 +164,15 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                       ),
                       Padding(
                         padding: EdgeInsets.all(4),
-                        child: Text("   User Info"),
+                        child: Text(
+                          "   User Info",
+                          style: TextStyle(fontSize: 18),
+                        ),
+                      ),
+                      Divider(
+                        color: Colors.lightGreen.shade200,
+                        height: 2,
+                        thickness: 1,
                       ),
                       InkWell(
                         onTap: () {
@@ -180,11 +188,11 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                         child: Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.all(Radius.circular(16)),
-                            border:
-                                Border.all(color: Colors.lightGreen.shade200),
+                            // border:
+                            //     Border.all(color: Colors.lightGreen.shade200),
                           ),
-                          margin: EdgeInsets.all(8),
-                          padding: EdgeInsets.all(12),
+                          margin: EdgeInsets.all(4),
+                          padding: EdgeInsets.all(8),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
@@ -225,13 +233,13 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                           );
                         },
                         child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(16)),
-                            border:
-                                Border.all(color: Colors.lightGreen.shade200),
-                          ),
-                          margin: EdgeInsets.all(8),
-                          padding: EdgeInsets.all(12),
+                          // decoration: BoxDecoration(
+                          //   borderRadius: BorderRadius.all(Radius.circular(16)),
+                          //   border:
+                          //       Border.all(color: Colors.lightGreen.shade200),
+                          // ),
+                          margin: EdgeInsets.all(4),
+                          padding: EdgeInsets.all(8),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
@@ -273,13 +281,13 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                           );
                         },
                         child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(16)),
-                            border:
-                                Border.all(color: Colors.lightGreen.shade200),
-                          ),
-                          margin: EdgeInsets.all(8),
-                          padding: EdgeInsets.all(12),
+                          // decoration: BoxDecoration(
+                          //   borderRadius: BorderRadius.all(Radius.circular(16)),
+                          //   border:
+                          //       Border.all(color: Colors.lightGreen.shade200),
+                          // ),
+                          margin: EdgeInsets.all(4),
+                          padding: EdgeInsets.all(8),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
@@ -320,13 +328,13 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                           );
                         },
                         child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(16)),
-                            border:
-                                Border.all(color: Colors.lightGreen.shade200),
-                          ),
-                          margin: EdgeInsets.all(8),
-                          padding: EdgeInsets.all(12),
+                          // decoration: BoxDecoration(
+                          //   borderRadius: BorderRadius.all(Radius.circular(16)),
+                          //   border:
+                          //       Border.all(color: Colors.lightGreen.shade200),
+                          // ),
+                          margin: EdgeInsets.all(4),
+                          padding: EdgeInsets.all(8),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
@@ -357,13 +365,13 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                           );
                         },
                         child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(16)),
-                            border:
-                                Border.all(color: Colors.lightGreen.shade200),
-                          ),
-                          margin: EdgeInsets.all(8),
-                          padding: EdgeInsets.all(12),
+                          // decoration: BoxDecoration(
+                          //   borderRadius: BorderRadius.all(Radius.circular(16)),
+                          //   border:
+                          //       Border.all(color: Colors.lightGreen.shade200),
+                          // ),
+                          margin: EdgeInsets.all(4),
+                          padding: EdgeInsets.all(8),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
@@ -394,55 +402,18 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                           );
                         },
                         child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(16)),
-                            border:
-                                Border.all(color: Colors.lightGreen.shade200),
-                          ),
-                          margin: EdgeInsets.all(8),
-                          padding: EdgeInsets.all(12),
+                          // decoration: BoxDecoration(
+                          //   borderRadius: BorderRadius.all(Radius.circular(16)),
+                          //   border:
+                          //       Border.all(color: Colors.lightGreen.shade200),
+                          // ),
+                          margin: EdgeInsets.all(4),
+                          padding: EdgeInsets.all(8),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               Text(
                                 "Gender:    ",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 14,
-                                ),
-                              ),
-                              Icon(
-                                FontAwesomeIcons.chevronRight,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      InkWell(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) => ChangePasswordScreen(
-                                value: userData["password"],
-                                context: context,
-                              ),
-                            ),
-                          );
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(16)),
-                            border:
-                                Border.all(color: Colors.lightGreen.shade200),
-                          ),
-                          margin: EdgeInsets.all(8),
-                          padding: EdgeInsets.all(12),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Text(
-                                "Change Password",
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 14,
@@ -461,7 +432,52 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                       ),
                       Padding(
                         padding: EdgeInsets.all(4),
-                        child: Text("   Options"),
+                        child: Text(
+                          "   Options",
+                          style: TextStyle(fontSize: 18),
+                        ),
+                      ),
+                      Divider(
+                        color: Colors.lightGreen.shade200,
+                        height: 1,
+                        thickness: 1,
+                      ),
+                      InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => ChangePasswordScreen(
+                                value: userData["password"],
+                                context: context,
+                              ),
+                            ),
+                          );
+                        },
+                        child: Container(
+                          // decoration: BoxDecoration(
+                          //   borderRadius: BorderRadius.all(Radius.circular(16)),
+                          //   border:
+                          //       Border.all(color: Colors.lightGreen.shade200),
+                          // ),
+                          margin: EdgeInsets.all(4),
+                          padding: EdgeInsets.all(8),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Text(
+                                "Change Password",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14,
+                                ),
+                              ),
+                              Icon(
+                                FontAwesomeIcons.chevronRight,
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
                       InkWell(
                         onTap: () {
@@ -495,13 +511,13 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                           );
                         },
                         child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(16)),
-                            border:
-                                Border.all(color: Colors.lightGreen.shade200),
-                          ),
-                          margin: EdgeInsets.all(8),
-                          padding: EdgeInsets.all(12),
+                          // decoration: BoxDecoration(
+                          //   borderRadius: BorderRadius.all(Radius.circular(16)),
+                          //   border:
+                          //       Border.all(color: Colors.lightGreen.shade200),
+                          // ),
+                          margin: EdgeInsets.all(4),
+                          padding: EdgeInsets.all(8),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
@@ -525,7 +541,15 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                       ),
                       Padding(
                         padding: EdgeInsets.all(4),
-                        child: Text("   About"),
+                        child: Text(
+                          "   About",
+                          style: TextStyle(fontSize: 18),
+                        ),
+                      ),
+                      Divider(
+                        color: Colors.lightGreen.shade200,
+                        height: 1,
+                        thickness: 1,
                       ),
                       InkWell(
                         onTap: () {
@@ -575,13 +599,13 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                           }
                         },
                         child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(16)),
-                            border:
-                                Border.all(color: Colors.lightGreen.shade200),
-                          ),
-                          margin: EdgeInsets.all(8),
-                          padding: EdgeInsets.all(12),
+                          // decoration: BoxDecoration(
+                          //   borderRadius: BorderRadius.all(Radius.circular(16)),
+                          //   border:
+                          //       Border.all(color: Colors.lightGreen.shade200),
+                          // ),
+                          margin: EdgeInsets.all(4),
+                          padding: EdgeInsets.all(8),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
@@ -609,13 +633,13 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                           );
                         },
                         child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(16)),
-                            border:
-                                Border.all(color: Colors.lightGreen.shade200),
-                          ),
-                          margin: EdgeInsets.all(8),
-                          padding: EdgeInsets.all(12),
+                          // decoration: BoxDecoration(
+                          //   borderRadius: BorderRadius.all(Radius.circular(16)),
+                          //   border:
+                          //       Border.all(color: Colors.lightGreen.shade200),
+                          // ),
+                          margin: EdgeInsets.all(4),
+                          padding: EdgeInsets.all(8),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
@@ -638,13 +662,13 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                           //TODO: ADD CHANGER
                         },
                         child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(16)),
-                            border:
-                                Border.all(color: Colors.lightGreen.shade200),
-                          ),
-                          margin: EdgeInsets.all(8),
-                          padding: EdgeInsets.all(12),
+                          // decoration: BoxDecoration(
+                          //   borderRadius: BorderRadius.all(Radius.circular(16)),
+                          //   border:
+                          //       Border.all(color: Colors.lightGreen.shade200),
+                          // ),
+                          margin: EdgeInsets.all(4),
+                          padding: EdgeInsets.all(8),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[

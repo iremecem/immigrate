@@ -50,16 +50,20 @@ class _PostCardState extends State<PostCard> {
         break;
     }
     return Card(
-      elevation: 3,
+      //elevation: 3,
+      //borderOnForeground: true,
+      color: Colors.white,
+      semanticContainer: true,
+      elevation: 0,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16.0),
+        //borderRadius: BorderRadius.circular(16.0),
         side: BorderSide(
           color: Colors.grey.shade200,
           width: 1,
           style: BorderStyle.solid,
         ),
       ),
-      margin: EdgeInsets.all(5),
+      //margin: EdgeInsets.all(5),
       child: Column(
         children: <Widget>[
           Container(
