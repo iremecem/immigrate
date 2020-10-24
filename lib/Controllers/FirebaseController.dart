@@ -16,6 +16,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:random_string/random_string.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+// commented
 class FirebaseController {
   DatabaseReference _userRef =
       FirebaseDatabase.instance.reference().child("users");
