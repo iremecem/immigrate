@@ -100,10 +100,6 @@ final ThemeData theme = ThemeData(
         gradient: LinearGradient(
           begin: Alignment.bottomCenter,
           end: Alignment(0.0, 0.8),
-          colors: [
-            Colors.lightGreen.withOpacity(0.5),
-            Colors.lightGreen.withOpacity(0.0)
-          ],
         ),
       ),
       indicatorSize: TabBarIndicatorSize.label,
